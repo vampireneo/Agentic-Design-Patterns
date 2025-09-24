@@ -1,103 +1,103 @@
-# What makes an AI system an Agent?
+# 什麼令 AI 系統成為智能代理？
 
-In simple terms, an **AI agent** is a system designed to perceive its environment and take actions to achieve a specific goal. It's an evolution from a standard Large Language Model (LLM), enhanced with the abilities to plan, use tools, and interact with its surroundings. Think of an Agentic AI as a smart assistant that learns on the job. It follows a simple, five-step loop to get things done (see Fig.1):
+簡單而言，**AI 智能代理 (AI agent)** 是一個被設計去感知環境並採取行動以達成特定目標的系統。它是標準大型語言模型 (Large Language Model, LLM) 的進化體，額外具備規劃、使用工具與與環境互動的能力。把智能代理 AI 想像成一位在工作中學習的聰明助手。它遵循一個簡潔的五步循環完成任務（見圖 1）：
 
-1. **Get the Mission:** You give it a goal, like "organize my schedule."  
-2. **Scan the Scene:** It gathers all the necessary information—reading emails, checking calendars, and accessing contacts—to understand what's happening.  
-3. **Think It Through:** It devises a plan of action by considering the optimal approach to achieve the goal.  
-4. **Take Action:** It executes the plan by sending invitations, scheduling meetings, and updating your calendar.  
-5. **Learn and Get Better:** It observes successful outcomes and adapts accordingly. For example, if a meeting is rescheduled, the system learns from this event to enhance its future performance.
+1. **接收任務 (Get the Mission)：** 你給它一個目標，例如「替我安排行程」。
+2. **掃描環境 (Scan the Scene)：** 它收集所需資訊——閱讀電郵、檢視日曆、存取聯絡人——以理解目前狀況。
+3. **深思熟慮 (Think It Through)：** 它構思行動計劃，思考達成目標的最佳方式。
+4. **付諸行動 (Take Action)：** 它執行計劃，例如寄出邀請、安排會議、更新你的日曆。
+5. **學習精進 (Learn and Get Better)：** 它觀察成功結果並相應調整。例如會議改期時，系統會從事件中學習，以提升日後表現。
 
-![Agentic AI Problem-Solving Process](../assets/Agentic_AI_Problem_Solving_Process.png)
+![智能代理 AI 問題解決流程](../assets/Agentic_AI_Problem_Solving_Process.png)
 
-Fig.1: Agentic AI functions as an intelligent assistant, continuously learning through experience. It operates via a straightforward five-step loop to accomplish tasks.
+圖 1：智能代理 AI 如同智能助手，透過經驗持續學習，以簡潔的五步循環完成任務。
 
-Agents are becoming increasingly popular at a stunning pace. According to recent studies, a majority of large IT companies are actively using these agents, and a fifth of them just started within the past year. The financial markets are also taking notice. By the end of 2024, AI agent startups had raised more than $2 billion, and the market was valued at $5.2 billion. It's expected to explode to nearly $200 billion in value by 2034\. In short, all signs point to AI agents playing a massive role in our future economy.
+智能代理正以驚人速度普及。研究顯示，大部分大型 IT 公司都在積極使用智能代理，其中五分之一在過去一年內才開始導入。金融市場亦高度關注：截至 2024 年底，智能代理新創籌得超過 20 億美元，市場估值達 52 億美元，預期到 2034 年將暴增至接近 2,000 億美元。種種跡象顯示，智能代理勢必在未來經濟中扮演舉足輕重的角色。
 
-In just two years, the AI paradigm has shifted dramatically, moving from simple automation to sophisticated, autonomous systems (see Fig. 2). Initially, workflows relied on basic prompts and triggers to process data with LLMs. This evolved with Retrieval-Augmented Generation (RAG), which enhanced reliability by grounding models on factual information. We then saw the development of individual AI Agents capable of using various tools.  Today, we are entering the era of Agentic AI, where a team of specialized agents works in concert to achieve complex goals, marking a significant leap in AI's collaborative power.
+短短兩年間，AI 的典範徹底改變，從簡單自動化走向精密自主系統（見圖 2）。最初的工作流程依賴基本提示與觸發器，以 LLM 處理資料；其後演進出檢索增強生成 (Retrieval-Augmented Generation, RAG)，透過事實資訊讓模型更可靠。接着我們看見能使用多種工具的獨立 AI 智能代理。如今，我們已踏入智能代理 AI 時代，由專業智能代理團隊協作完成複雜目標，代表 AI 協作能力的一大飛躍。
 
-![Transitioning from LLMs to RAG, then to Agentic RAG, and finally to Agentic AI](../assets/Transitioning_from_LLMs_to_RAG_to_Agentic_RAG_to_Agentic_AI.png)
+![從 LLM、RAG、智能代理 RAG 到智能代理 AI 的演進](../assets/Transitioning_from_LLMs_to_RAG_to_Agentic_RAG_to_Agentic_AI.png)
 
-Fig 2.: Transitioning from LLMs to RAG, then to Agentic RAG, and finally to Agentic AI.
+圖 2：從 LLM 到 RAG，再到智能代理 RAG，最終邁向智能代理 AI 的過程。
 
-The intent of this book is to discuss the design patterns of how  specialized agents can work in concert and collaborate to achieve  complex goals, and you will see one paradigm of collaboration and interaction in each chapter.
+本書旨在探討專門化智能代理如何協同合作、彼此互動，以實現複雜目標的設計模式，你將在每一章看見不同的協作與互動典範。
 
-Before doing that, let's examine examples that span the range of agent complexity (see Fig. 3).
+在深入探討之前，先來看看涵蓋不同智能代理複雜度的例子（見圖 3）。
 
-## Level 0: The Core Reasoning Engine
+## Level 0：核心推理引擎
 
-While an LLM is not an agent in itself, it can serve as the reasoning core of a basic agentic system. In a 'Level 0' configuration, the LLM operates without tools, memory, or environment interaction, responding solely based on its pretrained knowledge. Its strength lies in leveraging its extensive training data to explain established concepts. The trade-off for this powerful internal reasoning is a complete lack of current-event awareness. For instance, it would be unable to name the 2025 Oscar winner for "Best Picture" if that information is outside its pre-trained knowledge.
+LLM 本身雖不是智能代理，但能作為基本智能代理系統的推理核心。在「Level 0」配置中，LLM 不具工具、記憶或環境互動，只依賴預先訓練的知識作出回應。它的強項在於運用龐大訓練資料解釋既有概念，但缺點是完全無法掌握最新事件。例如，若 2025 年奧斯卡最佳影片的資訊不在其預訓練知識中，它便無法給出答案。
 
-## Level 1: The Connected Problem-Solver
+## Level 1：已連網的問題解決者
 
-At this level, the LLM becomes a functional agent by connecting to and utilizing external tools. Its problem-solving is no longer limited to its pre-trained knowledge. Instead, it can execute a sequence of actions to gather and process information from sources like the internet (via search) or databases (via Retrieval Augmented Generation, or RAG). For detailed information, refer to Chapter 14\.
+在這個層次，LLM 透過連接與運用外部工具，搖身一變成為可運作的智能代理。它的問題解決能力不再受限於預訓練知識，而是能執行一連串動作，從互聯網（透過搜尋）或資料庫（透過檢索增強生成 RAG）等來源蒐集與處理資訊。詳情可參閱第 14 章。
 
-For instance, to find new TV shows, the agent recognizes the need for current information, uses a search tool to find it, and then synthesizes the results. Crucially, it can also use specialized tools for higher accuracy, such as calling a financial API to get the live stock price for AAPL. This ability to interact with the outside world across multiple steps is the core capability of a Level 1 agent.
+以尋找新劇集為例，智能代理會意識到需要最新資訊，因而使用搜尋工具取得內容，再整合結果。關鍵在於它亦能使用專門工具以提升精準度，例如呼叫金融 API 查詢 AAPL 的即時股價。跨多步驟與外界互動的能力，就是 Level 1 智能代理的核心。
 
-## Level 2: The Strategic Problem-Solver
+## Level 2：策略型問題解決者
 
-At this level, an agent's capabilities expand significantly, encompassing strategic planning, proactive assistance, and self-improvement, with prompt engineering and context engineering as core enabling skills.
+在此層次，智能代理的能力大幅擴展，涵蓋策略規劃、主動協助與自我改進，而提示工程 (prompt engineering) 與脈絡工程 (context engineering) 是關鍵技能。
 
-First, the agent moves beyond single-tool use to tackle complex, multi-part problems through strategic problem-solving. As it executes a sequence of actions, it actively performs context engineering: the strategic process of selecting, packaging, and managing the most relevant information for each step. For example, to find a coffee shop between two locations, it first uses a mapping tool. It then engineers this output, curating a short, focused context—perhaps just a list of street names—to feed into a local search tool, preventing cognitive overload and ensuring the second step is efficient and accurate. To achieve maximum accuracy from an AI, it must be given a short, focused, and powerful context. Context engineering is the discipline that accomplishes this by strategically selecting, packaging, and managing the most critical information from all available sources. It effectively curates the model's limited attention to prevent overload and ensure high-quality, efficient performance on any given task. For detailed information, refer to the Appendix A.
+首先，智能代理超越單一工具使用，能透過策略性問題解決處理複雜、由多部分構成的任務。當它執行一連串動作時，會主動進行脈絡工程——策略性地為每一步挑選、整合及管理最相關的資訊。例如要在兩個地點之間找咖啡店，它先使用地圖工具，然後對輸出的結果進行脈絡工程，只保留街道名稱等精簡重點，再餵給本地搜尋工具，避免認知負荷，確保第二步既有效又精準。要讓 AI 達到最高準確度，就必須提供短小、聚焦又有力的脈絡。脈絡工程正是這門學問，透過策略地挑選、包裝與管理最關鍵的資訊，精準分配模型有限的注意力，避免過載，確保任務表現。詳情可參閱附錄 A。
 
-This level leads to proactive and continuous operation. A travel assistant linked to your email demonstrates this by engineering the context from a verbose flight confirmation email; it selects only the key details (flight numbers, dates, locations) to package for subsequent tool calls to your calendar and a weather API.
+這個層次令智能代理具備主動且持續運作的能力。連結你電郵的旅遊助手，會從冗長的航班確認電郵中進行脈絡工程，只抽取航班編號、日期、地點等關鍵細節，再傳遞給日曆與天氣 API。
 
-In specialized fields like software engineering, the agent manages an entire workflow by applying this discipline. When assigned a bug report, it reads the report and accesses the codebase, then strategically engineers these large sources of information into a potent, focused context that allows it to efficiently write, test, and submit the correct code patch.
+在軟件工程等專業領域中，智能代理運用同樣的原則管理整個工作流程。當接到錯誤報告時，它閱讀報告並存取程式碼庫，然後把這些龐大資訊源策略性地整理成聚焦脈絡，使它能有效撰寫、測試並提交正確的程式碼修補。
 
-Finally, the agent achieves self-improvement by refining its own context engineering processes. When it asks for feedback on how a prompt could have been improved, it is learning how to better curate its initial inputs. This allows it to automatically improve how it packages information for future tasks, creating a powerful, automated feedback loop that increases its accuracy and efficiency over time. For detailed information, refer to Chapter 17.
+最後，智能代理透過精進自身的脈絡工程流程，達到自我改進。例如它會要求回饋，了解提示可如何改寫，從而學會更好地整理初始輸入。這讓它能自動改進資訊封裝方式，為未來任務建立強大的自動化回饋循環，隨時間提升準確度與效率。詳情可參閱第 17 章。
 
-![Various Instances Demonstrating the Spectrum of Agent Complexity](../assets/Various_Instances_Demonstrating_the_Spectrum_of_Agent_Complexity.png)
+![展示智能代理複雜度光譜的多個案例](../assets/Various_Instances_Demonstrating_the_Spectrum_of_Agent_Complexity.png)
 
-Fig. 3: Various instances demonstrating the spectrum of agent complexity.
+圖 3：展示智能代理複雜度光譜的多個案例。
 
-## Level 3: The Rise of Collaborative Multi-Agent Systems
+## Level 3：協作型多代理系統的興起
 
-At Level 3, we see a significant paradigm shift in AI development, moving away from the pursuit of a single, all-powerful super-agent and towards the rise of sophisticated, collaborative multi-agent systems. In essence, this approach recognizes that complex challenges are often best solved not by a single generalist, but by a team of specialists working in concert. This model directly mirrors the structure of a human organization, where different departments are assigned specific roles and collaborate to tackle multi-faceted objectives. The collective strength of such a system lies in this division of labor and the synergy created through coordinated effort. For detailed information, refer to Chapter 7\.
+來到 Level 3，AI 發展出現重大典範轉變：我們不再追求單一、全能的超級智能代理，而是走向精密、協作式的多代理系統。這種方法認為，複雜挑戰往往不是由一位多面手解決，而是由一支專家團隊攜手完成。這個模式直接映射人類組織的結構——不同部門被賦予特定角色，協同應對多面向目標。這樣的系統透過分工與協同產生的綜效，是其集體力量所在。詳情可參閱第 7 章。
 
-To bring this concept to life, consider the intricate workflow of launching a new product. Rather than one agent attempting to handle every aspect, a "Project Manager" agent could serve as the central coordinator. This manager would orchestrate the entire process by delegating tasks to other specialized agents: a "Market Research" agent to gather consumer data, a "Product Design" agent to develop concepts, and a "Marketing" agent to craft promotional materials. The key to their success would be the seamless communication and information sharing between them, ensuring all individual efforts align to achieve the collective goal.
+為了具體化這個概念，不妨想像推出新產品的繁複流程。與其讓一個智能代理包辦所有事，不如由「專案經理 (Project Manager)」智能代理作為中央協調者，分派工作予其他專業智能代理：「市場研究 (Market Research)」負責蒐集消費者數據、「產品設計 (Product Design)」負責概念開發、「行銷 (Marketing)」負責宣傳素材。成功的關鍵在於它們之間流暢的溝通與資訊分享，確保各自努力朝共同目標對齊。
 
-While this vision of autonomous, team-based automation is already being developed, it's important to acknowledge the current hurdles. The effectiveness of  such multi-agent systems is presently constrained by the reasoning limitations of LLMs they are using. Furthermore, their ability to genuinely learn from one another and improve as a cohesive unit is still in its early stages. Overcoming these technological bottlenecks is the critical next step, and doing so will unlock the profound promise of this level: the ability to automate entire business workflows from start to finish.
+即使這種自動化團隊願景已開始實現，仍要承認現階段的阻力。這類多智能代理系統的效能受限於所使用 LLM 的推理能力，而且它們彼此真正學習並作為一個整體進步的能力仍在早期階段。突破這些技術瓶頸是下一個關鍵步驟，成功後便能釋放這個層級的巨大潛能：自動化整個商務工作流程，從頭到尾全權處理。
 
-## The Future of Agents: Top 5 Hypotheses
+## 智能代理的未來：五大假設
 
-AI agent development is progressing at an unprecedented pace across domains such as software automation, scientific research, and customer service among others. While current systems are impressive, they are just the beginning. The next wave of innovation will likely focus on making agents more reliable, collaborative, and deeply integrated into our lives. Here are five leading hypotheses for what's next (see Fig. 4).
+AI 智能代理的發展在軟件自動化、科學研究、客戶服務等領域以史無前例的速度推進。現有系統雖令人印象深刻，但只是序章。下一波創新預期將着重令智能代理更可靠、更具協作性，並更深入融入我們生活。以下是被視為最有可能出現的五大假設（見圖 4）。
 
-### Hypothesis 1: The Emergence of the Generalist Agent
+### 假設一：全能型智能代理的出現
 
-The first hypothesis is that AI agents will evolve from narrow specialists into true generalists capable of managing complex, ambiguous, and long-term goals with high reliability. For instance, you could give an agent a simple prompt like, "Plan my company's offsite retreat for 30 people in Lisbon next quarter." The agent would then manage the entire project for weeks, handling everything from budget approvals and flight negotiations to venue selection and creating a detailed itinerary from employee feedback, all while providing regular updates. Achieving this level of autonomy will require fundamental breakthroughs in AI reasoning, memory, and near-perfect reliability. An alternative, yet not mutually exclusive, approach is the rise of Small Language Models (SLMs). This "Lego-like" concept involves composing systems from small, specialized expert agents rather than scaling up a single monolithic model. This method promises systems that are cheaper, faster to debug, and easier to deploy. Ultimately, the development of large generalist models and the composition of smaller specialized ones are both plausible paths forward, and they could even complement each other.
+第一個假設認為，AI 智能代理將由狹窄專家進化成真正的全能型，能以高度可靠性管理複雜、含糊且長期的目標。舉例說，你可以簡單交代：「替我公司規劃下季在里斯本舉行、30 人參加的團隊外出活動。」智能代理會在數週內管理整個項目，處理預算審批、航班談判、場地挑選，並根據員工回饋制訂詳細行程，期間還會定期匯報進度。要達成這種自主程度，AI 推理、記憶與近乎完美的可靠性都必須取得根本突破。另一個不互相排斥的方向是小型語言模型 (Small Language Models, SLMs) 的崛起。這種「樂高式」概念，強調用小型、專精的智能代理組合系統，而非放大單一巨型模型。這種方法有望打造成本更低、除錯更快、部署更容易的系統。最終，大型全能模型與小型專家組合兩條路都很可行，甚至可能相輔相成。
 
-### Hypothesis 2: Deep Personalization and Proactive Goal Discovery
+### 假設二：深度個人化與主動目標發掘
 
-The second hypothesis posits that agents will become deeply personalised and proactive partners. We are witnessing the emergence of a new class of agent: the proactive partner. By learning from your unique patterns and goals, these systems are beginning to shift from just following orders to anticipating your needs. AI systems operate as agents when they move beyond simply responding to chats or instructions. They initiate and execute tasks on behalf of the user, actively collaborating in the process.  This moves beyond simple task execution into the realm of proactive goal discovery.
+第二個假設指出，智能代理將成為深度個人化、具主動性的夥伴。我們正在目睹一種新型智能代理的出現：主動夥伴 (proactive partner)。透過學習你獨特的模式與目標，這些系統正從單純執行指令，轉向預判你的需求。當 AI 系統不再只是回應聊天或指示，而是主動發起並代你執行任務，與你協力達成結果時，它就是真正以智能代理方式運作。這已超越簡單任務執行，邁向主動發掘目標的領域。
 
-For instance, if you're exploring sustainable energy, the agent might identify your latent goal and proactively support it by suggesting courses or summarizing research. While these systems are still developing, their trajectory is clear. They will become increasingly proactive, learning to take initiative on your behalf when highly confident that the action will be helpful. Ultimately, the agent becomes an indispensable ally, helping you discover and achieve ambitions you have yet to fully articulate.
+例如當你探索可持續能源時，智能代理可能辨識到你潛藏的目標，主動支援你，推薦課程或總結研究。這些系統雖仍在發展，但趨勢明顯：它們會日益主動，在深信行動有助你時代為採取行動。最終，智能代理會成為不可或缺的夥伴，協助你發掘並達成仍未完全成形的抱負。
 
-![Five Hypotheses about the Future of Agents](../assets/Five_Hypotheses_about_the_Future_of_Agents.png)
+![關於智能代理未來的五項假設](../assets/Five_Hypotheses_about_the_Future_of_Agents.png)
 
-Fig. 4: Five hypotheses about the future of agents
+圖 4：關於智能代理未來的五項假設。
 
-### Hypothesis 3: Embodiment and Physical World Interaction
+### 假設三：具身化與物理世界互動
 
-This hypothesis foresees agents breaking free from their purely digital confines to operate in the physical world. By integrating agentic AI with robotics, we will see the rise of "embodied agents." Instead of just booking a handyman, you might ask your home agent to fix a leaky tap. The agent would use its vision sensors to perceive the problem, access a library of plumbing knowledge to formulate a plan, and then control its robotic manipulators with precision to perform the repair. This would represent a monumental step, bridging the gap between digital intelligence and physical action, and transforming everything from manufacturing and logistics to elder care and home maintenance.
+第三個假設預期智能代理將突破純數碼界限，進入物理世界。當智能代理 AI 與機器人技術結合，我們將見證「具身智能代理 (embodied agents)」的崛起。到時你或許不只是預約技工，而是請家中的智能代理修理漏水的水喉。智能代理會用視覺感測器觀察問題，從水管維修知識庫擬定計劃，再精準操控機械臂完成維修。這將是跨越數碼智能與物理行動之間鴻溝的重大一步，徹底改變製造、物流、長者照顧以至家居維修等領域。
 
-### Hypothesis 4: The Agent-Driven Economy
+### 假設四：智能代理驅動的經濟
 
-The fourth hypothesis is that highly autonomous agents will become active participants in the economy, creating new markets and business models. We could see agents acting as independent economic entities, tasked with maximising a specific outcome, such as profit. An entrepreneur could launch an agent to run an entire e-commerce business. The agent would identify trending products by analysing social media, generate marketing copy and visuals, manage supply chain logistics by interacting with other automated systems, and dynamically adjust pricing based on real-time demand. This shift would create a new, hyper-efficient "agent economy" operating at a speed and scale impossible for humans to manage directly.
+第四個假設認為，高度自主的智能代理將成為經濟中的活躍參與者，創造全新市場與商業模式。我們可能會看見智能代理作為獨立經濟實體，致力最大化特定成果（例如利潤）。創業者可以推出一個智能代理，讓它經營整個電子商務業務。智能代理會分析社交媒體找出流行產品、生成市場推廣文案與視覺素材、與其他自動化系統協調供應鏈物流，並根據即時需求動態調整價格。這種轉變將創造全新、高效率的「智能代理經濟 (agent economy)」，以人類無法直接掌握的速度與規模運作。
 
-### Hypothesis 5:  The Goal-Driven, Metamorphic Multi-Agent System
+### 假設五：目標驅動、可變形的多代理系統
 
-This hypothesis posits the emergence of intelligent systems that operate not from explicit programming, but from a declared goal. The user simply states the desired outcome, and the system autonomously figures out how to achieve it. This marks a fundamental shift towards metamorphic multi-agent systems capable of true self-improvement at both the individual and collective levels.
+第五個假設提出，未來的智能系統不再依賴明確的程式碼，而是從宣告的目標出發。使用者只需陳述想要的結果，系統便會自主找出達成方式。這標誌着向目標驅動、可變形 (metamorphic) 的多代理系統邁進，不但能個別自我改進，也能整體演化。
 
-This system would be a dynamic entity, not a single agent. It would have the ability to analyze its own performance and modify the topology of its multi-agent workforce, creating, duplicating, or removing agents as needed to form the most effective team for the task at hand. This evolution happens at multiple levels:
+這種系統是動態實體，而非單一智能代理。它能分析自己的表現，調整多代理工作隊伍的拓撲結構，按需要建立、複製或移除智能代理，組成最有效的團隊。這種演化發生在多個層次：
 
-* Architectural Modification: At the deepest level, individual agents can rewrite their own source code and re-architect their internal structures for higher efficiency, as in the original hypothesis.  
-* Instructional Modification: At a higher level, the system continuously performs automatic prompt engineering and context engineering. It refines the instructions and information given to each agent, ensuring they are operating with optimal guidance without any human intervention.
+* **架構調整 (Architectural Modification)：** 在最深層，單個智能代理可以重寫自身源碼，重新設計內部結構以提升效率，呼應原始假設。
+* **指令調整 (Instructional Modification)：** 在更高層，系統持續進行自動提示工程與脈絡工程。它會微調給每個智能代理的指令與資訊，確保在無需人類介入下提供最適切的導引。
 
-For instance, an entrepreneur would simply declare the intent: "Launch a successful e-commerce business selling artisanal coffee." The system, without further programming, would spring into action. It might initially spawn a "Market Research" agent and a "Branding" agent. Based on the initial findings, it could decide to remove the branding agent and spawn three new specialized agents: a "Logo Design" agent, a "Webstore Platform" agent, and a "Supply Chain" agent. It would constantly tune their internal prompts for better performance. If the webstore agent becomes a bottleneck, the system might duplicate it into three parallel agents to work on different parts of the site, effectively re-architecting its own structure on the fly to best achieve the declared goal.
+舉例來說，一位創業者只需聲明：「建立一間成功販售手工咖啡的電子商務公司。」系統在無需額外編程下立即運作。它可能先生成「市場研究」與「品牌建立」兩個智能代理。根據初步結果，它或許會移除品牌代理，改為新增三個專門智能代理：「標誌設計」、「網店平台」與「供應鏈」。它會持續調整各代理的內部提示以提升表現。若網店代理成為瓶頸，系統甚至可能把它複製成三個平行智能代理，分別處理網站不同部分，等同即時重構自身架構，以最佳方式實現既定目標。
 
-## Conclusion
+## 結論
 
-In essence, an AI agent represents a significant leap from traditional models, functioning as an autonomous system that perceives, plans, and acts to achieve specific goals. The evolution of this technology is advancing from single, tool-using agents to complex, collaborative multi-agent systems that tackle multifaceted objectives. Future hypotheses predict the emergence of generalist, personalized, and even physically embodied agents that will become active participants in the economy. This ongoing development signals a major paradigm shift towards self-improving, goal-driven systems poised to automate entire workflows and fundamentally redefine our relationship with technology.
+總括而言，AI 智能代理比傳統模型向前跨出一大步，作為自主系統去感知、規劃並行動以達成特定目標。這項技術正從單一、使用工具的智能代理，演進到能處理多面向目標的協作型多代理系統。對未來的展望包括全能型、個人化，甚至能在物理世界運作的智能代理，它們將成為經濟中的活躍參與者。這股持續發展的潮流，象徵我們正邁向自我改進、目標驅動的系統，準備自動化整個工作流程，從根本重塑我們與科技的關係。
 
 ## References
 

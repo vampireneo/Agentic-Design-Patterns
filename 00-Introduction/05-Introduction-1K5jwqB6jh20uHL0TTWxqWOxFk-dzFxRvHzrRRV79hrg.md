@@ -1,51 +1,51 @@
-# Preface
+# 序言
 
-Welcome to "Agentic Design Patterns: A Hands-On Guide to Building Intelligent Systems." As we look across the landscape of modern artificial intelligence, we see a clear evolution from simple, reactive programs to sophisticated, autonomous entities capable of understanding context, making decisions, and interacting dynamically with their environment and other systems. These are the intelligent agents and the agentic systems they comprise.
+歡迎閱讀《Agentic Design Patterns: A Hands-On Guide to Building Intelligent Systems》。縱觀現代人工智能 (Artificial Intelligence, AI) 的版圖，我們清楚看見系統由簡單的反應式程式，進化為能夠理解脈絡、作出決策，並與環境及其他系統動態互動的複雜自主實體。這些，就是智能代理 (intelligent agents) 與它們所構成的智能代理系統 (agentic systems)。
 
-The advent of powerful large language models (LLMs) has provided unprecedented capabilities for understanding and generating human-like content such as text and media, serving as the cognitive engine for many of these agents. However, orchestrating these capabilities into systems that can reliably achieve complex goals requires more than just a powerful model. It requires structure, design, and a thoughtful approach to how the agent perceives, plans, acts, and interacts.
+強大大型語言模型 (Large Language Models, LLMs) 的誕生，讓我們以前所未有的能力去理解與生成類人內容，例如文字與媒體，成為許多智能代理的認知引擎。然而，要把這些能力編排成能可靠完成複雜目標的系統，遠不止擁有強大模型那麼簡單。它需要結構、需要設計，更需要周詳考慮智能代理如何感知、規劃、行動與互動。
 
-Think of building intelligent systems as creating a complex work of art or engineering on a canvas. This canvas isn't a blank visual space, but rather the underlying infrastructure and frameworks that provide the environment and tools for your agents to exist and operate. It's the foundation upon which you'll build your intelligent application, managing state, communication, tool access, and the flow of logic.
+把構建智能系統想像成在畫布上創作複雜的藝術或工程作品。這塊畫布並非空白視覺空間，而是底層基建與框架，為你的智能代理提供存在與運作的環境與工具。它是你建立智能應用的基礎，負責管理狀態、通訊、工具存取與邏輯流程。
 
-Building effectively on this agentic canvas demands more than just throwing components together. It requires understanding proven techniques – **patterns** – that address common challenges in designing and implementing agent behavior. Just as architectural patterns guide the construction of a building, or design patterns structure software, agentic design patterns provide reusable solutions for the recurring problems you'll face when bringing intelligent agents to life on your chosen canvas.
+要在這塊智能代理畫布上建構得有效，不是隨意拼湊元件即可，而是要掌握經驗證實有效的技巧——**模式 (patterns)**——用來解決設計與實作代理行為時常見的挑戰。正如建築模式指引建物興建、設計模式 (design patterns) 結構化軟件一樣，智能代理設計模式提供可重用方案，協助你在選用的畫布上為智能代理注入生命時，應對反覆出現的問題。
 
-## What are Agentic Systems?
+## 什麼是智能代理系統？
 
-At its core, an agentic system is a computational entity designed to perceive its environment (both digital and potentially physical), make informed decisions based on those perceptions and a set of predefined or learned goals, and execute actions to achieve those goals autonomously. Unlike traditional software, which follows rigid, step-by-step instructions, agents exhibit a degree of flexibility and initiative.
+從本質上來看，智能代理系統是一種計算實體，旨在感知其環境（無論是數碼世界或潛在的物理世界），並根據這些感知以及預先定義或透過學習得來的目標，作出明智決策，自主執行行動以達成目標。與循序遵從指令的傳統軟件不同，智能代理展現出一定程度的靈活性與主動性。
 
-Imagine you need a system to manage customer inquiries. A traditional system might follow a fixed script. An agentic system, however, could perceive the nuances of a customer's query, access knowledge bases, interact with other internal systems (like order management), potentially ask clarifying questions, and proactively resolve the issue, perhaps even anticipating future needs. These agents operate on the canvas of your application's infrastructure, utilizing the services and data available to them.
+想像你需要一個系統來處理客戶查詢。傳統系統也許只會照固定腳本行事；智能代理系統則能洞察客戶問題的細微差異，存取知識庫、與其他內部系統（例如訂單管理）互動，甚至主動發問釐清，並前瞻性地解決問題，或許還能預判未來需求。這些智能代理在你應用的畫布之上運作，善用可取得的服務與數據。
 
-Agentic systems are often characterized by features like **autonomy**, allowing them to act without constant human oversight; **proactiveness**, initiating actions towards their goals; and **reactiveness**, responding effectively to changes in their environment. They are fundamentally **goal-oriented**, constantly working towards objectives. A critical capability is **tool use**, enabling them to interact with external APIs, databases, or services – effectively reaching out beyond their immediate canvas. They possess **memory**, retain information across interactions, and can engage in **communication** with users, other systems, or even other agents operating on the same or connected canvases.
+智能代理系統通常具備以下特徵：**自主性 (autonomy)**，讓它們無需人類時刻監督便能行動；**主動性 (proactiveness)**，主動朝目標採取行動；以及**反應性 (reactiveness)**，能有效回應環境變化。它們以**目標導向 (goal-oriented)** 為核心，不斷為達標而努力。至關重要的能力還有**工具使用 (tool use)**，讓智能代理能與外部 API、數據庫或服務互動，實際伸手超越眼前的畫布。它們具備**記憶 (memory)**，能在互動之間保留資訊，並能與使用者、其他系統甚至其他位於同一或相連畫布上的智能代理進行**溝通 (communication)**。
 
-Effectively realizing these characteristics introduces significant complexity. How does the agent maintain state across multiple steps on its canvas? How does it decide *when* and *how* to use a tool? How is communication between different agents managed? How do you build resilience into the system to handle unexpected outcomes or errors?
+要有效落實這些特性，勢必帶來相當複雜度。智能代理如何在畫布上跨越多個步驟維持狀態？如何判斷何時、如何使用工具？不同智能代理之間的溝通如何管理？如何為系統加入韌性，以應對突發結果或錯誤？
 
-## Why Patterns Matter in Agent Development
+## 為何模式對智能代理開發如此重要
 
-This complexity is precisely why agentic design patterns are indispensable. They are not rigid rules, but rather battle-tested templates or blueprints that offer proven approaches to standard design and implementation challenges in the agentic domain. By recognizing and applying these design patterns, you gain access to solutions that enhance the structure, maintainability, reliability, and efficiency of the agents you build on your canvas.
+正因為這些複雜性，智能代理設計模式才顯得不可或缺。它們不是僵化規則，而是一套久經沙場驗證的範本或藍圖，為智能代理領域中常見的設計與實作挑戰提供成熟做法。只要辨識並套用這些設計模式，你便能取得方案，提升在畫布上構建智能代理時的結構性、可維護性、可靠性與效率。
 
-Using design patterns helps you avoid reinventing fundamental solutions for tasks like managing conversational flow, integrating external capabilities, or coordinating multiple agent actions. They provide a common language and structure that makes your agent's logic clearer and easier for others (and yourself in the future) to understand and maintain. Implementing patterns designed for error handling or state management directly contributes to building more robust and reliable systems. Leveraging these established approaches accelerates your development process, allowing you to focus on the unique aspects of your application rather than the foundational mechanics of agent behavior.
+運用設計模式可避免你在對話流程管理、外部能力整合、或協調多個代理行動等基本任務上重新發明輪子。它們提供共同語言與結構，使智能代理的邏輯更清晰，亦更易於他人（以及未來的你）理解與維護。針對錯誤處理或狀態管理而設計的模式，直接有助於建構更穩健、可靠的系統。善用這些成熟方法，可加速開發流程，讓你把時間投注在應用的獨特之處，而非代理行為的基礎機制。
 
-This book extracts 21 key design patterns that represent fundamental building blocks and techniques for constructing sophisticated agents on various technical canvases. Understanding and applying these patterns will significantly elevate your ability to design and implement intelligent systems effectively.
+本書擷取 21 個關鍵設計模式，代表在各種技術畫布上構建精密智能代理的重要基石與技巧。理解並應用這些模式，將大幅提升你設計與實作智能系統的能力。
 
-## Overview of the Book and How to Use It
+## 本書架構與使用方式概覽
 
-This book, "Agentic Design Patterns: A Hands-On Guide to Building Intelligent Systems," is crafted to be a practical and accessible resource. Its primary focus is on clearly explaining each agentic pattern and providing concrete, runnable code examples to demonstrate its implementation. Across 21 dedicated chapters, we will explore a diverse range of design patterns, from foundational concepts like structuring sequential operations (Prompt Chaining) and external interaction (Tool Use) to more advanced topics like collaborative work (Multi-Agent Collaboration) and self-improvement (Self-Correction).
+《Agentic Design Patterns: A Hands-On Guide to Building Intelligent Systems》旨在成為務實且容易上手的資源。全書核心在於清楚解說每一個智能代理模式，並提供具體且可執行的程式碼示例，展示如何落實。在 21 個專章中，我們將探索多元設計模式，從結構化序列操作（提示鏈接 (Prompt Chaining)）、與外部互動（工具使用 (Tool Use)）等基礎概念，到協同合作（多代理協作 (Multi-Agent Collaboration)）與自我改進（自我修正 (Self-Correction)）等進階主題。
 
-The book is organized chapter by chapter, with each chapter delving into a single agentic pattern. Within each chapter, you will find:
+本書按章節編排，每一章聚焦於單一智能代理模式。章內你會找到：
 
-* A detailed **Pattern Overview** providing a clear explanation of the pattern and its role in agentic design.  
-* A section on **Practical Applications & Use Cases** illustrating real-world scenarios where the pattern is invaluable and the benefits it brings.  
-* A **Hands-On Code Example** offering practical, runnable code that demonstrates the pattern's implementation using prominent agent development frameworks. This is where you'll see how to apply the pattern within the context of a technical canvas.  
-* **Key Takeaways** summarizing the most crucial points for quick review.  
-* **References** for further exploration, providing resources for deeper learning on the pattern and related concepts.
+* 詳盡的**模式概覽 (Pattern Overview)**，清楚解釋該模式及其在智能代理設計中的角色。
+* **實務應用與使用案例 (Practical Applications & Use Cases)**，展示此模式在真實場景中的價值與效益。
+* **動手做程式碼示例 (Hands-On Code Example)**，提供可實際運行的程式碼，示範如何以主流智能代理開發框架實作該模式，讓你看見如何在技術畫布中應用。
+* **重點整理 (Key Takeaways)**，總結最重要的要點，方便快速複習。
+* **參考資料 (References)**，供進一步探索，延伸學習相關模式與概念。
 
-While the chapters are ordered to build concepts progressively, feel free to use the book as a reference, jumping to chapters that address specific challenges you face in your own agent development projects. The appendices provide a comprehensive look at advanced prompting techniques, principles for applying AI agents in real-world environments, and an overview of essential agentic frameworks. To complement this, practical online-only tutorials are included, offering step-by-step guidance on building agents with specific platforms like AgentSpace and for the command-line interface. The emphasis throughout is on practical application; we strongly encourage you to run the code examples, experiment with them, and adapt them to build your own intelligent systems on your chosen canvas.
+儘管章節循序漸進地堆疊概念，你亦可把本書當成參考手冊，直接跳到能解決你在智能代理開發專案中面對的具體挑戰的章節。附錄部分全面整理進階提示技巧、在現實環境部署 AI 智能代理的原則，以及關鍵智能代理框架概覽。此外，我們還提供僅限線上的實務教學，逐步引導你使用 AgentSpace 等特定平台與命令列介面構建智能代理。全書始終強調實作：我們強烈建議你親自運行程式碼示例，動手實驗，再依需求調整，於你的畫布上打造專屬智能系統。
 
-A great question I hear is, 'With AI changing so fast, why write a book that could be quickly outdated?' My motivation was actually the opposite. It's precisely because things are moving so quickly that we need to step back and identify the underlying principles that are solidifying. Patterns like RAG, Reflection, Routing, Memory and the others I discuss, are becoming fundamental building blocks. This book is an invitation to reflect on these core ideas, which provide the foundation we need to build upon. Humans need these reflection moments on foundation patterns
+常有人問我：「AI 發展這麼快，為何還要寫一本可能很快過時的書？」我的動機恰好相反。正因為變化飛快，我們更需要退後一步，辨識那些正在凝聚的底層原則。像 RAG、Reflection、Routing、Memory 等模式，正逐漸成為基本構件。本書誠邀你重新思考這些核心觀念，它們正是我們繼續建構的地基。人類需要在這些基礎模式上好好反思。
 
-## Introduction to the Frameworks Used
+## 本書採用的框架簡介
 
-To provide a tangible "canvas" for our code examples (see also Appendix), we will primarily utilize three prominent agent development frameworks. **LangChain**, along with its stateful extension **LangGraph**, provides a flexible way to chain together language models and other components, offering a robust canvas for building complex sequences and graphs of operations. **Crew AI** provides a structured framework specifically designed for orchestrating multiple AI agents, roles, and tasks, acting as a canvas particularly well-suited for collaborative agent systems. The **Google Agent Developer Kit (Google ADK)** offers tools and components for building, evaluating, and deploying agents, providing another valuable canvas, often integrated with Google's AI infrastructure.
+為了替程式碼示例提供具體的「畫布」（亦可參閱附錄），我們主要運用三個重要的智能代理開發框架。**LangChain** 及其具狀態延伸的 **LangGraph**，提供靈活方式把語言模型與其他元件串連起來，讓你在畫布上構建複雜的操作序列與圖。**Crew AI** 則是專為協調多個 AI 智能代理、角色與任務而設計的結構化框架，非常適合作為協作型智能代理系統的畫布。**Google Agent Developer Kit (Google ADK)** 提供建置、評估與部署智能代理的工具與元件，是另一個寶貴的畫布，且常與 Google 的 AI 基建整合。
 
-These frameworks represent different facets of the agent development canvas, each with its strengths. By showing examples across these tools, you will gain a broader understanding of how the patterns can be applied regardless of the specific technical environment you choose for your agentic systems. The examples are designed to clearly illustrate the pattern's core logic and its implementation on the framework's canvas, focusing on clarity and practicality.
+這些框架代表智能代理開發畫布的不同面向，各具優勢。透過展示跨工具的示例，你將更全面理解如何在不同技術環境中應用這些模式。示例着重清晰與實用，旨在闡明模式的核心邏輯，以及如何在該框架的畫布上實作。
 
-By the end of this book, you will not only understand the fundamental concepts behind 21 essential agentic patterns but also possess the practical knowledge and code examples to apply them effectively, enabling you to build more intelligent, capable, and autonomous systems on your chosen development canvas. Let's begin this hands-on journey!
+讀完本書，你不僅能理解 21 個關鍵智能代理模式背後的基礎概念，亦能掌握實際知識與程式碼示例，有效地將之應用，於你選擇的開發畫布上構建更聰明、更能幹、更自主的系統。讓我們一起展開這趟動手實踐的旅程吧！
