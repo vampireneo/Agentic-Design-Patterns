@@ -1,187 +1,119 @@
-# **Frequently Asked Questions: Agentic Design Patterns**
+# **常見問題：代理型設計模式（Agentic Design Patterns）**
 
-## 1. What is an "agentic design pattern"?
+## 1. 甚麼是「代理型設計模式」？
 
-An agentic design pattern is a reusable, high-level solution to a common problem encountered when building intelligent, autonomous systems (agents). These patterns provide a structured framework for designing agent behaviors, much like software design patterns do for traditional programming. They help developers build more robust, predictable, and effective AI agents.
+代理型設計模式指的是在建構智能、自主系統（代理）時面對常見問題，可重複運用的高層解決方案。這些模式與傳統軟件設計模式相似，為代理行為提供結構化框架，協助開發者打造更穩健、可預期且表現出色的 AI 代理。
 
-## 2. What is the main goal of this guide?
+## 2. 本指南的主要目標是甚麼？
 
-The guide aims to provide a practical, hands-on introduction to designing and building agentic systems. It moves beyond theoretical discussions to offer concrete architectural blueprints that developers can use to create agents capable of complex, goal-oriented behavior in a reliable way.
+本指南旨在提供實務導向的入門資源，說明如何設計與建構代理型系統。內容超越純理論討論，提供具體的架構藍圖，協助開發者建立能可靠達成複雜目標導向行為的代理。
 
-## 3. Who is the intended audience for this guide?
+## 3. 本指南鎖定哪些讀者？
 
-This guide is written for AI developers, software engineers, and system architects who are building applications with large language models (LLMs) and other AI components. It is for those who want to move from simple prompt-response interactions to creating sophisticated, autonomous agents.
+目標讀者包括 AI 開發者、軟件工程師與系統架構師，他們會運用大型語言模型（Large Language Models，LLMs）及其他 AI 元件建立應用。指南特別適合希望從簡單的提示—回應互動，進階到構建成熟自主代理的讀者。
 
-## 4. What are some of the key agentic patterns discussed?
+## 4. 書中涵蓋哪些重要代理型模式？
 
-Based on the table of contents, the guide covers several key patterns, including:
+依據目錄，指南介紹以下核心模式：
 
-- **Reflection:** The ability of an agent to critique its own actions and outputs to improve performance.  
-- **Planning:** The process of breaking down a complex goal into smaller, manageable steps or tasks.  
-- **Tool Use:** The pattern of an agent utilizing external tools (like code interpreters, search engines, or other APIs) to acquire information or perform actions it cannot do on its own.  
-- **Multi-Agent Collaboration:** The architecture for having multiple specialized agents work together to solve a problem, often involving a "leader" or "orchestrator" agent.  
-- **Human-in-the-Loop:** The integration of human oversight and intervention, allowing for feedback, correction, and approval of an agent's actions.
+- **反思（Reflection）：** 代理自我檢視行為或輸出，以提升表現。
+- **規劃（Planning）：** 將複雜目標拆解成較細、可管理的步驟或任務。
+- **工具使用（Tool Use）：** 代理調用外部工具（例如程式碼解譯器、搜尋引擎或其他 API），以取得自身無法直接獲得的資訊或執行動作。
+- **多代理協作（Multi-Agent Collaboration）：** 多個專職代理協同解決問題的架構，通常設有「領隊」或「協調者」。
+- **人類在迴圈中（Human-in-the-Loop）：** 在流程中加入人類監督與介入，使代理行為能獲得回饋、修正與核可。
 
-## 5. Why is "planning" an important pattern
+## 5. 為何「規劃」是關鍵模式？
 
-Planning is crucial because it allows an agent to tackle complex, multi-step tasks that cannot be solved with a single action. By creating a plan, the agent can maintain a coherent strategy, track its progress, and handle errors or unexpected obstacles in a structured manner. This prevents the agent from getting "stuck" or deviating from the user's ultimate goal.
+規劃使代理能夠處理複雜、多步驟的任務，而非只依賴單一步驟完成。建立計畫後，代理能維持一致策略、追蹤進度，並以結構化方式處理錯誤或突發情況，避免半途停滯或偏離最終目標。
 
-## 6. What is the difference between a "tool" and a "skill" for an agent
+## 6. 代理使用的「工具」與「技能」有何差異？
 
-While the terms are often used interchangeably, a "tool" generally refers to an external resource the agent can call upon (e.g., a weather API, a calculator). A "skill" is a more integrated capability that the agent has learned, often combining tool use with internal reasoning to perform a specific function (e.g., the skill of "booking a flight" might involve using calendar and airline APIs).
+兩者有時會互換使用，但「工具」通常指代理可調用的外部資源（如天氣 API、計算機）；「技能」則是代理整合多種能力後形成的複合行為，往往結合工具使用與內部推理以達成特定功能（例如「預訂航班」技能可能會運用行事曆與航空公司 API）。
 
-## 7. How does the "Reflection" pattern improve an agent's performance
+## 7. 「反思」模式如何提升代理表現？
 
-Reflection acts as a form of self-correction. After generating a response or completing a task, the agent can be prompted to review its work, check for errors, assess its quality against certain criteria, or consider alternative approaches. This iterative refinement process helps the agent produce more accurate, relevant, and high-quality results.
+反思扮演自我修正的角色。代理在生成回應或完成任務後，可被提示檢視成果、找出錯誤、依據既定標準評估品質，或思考替代方案。透過迭代改良，代理能產出更準確、相關度更高且品質更佳的結果。
 
-## 8. What is the core idea of the Reflection pattern
+## 8. 反思模式的核心概念是甚麼？
 
-The Reflection pattern gives an agent the ability to step back and critique its own work. Instead of producing a final output in one go, the agent generates a draft and then "reflects" on it, identifying flaws, missing information, or areas for improvement. This self-correction process is key to enhancing the quality and accuracy of its responses.
+反思模式賦予代理暫停檢視自身作品的能力。代理不會一次給出最終答案，而是先產生草稿，再「反思」草稿是否存在漏洞、缺漏或可改進之處。這種自我修正流程有助於提升回應的品質與準確性。
 
-## 9. Why is simple "prompt chaining" not enough for high-quality output?** 
+## 9. 為何單純的「提示鏈接」不足以保證高品質輸出？
 
-Simple prompt chaining (where the output of one prompt becomes the input for the next) is often too basic. The model might just rephrase its previous output without genuinely improving it. A true Reflection pattern requires a more structured critique, prompting the agent to analyze its work against specific standards, check for logical errors, or verify facts.
+簡單的提示鏈接僅將上一個提示的輸出當作下一個提示的輸入，結構仍然單薄。模型可能只會重述先前結果，而無法真正改善。完善的反思模式需要更具結構的批判，引導代理按照特定標準分析作品、檢查邏輯或驗證事實。
 
-## 10. What are the two main types of reflection mentioned in this chapter?** 
+## 10. 本章提到哪兩種主要的反思形式？
 
-The chapter discusses two primary forms of reflection:
+章節介紹兩種常見做法：
 
-- **"Check your work" Reflection:** This is a basic form where the agent is simply asked to review and fix its previous output. It's a good starting point for catching simple errors.  
-- **"Internal Critic" Reflection:** This is a more advanced form where a separate, "critic" agent (or a dedicated prompt) is used to evaluate the output of the "worker" agent. This critic can be given specific criteria to look for, leading to more rigorous and targeted improvements.
+- **「檢查你的工作」反思：** 要求代理檢視並修正先前輸出，適合用來捕捉明顯錯誤。
+- **「內部評論員」反思：** 引入另一個「評論員」代理（或專用提示）審視「工作者」代理的輸出，按照指定準則提出意見，帶來更嚴謹且具體的改進。
 
-## 11. How does reflection help in reducing "hallucinations"?
+## 11. 反思如何協助減少「幻覺」？
 
-By prompting an agent to review its work, especially by comparing its statements against a known source or by checking its own reasoning steps, the Reflection pattern can significantly reduce the likelihood of hallucinations (making up facts). The agent is forced to be more grounded in the provided context and less likely to generate unsupported information.
+透過提示代理檢查自身作品，尤其是要求對照已知來源或逐步檢視推理，反思模式可顯著降低捏造資訊（幻覺）的機率。代理必須根據提供的脈絡作答，因此較不易生成缺乏依據的內容。
 
-## 12. Can the Reflection pattern be applied more than once?
+## 12. 反思可以重複執行嗎？
 
-Yes, reflection can be an iterative process. An agent can be made to reflect on its work multiple times, with each loop refining the output further. This is particularly useful for complex tasks where the first or second attempt may still contain subtle errors or could be substantially improved.
+可以。反思可以設計成迭代流程，代理能多次反思，每個循環都進一步打磨輸出。對於複雜任務而言，初稿往往仍有細節需要調整，多輪反思特別有幫助。
 
-## 13. What is the Planning pattern in the context of AI agents?
+## 13. 在 AI 代理情境中，「規劃」模式的作用是甚麼？
 
-The Planning pattern involves enabling an agent to break down a complex, high-level goal into a sequence of smaller, actionable steps. Instead of trying to solve a big problem at once, the agent first creates a "plan" and then executes each step in the plan, which is a much more reliable approach.
+規劃模式使代理能將高層目標拆解為一系列較細且可執行的步驟。代理不會一次解決龐大問題，而是先產出「計畫」，再按計畫逐步執行，整體可靠度因而提升。
 
-## 14. Why is planning necessary for complex tasks?
+## 14. 為何複雜任務需要規劃？
 
-LLMs can struggle with tasks that require multiple steps or dependencies. Without a plan, an agent might lose track of the overall objective, miss crucial steps, or fail to handle the output of one step as the input for the next. A plan provides a clear roadmap, ensuring all requirements of the original request are met in a logical order.
+大型語言模型在處理多步驟或具相依性的任務時容易混亂。缺乏計畫時，代理可能失去整體目標、遺漏步驟，或無法妥善銜接輸出。有了計畫，就像持有地圖，可確保所有要求按邏輯順序完成。
 
-## 15. What is a common way to implement the Planning pattern?
+## 15. 常見的規劃實作方式為何？
 
-A common implementation is to have the agent first generate a list of steps in a structured format (like a JSON array or a numbered list). The system can then iterate through this list, executing each step one by one and feeding the result back to the agent to inform the next action.
+常見做法是先要求代理以結構化格式（例如 JSON 陣列或編號清單）列出步驟。系統再逐步執行清單內容，每次將結果回傳給代理，指導下一步行動。
 
-## 16. How does the agent handle errors or changes during execution?
+## 16. 執行期間如果出現錯誤或變動，代理如何處理？
 
-A robust planning pattern allows for dynamic adjustments. If a step fails or the situation changes, the agent can be prompted to "re-plan" from the current state. It can analyze the error, modify the remaining steps, or even add new ones to overcome the obstacle.
+成熟的規劃模式允許動態調整。若某一步驟失敗或環境改變，可以提示代理從當前狀態重新「規劃」。代理會分析錯誤、修改後續步驟，甚至加入新步驟以克服障礙。
 
-## 17. Does the user see the plan?
+## 17. 用戶需要先看到計畫嗎？
 
-This is a design choice. In many cases, showing the plan to the user first for approval is a great practice. This aligns with the "Human-in-the-Loop" pattern, giving the user transparency and control over the agent's proposed actions before they are executed.
+視情況而定。許多情境下，先向用戶展示計畫並徵求批准是良好作法，符合人類在迴圈中（Human-in-the-Loop）模式，讓用戶在執行前掌握代理建議並維持控制權。
 
-## 18. What does the "Tool Use" pattern entail?
+## 18. 「工具使用」模式涵蓋哪些重點？
 
-The Tool Use pattern allows an agent to extend its capabilities by interacting with external software or APIs. Since an LLM's knowledge is static and it can't perform real-world actions on its own, tools give it access to live information (e.g., Google Search), proprietary data (e.g., a company's database), or the ability to perform actions (e.g., send an email, book a meeting).
+工具使用模式使代理能透過外部軟件或 API 擴充能力。由於 LLM 的知識是靜態且無法直接操作現實世界，工具可提供即時資訊（如 Google Search）、專屬數據（如企業資料庫），或執行動作的能力（如傳送電郵、預約會議）。
 
-## 19. How does an agent decide which tool to use?
+## 19. 代理如何決定應使用哪項工具？
 
-The agent is typically given a list of available tools along with descriptions of what each tool does and what parameters it requires. When faced with a request it can't handle with its internal knowledge, the agent's reasoning ability allows it to select the most appropriate tool from the list to accomplish the task.
+通常會先提供可用工具清單，包括描述與所需參數。當代理遇到內部知識無法處理的請求時，會依據推理能力從清單中選擇最合適的工具完成任務。
 
-## 20. What is the "ReAct" (Reason and Act) framework mentioned in this context?
+## 20. 甚麼是「ReAct」（Reason and Act）框架？
 
-ReAct is a popular framework that integrates reasoning and acting. The agent follows a loop of **Thought** (reasoning about what it needs to do), **Action** (deciding which tool to use and with what inputs), and **Observation** (seeing the result from the tool). This loop continues until it has gathered enough information to fulfill the user's request.
+ReAct 是整合推理與行動的常見框架。代理遵循 **Thought（思考）→ Action（行動）→ Observation（觀察）** 的循環：先思考下一步，再選擇工具及輸入，最後根據觀察結果決定後續動作，直到滿足用戶需求。
 
-## 21. What are some challenges in implementing tool use?
+## 21. 實作工具使用時會面臨哪些挑戰？
 
-Key challenges include:
+主要挑戰包括：
 
-- **Error Handling:** Tools can fail, return unexpected data, or time out. The agent needs to be able to recognize these errors and decide whether to try again, use a different tool, or ask the user for help.  
-- **Security:** Giving an agent access to tools, especially those that perform actions, has security implications. It's crucial to have safeguards, permissions, and often human approval for sensitive operations.  
-- **Prompting:** The agent must be prompted effectively to generate correctly formatted tool calls (e.g., the right function name and parameters).
+- **錯誤處理：** 工具可能失敗、返回異常資料或逾時。代理必須判斷是否重試、改用其他工具，或尋求人類協助。
+- **安全性：** 具實際影響力的工具（例如可修改資料或觸發交易）存在風險，需要明確的權限與保護措施，甚至需人類批准。
+- **提示設計：** 必須精心設計提示，確保代理能生成格式正確的工具呼叫（例如正確的函數名稱與參數）。
 
-## 22. What is the Human-in-the-Loop (HITL) pattern?
+## 22. 甚麼是人類在迴圈中（Human-in-the-Loop，HITL）模式？
 
-HITL is a pattern that integrates human oversight and interaction into the agent's workflow. Instead of being fully autonomous, the agent pauses at critical junctures to ask for human feedback, approval, clarification, or direction.
+HITL 模式在代理工作流程中加入人類監督與互動。代理並非完全自主，而是在關鍵節點暫停，徵詢人類回饋、批准、澄清或指示。
 
-## 23. Why is HITL important for agentic systems?
+## 23. HITL 對代理型系統的重要性何在？
 
-It's crucial for several reasons:
+主要原因包括：
 
-- **Safety and Control:** For high-stakes tasks (e.g., financial transactions, sending official communications), HITL ensures a human verifies the agent's proposed actions before they are executed.  
-- **Improving Quality:** Humans can provide corrections or nuanced feedback that the agent can use to improve its performance, especially in subjective or ambiguous tasks.  
-- **Building Trust:** Users are more likely to trust and adopt an AI system that they can guide and supervise.
+- **安全與控制：** 對於高風險任務（如金融交易或正式通信），HITL 可確保人類在執行前審核代理建議。
+- **提升品質：** 人類能提供細緻的修正或回饋，特別是主觀或含糊的任務，代理可據此改進表現。
+- **建立信任：** 用戶更容易信任可受其指導與監督的 AI 系統。
 
-## 24. At what points in a workflow should you include a human?
+## 24. 應在流程哪個階段納入人類參與？
 
-Common points for human intervention include:
+常見插入點包括：
 
-- **Plan Approval:** Before executing a multi-step plan.  
-- **Tool Use Confirmation:** Before using a tool that has real-world consequences or costs money.  
-- **Ambiguity Resolution:** When the agent is unsure how to proceed or needs more information from the user.  
-- **Final Output Review:** Before delivering the final result to the end-user or system.
-
-## 25. Isn't constant human intervention inefficient?
-
-It can be, which is why the key is to find the right balance. HITL should be implemented at critical checkpoints, not for every single action. The goal is to build a collaborative partnership between the human and the agent, where the agent handles the bulk of the work and the human provides strategic guidance.
-
-## 26. What is the Multi-Agent Collaboration pattern?
-
-This pattern involves creating a system composed of multiple specialized agents that work together to achieve a common goal. Instead of one "generalist" agent trying to do everything, you create a team of "specialist" agents, each with a specific role or expertise.
-
-## 27. What are the benefits of a multi-agent system?
-
-- **Modularity and Specialization:** Each agent can be fine-tuned and prompted for its specific task (e.g., a "researcher" agent, a "writer" agent, a "code" agent), leading to higher quality results.  
-- **Reduced Complexity:** Breaking a complex workflow down into specialized roles makes the overall system easier to design, debug, and maintain.  
-- **Simulated Brainstorming:** Different agents can offer different perspectives on a problem, leading to more creative and robust solutions, similar to how a human team works.
-
-## 28. What is a common architecture for multi-agent systems?
-
-A common architecture involves an **Orchestrator Agent** (sometimes called a "manager" or "conductor"). The orchestrator understands the overall goal, breaks it down, and delegates sub-tasks to the appropriate specialist agents. It then collects the results from the specialists and synthesizes them into a final output.
-
-## How do the agents communicate with each other?
-
-Communication is often managed by the orchestrator. For example, the orchestrator might pass the output of the "researcher" agent to the "writer" agent as context. A shared "scratchpad" or message bus where agents can post their findings is another common communication method.
-
-## Why is evaluating an agent more difficult than evaluating a traditional software program?
-
-Traditional software has deterministic outputs (the same input always produces the same output). Agents, especially those using LLMs, are non-deterministic and their performance can be subjective. Evaluating them requires assessing the *quality* and *relevance* of their output, not just whether it's technically "correct."
-
-## What are some common methods for evaluating agent performance?
-
-The guide suggests a few methods:
-
-- **Outcome-based Evaluation:** Did the agent successfully achieve the final goal? For example, if the task was "book a flight," was a flight actually booked correctly? This is the most important measure.  
-- **Process-based Evaluation:** Was the agent's *process* efficient and logical? Did it use the right tools? Did it follow a sensible plan? This helps debug why an agent might be failing.  
-- **Human Evaluation:** Having humans score the agent's performance on a scale (e.g., 1-5) based on criteria like helpfulness, accuracy, and coherence. This is crucial for user-facing applications.
-
-## What is an "agent trajectory"?
-
-An agent trajectory is the complete log of an agent's steps while performing a task. It includes all its thoughts, actions (tool calls), and observations. Analyzing these trajectories is a key part of debugging and understanding agent behavior.
-
-## How can you create reliable tests for a non-deterministic system?
-
-While you can't guarantee the exact wording of an agent's output, you can create tests that check for key elements. For example, you can write a test that verifies if the agent's final response *contains* specific information or if it successfully called a certain tool with the right parameters. This is often done using mock tools in a dedicated testing environment.
-
-## How is prompting an agent different from a simple ChatGPT prompt?
-
-Prompting an agent involves creating a detailed "system prompt" or constitution that acts as its operating instructions. This goes beyond a single user query; it defines the agent's role, its available tools, the patterns it should follow (like ReAct or Planning), its constraints, and its personality.
-
-## What are the key components of a good system prompt for an agent?
-
-A strong system prompt typically includes:
-
-- **Role and Goal:** Clearly define who the agent is and what its primary purpose is.  
-- **Tool Definitions:** A list of available tools, their descriptions, and how to use them (e.g., in a specific function-calling format).  
-- **Constraints and Rules:** Explicit instructions on what the agent *should not* do (e.g., "Do not use tools without approval," "Do not provide financial advice").  
-- **Process Instructions:** Guidance on which patterns to use. For example, "First, create a plan. Then, execute the plan step-by-step."  
-- **Example Trajectories:** Providing a few examples of successful "thought-action-observation" loops can significantly improve the agent's reliability.
-
-## What is "prompt leakage"?
-
-Prompt leakage occurs when parts of the system prompt (like tool definitions or internal instructions) are inadvertently revealed in the agent's final response to the user. This can be confusing for the user and expose underlying implementation details. Techniques like using separate prompts for reasoning and for generating the final answer can help prevent this.
-
-## What are some future trends in agentic systems?
-
-The guide points towards a future with:
-
-- **More Autonomous Agents:** Agents that require less human intervention and can learn and adapt on their own.  
-- **Highly Specialized Agents:** An ecosystem of agents that can be hired or subscribed to for specific tasks (e.g., a travel agent, a research agent).  
-- **Better Tools and Platforms:** The development of more sophisticated frameworks and platforms that make it easier to build, test, and deploy robust multi-agent systems.
+- **計畫核准：** 在執行多步驟計畫之前。
+- **工具使用確認：** 在啟用具現實影響或需付費的工具之前。
+- **消除歧義：** 當代理無法確定下一步或需要更多資訊時。
+- **最終輸出審閱：** 在交付結果給用戶或其他系統之前。
