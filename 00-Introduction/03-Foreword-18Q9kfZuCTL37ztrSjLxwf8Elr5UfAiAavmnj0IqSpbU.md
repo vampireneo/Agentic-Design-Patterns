@@ -1,14 +1,14 @@
-# Foreword
+# 序言
 
-The field of artificial intelligence is at a fascinating inflection point. We are moving beyond building models that can simply process information to creating intelligent systems that can reason, plan, and act to achieve complex goals with ambiguous tasks. These "agentic" systems, as this book so aptly describes them, represent the next frontier in AI, and their development is a challenge that excites and inspires us at Google.
+人工智能 (AI) 領域正處於引人入勝的轉捩點。我們正從僅能處理資訊的模型，邁向能夠推理、規劃並採取行動，以完成含糊任務與複雜目標的智能系統。正如本書所精準描述，這些「智能代理 (agentic)」系統代表着 AI 的下一個前沿，而它們的發展亦是令 Google 引以為傲、充滿熱忱的挑戰。
 
-"Agentic Design Patterns: A Hands-On Guide to Building Intelligent Systems" arrives at the perfect moment to guide us on this journey. The book rightly points out that the power of large language models, the cognitive engines of these agents, must be harnessed with structure and thoughtful design. Just as design patterns revolutionized software engineering by providing a common language and reusable solutions to common problems, the agentic patterns in this book will be foundational for building robust, scalable, and reliable intelligent systems.
+《Agentic Design Patterns: A Hands-On Guide to Building Intelligent Systems》在這個完美時機面世，引領我們踏上這段旅程。本書指出，作為智能代理認知引擎的大型語言模型 (large language models)，其力量必須透過結構化與縝密的設計加以掌握。正如設計模式 (design patterns) 為軟件工程帶來共同語言與可重複利用的解決方案，掀起革命，書中的智能代理模式將成為構建穩健、可擴展且可靠智能系統的基礎。
 
-The metaphor of a "canvas" for building agentic systems is one that resonates deeply with our work on Google's Vertex AI platform. We strive to provide developers with the most powerful and flexible canvas on which to build the next generation of AI applications. This book provides the practical, hands-on guidance that will empower developers to use that canvas to its full potential. By exploring patterns from prompt chaining and tool use to agent-to-agent collaboration, self-correction, safety and guardrails, this book offers a comprehensive toolkit for any developer looking to build sophisticated AI agents.
+以「畫布 (canvas)」比喻構建智能代理系統，與我們在 Google Vertex AI 平台上的工作深度契合。我們致力為開發者提供最強大、最靈活的畫布，讓他們打造新一代 AI 應用。本書提供務實且動手做的指引，協助開發者把這塊畫布的潛能發揮至盡。從提示鏈接 (prompt chaining)、工具使用 (tool use)，到代理間協作、 自我修正、安全與防護欄 (guardrails)，本書為任何想建立精密 AI 智能代理的開發者提供了完整的工具箱。
 
-The future of AI will be defined by the creativity and ingenuity of developers who can build these intelligent systems. "Agentic Design Patterns" is an indispensable resource that will help to unlock that creativity. It provides the essential knowledge and practical examples to not only understand the "what" and "why" of agentic systems, but also the "how."
+AI 的未來，將由能構建這些智能系統的開發者的創意與巧思所界定。《Agentic Design Patterns》是解鎖創意不可或缺的資源，不僅提供理解智能代理系統「是什麼 (what)」、「為何 (why)」的核心知識與實例，更教懂我們「如何做 (how)」。
 
-I am thrilled to see this book in the hands of the developer community. The patterns and principles within these pages will undoubtedly accelerate the development of innovative and impactful AI applications that will shape our world for years to come.
+我很興奮看見這本書交到開發者社群手中。書中呈現的模式與原則，勢必加速創新且具深遠影響力的 AI 應用誕生，並在未來多年形塑我們的世界。
 
-Saurabh Tiwary
-VP & General Manager, CloudAI @ Google
+Saurabh Tiwary  
+Google CloudAI 副總裁暨總經理
