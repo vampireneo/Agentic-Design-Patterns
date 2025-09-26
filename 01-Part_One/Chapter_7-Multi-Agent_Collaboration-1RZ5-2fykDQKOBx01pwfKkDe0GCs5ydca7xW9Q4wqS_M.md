@@ -1,86 +1,85 @@
-# Chapter 7: Multi-Agent Collaboration
+# 第七章：多代理協作（Multi-Agent Collaboration）
 
-While a monolithic agent architecture can be effective for well-defined problems, its capabilities are often constrained when faced with complex, multi-domain tasks. The Multi-Agent Collaboration pattern addresses these limitations by structuring a system as a cooperative ensemble of distinct, specialized agents. This approach is predicated on the principle of task decomposition, where a high-level objective is broken down into discrete sub-problems. Each sub-problem is then assigned to an agent possessing the specific tools, data access, or reasoning capabilities best suited for that task.
+雖然單體代理架構在處理界定清晰的問題時或能奏效，但在面對複雜且跨領域的任務時，其能力往往受到限制。「多代理協作（Multi-Agent Collaboration）」模式通過將系統結構化為一個由多個具備專長的代理組成的協同團隊，以應對這些不足。此方法建立在任務分解的原則之上，先把高層目標拆分為離散的次級問題，再把各個次級問題指派給擁有相應工具、資料存取能力或推理能力的代理。
 
-For example, a complex research query might be decomposed and assigned to a Research Agent for information retrieval, a Data Analysis Agent for statistical processing, and a Synthesis Agent for generating the final report. The efficacy of such a system is not merely due to the division of labor but is critically dependent on the mechanisms for inter-agent communication. This requires a standardized communication protocol and a shared ontology, allowing agents to exchange data, delegate sub-tasks, and coordinate their actions to ensure the final output is coherent.
+舉例而言，一項複雜的研究查詢可被拆分後交由研究代理負責資訊檢索、數據分析代理處理統計運算，以及綜合代理編寫最終報告。這種系統的效能不僅來自分工，更有賴於代理之間的通訊機制。為此，需要建立標準化的通訊協定（communication protocol）及共用本體（shared ontology），以便代理交換資料、委派子任務並協調行動，確保最終輸出的一致性。
 
-This distributed architecture offers several advantages, including enhanced modularity, scalability, and robustness, as the failure of a single agent does not necessarily cause a total system failure. The collaboration allows for a synergistic outcome where the collective performance of the multi-agent system surpasses the potential capabilities of any single agent within the ensemble.
+這種分散式架構具有多項優勢，包括模組化程度更高、可擴展性更佳，以及穩健性更強；即使單一代理失效，整體系統亦不致全面停擺。透過協作，整個多代理系統的整體表現能超越任何單一代理的潛在能力。
 
-## Multi-Agent Collaboration Pattern Overview
+## 多代理協作模式概覽
 
-The Multi-Agent Collaboration pattern involves designing systems where multiple independent or semi-independent agents work together to achieve a common goal. Each agent typically has a defined role, specific goals aligned with the overall objective, and potentially access to different tools or knowledge bases. The power of this pattern lies in the interaction and synergy between these agents.
+多代理協作模式旨在設計多個獨立或半獨立代理共同合作以達成共同目標的系統。每個代理通常擁有明確角色、與整體目標對齊的個別目標，並可能存取不同的工具或知識庫。此模式的力量在於代理之間的互動與協同效應。
 
-Collaboration can take various forms:
+協作形式多樣：
 
-* **Sequential Handoffs:** One agent completes a task and passes its output to another agent for the next step in a pipeline (similar to the Planning pattern, but explicitly involving different agents).  
-* **Parallel Processing:** Multiple agents work on different parts of a problem simultaneously, and their results are later combined.  
-* **Debate and Consensus:** Multi-Agent Collaboration where Agents with varied perspectives and information sources engage in discussions to evaluate options, ultimately reaching a consensus or a more informed decision.  
-* **Hierarchical Structures:** A manager agent might delegate tasks to worker agents dynamically based on their tool access or plugin capabilities and synthesize their results. Each agent can also handle relevant groups of tools, rather than a single agent handling all the tools.  
-* **Expert Teams:** Agents with specialized knowledge in different domains (e.g., a researcher, a writer, an editor) collaborate to produce a complex output.
+* **循序交接（Sequential Handoffs）：** 一個代理完成任務後把輸出交給下一個代理於管線中接續處理（類似規劃模式（Planning pattern），但明確涉及不同代理）。
+* **平行處理（Parallel Processing）：** 多個代理同時處理問題的不同部分，之後再整合結果。
+* **辯論與共識（Debate and Consensus）：** 多代理協作讓擁有不同觀點與資訊來源的代理展開討論，評估方案，最終達成共識或得出更充分的決策。
+* **階層式結構（Hierarchical Structures）：** 管理者代理可根據工具存取或外掛能力動態委派任務給工作代理，並整合其結果。每個代理可掌管相關工具組，而非由單一代理處理所有工具。
+* **專家團隊（Expert Teams）：** 不同領域的專家代理（如研究員、撰稿者、編輯）合作產出複雜輸出。
+* **評論—審核（Critic-Reviewer）：** 代理先產生計劃、草稿或答案等初稿，再由另一組代理從政策、資安、合規、正確性、品質及組織目標對齊等角度批判性審視。原始創作者或最終代理會依據回饋修訂輸出。此模式對程式碼生成、研究寫作、邏輯檢查及倫理對齊特別有效，能提升穩健性與品質，並降低幻覺或錯誤風險。
 
-* **Critic-Reviewer:** Agents create initial outputs such as plans, drafts, or answers. A second group of agents then critically assesses this output for adherence to policies, security, compliance, correctness, quality, and alignment with organizational objectives. The original creator or a final agent revises the output based on this feedback. This pattern is particularly effective for code generation, research writing, logic checking, and ensuring ethical alignment. The advantages of this approach include increased robustness, improved quality, and a reduced likelihood of hallucinations or errors.
+多代理系統（參見圖一）基本上包含界定代理角色與職責、建立代理交換資訊的通訊渠道，以及擬定引導協作工作的任務流程或互動協定。
 
-A multi-agent system (see Fig.1) fundamentally comprises the delineation of agent roles and responsibilities, the establishment of communication channels through which agents exchange information, and the formulation of a task flow or interaction protocol that directs their collaborative endeavors.
+![多代理系統（Multi-Agent System）](../assets/Multi_Agent_System.png)
 
-![Multi-Agent System](../assets/Multi_Agent_System.png)
+圖一：多代理系統示例。
 
-Fig.1: Example of multi-agent system
+Crew AI 與 Google ADK 等框架被設計來促成此範式，提供定義代理、任務及其互動流程的結構。此方法對需要多種專業知識、涵蓋多個離散階段，或能從平行處理與跨代理資訊互證中受益的挑戰尤為有效。
 
-Frameworks such as Crew AI and Google ADK are engineered to facilitate this paradigm by providing structures for the specification of agents, tasks, and their interactive procedures. This approach is particularly effective for challenges necessitating a variety of specialized knowledge, encompassing multiple discrete phases, or leveraging the advantages of concurrent processing and the corroboration of information across agents.
+## 實務應用與案例
 
-## Practical Applications & Use Cases
+多代理協作是橫跨多個領域的強大模式：
 
-Multi-Agent Collaboration is a powerful pattern applicable across numerous domains:
+* **複雜研究與分析：** 一組代理可合作進行研究項目。一個代理專責搜尋學術資料庫，另一個代理概述發現，第三個代理辨識趨勢，第四個代理把資訊綜合成報告，類似人類研究團隊的運作。
+* **軟件開發（Software Development）：** 想像代理協作建立軟件：一個代理擔任需求分析師，另一個生成程式碼，第三個執行測試，第四個撰寫文件，互相傳遞輸出以建構與驗證元件。
+* **創意內容生成：** 規劃行銷活動可由市場研究代理、文案撰稿代理、圖像設計代理（利用圖像生成工具）及社交媒體排程代理共同合作。
+* **金融分析（Financial Analysis）：** 多代理系統可分析金融市場；代理可專長於抓取股票數據、分析新聞情緒、執行技術分析及提出投資建議。
+* **客戶支援升級處理：** 前線支援代理處理初階查詢，必要時將複雜議題交由專家代理（如技術專家或帳務專家），展現基於問題複雜度的循序交接。
+* **供應鏈優化（Supply Chain Optimization）：** 代理可代表供應鏈中的不同節點（供應商、製造商、分銷商），協作優化庫存、物流與排程，以回應需求變化或干擾。
+* **網絡分析與修復（Network Analysis & Remediation）：** 自主營運非常受益於代理架構，尤其在故障定位。多個代理可協作分流及修復問題，建議最佳行動；亦能與傳統機器學習模型及工具整合，在發揮生成式人工智能優勢的同時善用現有系統。
 
-* **Complex Research and Analysis:** A team of agents could collaborate on a research project. One agent might specialize in searching academic databases, another in summarizing findings, a third in identifying trends, and a fourth in synthesizing the information into a report. This mirrors how a human research team might operate.  
-* **Software Development:** Imagine agents collaborating on building software. One agent could be a requirements analyst, another a code generator, a third a tester, and a fourth a documentation writer. They could pass outputs between each other to build and verify components.  
-* **Creative Content Generation:** Creating a marketing campaign could involve a market research agent, a copywriter agent, a graphic design agent (using image generation tools), and a social media scheduling agent, all working together.  
-* **Financial Analysis:** A multi-agent system could analyze financial markets. Agents might specialize in fetching stock data, analyzing news sentiment, performing technical analysis, and generating investment recommendations.  
-* **Customer Support Escalation:** A front-line support agent could handle initial queries, escalating complex issues to a specialist agent (e.g., a technical expert or a billing specialist) when needed, demonstrating a sequential handoff based on problem complexity.  
-* **Supply Chain Optimization:** Agents could represent different nodes in a supply chain (suppliers, manufacturers, distributors) and collaborate to optimize inventory levels, logistics, and scheduling in response to changing demand or disruptions.  
-* **Network Analysis & Remediation**: Autonomous operations benefit greatly from an agentic architecture, particularly in failure pinpointing. Multiple agents can collaborate to triage and remediate issues, suggesting optimal actions. These agents can also integrate with traditional machine learning models and tooling, leveraging existing systems while simultaneously offering the advantages of Generative AI.
+能夠界定專門代理並精心編排其互動關係，使開發者得以建構具備更高模組化、可擴展性及應對複雜度能力的系統，而這些複雜度對單一整合代理而言可能不可逾越。
 
-The capacity to delineate specialized agents and meticulously orchestrate their interrelationships empowers developers to construct systems exhibiting enhanced modularity, scalability, and the ability to address complexities that would prove insurmountable for a singular, integrated agent.
+## 多代理協作：探索互動關係與通訊結構
 
-## Multi-Agent Collaboration: Exploring Interrelationships and Communication Structures
+理解代理互動與通訊的精細方式，是設計有效多代理系統的基礎。如圖二所示，存在一系列從最簡單單一代理場景到複雜、客製化協作框架的互動與通訊模型。各模型提供獨特優勢與挑戰，影響多代理系統的整體效率、穩健性與適應力。
 
-Understanding the intricate ways in which agents interact and communicate is fundamental to designing effective multi-agent systems. As depicted in Fig. 2, a spectrum of interrelationship and communication models exists, ranging from the simplest single-agent scenario to complex, custom-designed collaborative frameworks. Each model presents unique advantages and challenges, influencing the overall efficiency, robustness, and adaptability of the multi-agent system.
+### 1. 單一代理（Single Agent）
 
-### 1. Single Agent
+在最基本層次，「單一代理」在沒有與其他實體直接互動或溝通的情況下自主運作。此模型易於實作與管理，但其能力受限於個別代理的範疇與資源。適用於可分解為獨立子問題且各自可由單一自給自足代理解決的任務。
 
-At the most basic level, a "Single Agent" operates autonomously without direct interaction or communication with other entities. While this model is straightforward to implement and manage, its capabilities are inherently limited by the individual agent's scope and resources. It is suitable for tasks that are decomposable into independent sub-problems, each solvable by a single, self-sufficient agent.
+### 2. 網絡（Network）
 
-### 2. Network
+「網絡」模型是邁向協作的重要一步，多個代理以去中心化方式彼此直接互動。通訊通常為點對點，得以共享資訊、資源甚至任務。此模型促進韌性，因為即使某個代理失效亦不一定癱瘓整體系統。然而，在大型且未結構化的網絡中管理通訊負荷並維持一致決策可能具挑戰。
 
-The "Network" model represents a significant step towards collaboration, where multiple agents interact directly with each other in a decentralized fashion. Communication typically occurs peer-to-peer, allowing for the sharing of information, resources, and even tasks. This model fosters resilience, as the failure of one agent does not necessarily cripple the entire system. However, managing communication overhead and ensuring coherent decision-making in a large, unstructured network can be challenging.
+### 3. 監督者（Supervisor）
 
-### 3. Supervisor
+在「監督者」模型中，專責代理「監督者」負責監督並協調一群下屬代理的活動。監督者充當通訊、任務分配與衝突解決的中心節點。此階層式結構提供清晰權責線並能簡化管理與控制；但它引入單點故障（single point of failure），若監督者面臨大量下屬或複雜任務亦可能成為瓶頸。
 
-In the "Supervisor" model, a dedicated agent, the "supervisor," oversees and coordinates the activities of a group of subordinate agents. The supervisor acts as a central hub for communication, task allocation, and conflict resolution. This hierarchical structure offers clear lines of authority and can simplify management and control. However, it introduces a single point of failure (the supervisor) and can become a bottleneck if the supervisor is overwhelmed by a large number of subordinates or complex tasks.
+### 4. 工具化監督者（Supervisor as a Tool）
 
-### 4. Supervisor as a Tool
+此模型是「監督者」概念的精細延伸，監督者角色較少直接指揮控制，而是提供資源、指引或分析支援。監督者可能提供工具、資料或計算服務，協助其他代理更有效完成任務，而不必事事下達指令。此方法旨在運用監督者能力，同時避免僵硬的自上而下控制。
 
-This model is a nuanced extension of the "Supervisor" concept, where the supervisor's role is less about direct command and control and more about providing resources, guidance, or analytical support to other agents. The supervisor might offer tools, data, or computational services that enable other agents to perform their tasks more effectively, without necessarily dictating their every action. This approach aims to leverage the supervisor's capabilities without imposing rigid top-down control.
+### 5. 階層式（Hierarchical）
 
-### 5. Hierarchical
+「階層式」模型擴充監督者概念，建立多層組織結構。包括多層監督者：高階監督者監管低階監督者，最底層則由一系列執行代理構成。此結構適用於可拆解為各層負責的次級問題的複雜課題，提供具結構性的擴展性與複雜度管理，允許在既定邊界內的分散決策。
 
-The "Hierarchical" model expands upon the supervisor concept to create a multi-layered organizational structure. This involves multiple levels of supervisors, with higher-level supervisors overseeing lower-level ones, and ultimately, a collection of operational agents at the lowest tier. This structure is well-suited for complex problems that can be decomposed into sub-problems, each managed by a specific layer of the hierarchy. It provides a structured approach to scalability and complexity management, allowing for distributed decision-making within defined boundaries.
+![代理以多種方式溝通與互動（Agents Communicate and Interact in Various Ways）](../assests/Agents_Communicate_and_Interact_in_Various_Ways.png)
 
-![Agents Communicate and Interact in Various Ways](../assests/Agents_Communicate_and_Interact_in_Various_Ways.png)
+圖二：代理透過多種方式溝通與互動。
 
-Fig. 2: Agents communicate and interact in various ways.
+### 6. 客製化（Custom）
 
-### 6. Custom
+「客製化」模型代表多代理系統設計的最大彈性，可根據特定問題或應用的需求，打造獨特的互動與通訊結構。此模型可結合前述模型的元素形成混合方式，或因環境約束與機會而衍生全新設計。客製化模型通常源自優化特定效能指標、處理高度動態環境，或把領域專屬知識納入系統架構的需求。設計與實作客製化模型需要深入掌握多代理系統原理，並仔細考量通訊協定、協調機制與湧現行為。
 
-The "Custom" model represents the ultimate flexibility in multi-agent system design. It allows for the creation of unique interrelationship and communication structures tailored precisely to the specific requirements of a given problem or application. This can involve hybrid approaches that combine elements from the previously mentioned models, or entirely novel designs that emerge from the unique constraints and opportunities of the environment. Custom models often arise from the need to optimize for specific performance metrics, handle highly dynamic environments, or incorporate domain-specific knowledge into the system's architecture. Designing and implementing custom models typically requires a deep understanding of multi-agent systems principles and careful consideration of communication protocols, coordination mechanisms, and emergent behaviors.
+總括而言，多代理系統的互動與通訊模型是關鍵設計抉擇。每種模型各有優劣，而最佳選擇取決於任務複雜度、代理數量、所需自主程度、韌性需求以及可接受的通訊負荷等因素。未來多代理系統的發展，勢必持續探索與優化這些模型，並開發全新協作智能範式。
 
-In summary, the choice of interrelationship and communication model for a multi-agent system is a critical design decision. Each model offers distinct advantages and disadvantages, and the optimal choice depends on factors such as the complexity of the task, the number of agents, the desired level of autonomy, the need for robustness, and the acceptable communication overhead. Future advancements in multi-agent systems will likely continue to explore and refine these models, as well as develop new paradigms for collaborative intelligence.
+## 實作範例程式（Crew AI）
 
-## Hands-On code (Crew AI)
+以下 Python 程式展示如何使用 CrewAI 框架建立一個由人工智能驅動的團隊，生成有關人工智能趨勢的部落格文章。程式會先設定環境並從 .env 檔載入 API 金鑰。核心部分定義兩個代理：研究員負責發掘及摘要人工智能趨勢，作者則根據研究結果撰寫文章。
 
-This Python code defines an AI-powered crew using the CrewAI framework to generate a blog post about AI trends. It starts by setting up the environment, loading API keys from a .env file. The core of the application involves defining two agents: a researcher to find and summarize AI trends, and a writer to create a blog post based on the research.
-
-Two tasks are defined accordingly: one for researching the trends and another for writing the blog post, with the writing task depending on the output of the research task. These agents and tasks are then assembled into a Crew, specifying a sequential process where tasks are executed in order. The Crew is initialized with the agents, tasks, and a language model (specifically the "gemini-2.0-flash" model). The main function executes this crew using the kickoff() method, orchestrating the collaboration between the agents to produce the desired output. Finally, the code prints the final result of the crew's execution, which is the generated blog post.
+程式相應定義兩項任務：研究趨勢與撰寫文章，其中撰寫任務需依賴研究任務的輸出。這些代理與任務組成一個團隊（Crew），指定按序流程（sequential process），使任務依序執行。團隊使用最新的「gemini-2.0-flash」語言模型（language model）。主要函式透過 kickoff() 方法啟動該團隊，協調代理協作以產生所需輸出，最後列印最終結果。
 
 ```python
 import os
@@ -162,11 +161,11 @@ if __name__ == "__main__":
     main()
 ```
 
-We will now delve into further examples within the Google ADK framework, with particular emphasis on hierarchical, parallel, and sequential coordination paradigms, alongside the implementation of an agent as an operational instrument.
+我們接下來將進一步探討 Google ADK 框架中的案例，重點聚焦階層式、平行式與循序式協調範式，以及將代理作為操作工具的實作。
 
-## Hands-on Code (Google ADK)
+## 實作範例程式（Google ADK）
 
-The following code example demonstrates the establishment of a hierarchical agent structure within the Google ADK through the creation of a parent-child relationship. The code defines two types of agents: LlmAgent and a custom TaskExecutor agent derived from BaseAgent. The TaskExecutor is designed for specific, non-LLM tasks and in this example, it simply yields a "Task finished successfully" event. An LlmAgent named greeter is initialized with a specified model and instruction to act as a friendly greeter. The custom TaskExecutor is instantiated as `task_doer`. A parent LlmAgent called coordinator is created, also with a model and instructions. The coordinator's instructions guide it to delegate greetings to the greeter and task execution to the `task_doer`. The greeter and `task_doer` are added as sub-agents to the coordinator, establishing a parent-child relationship. The code then asserts that this relationship is correctly set up. Finally, it prints a message indicating that the agent hierarchy has been successfully created.
+以下程式示範如何在 Google ADK 中建立階層式代理結構，創建父子關係。程式定義兩種代理：LlmAgent 與自 BaseAgent 繼承的自訂 TaskExecutor。TaskExecutor 用於特定的非大型語言模型任務，示例中僅輸出「Task finished successfully」事件。名為 greeter 的 LlmAgent 以指定模型初始化，並設定為友善迎賓。自訂 TaskExecutor 實例化為 `task_doer`。父級 LlmAgent coordinator 同樣指定模型與指令，其指令指導其把問候任務委派給 greeter，而把任務執行交給 `task_doer`。greeter 與 `task_doer` 被加入 coordinator 的子代理列表，建立父子關係。程式最後確認關係正確並輸出成功訊息。
 
 ```python
 from typing import AsyncGenerator
@@ -221,7 +220,7 @@ assert task_doer.parent_agent == coordinator
 print("Agent hierarchy created successfully.")
 ```
 
-This code excerpt illustrates the employment of the LoopAgent within the Google ADK framework to establish iterative workflows. The code defines two agents: ConditionChecker and ProcessingStep. ConditionChecker is a custom agent that checks a "status" value in the session state. If the "status" is "completed", ConditionChecker escalates an event to stop the loop. Otherwise, it yields an event to continue the loop. `ProcessingStep` is an LlmAgent using the "gemini-2.0-flash-exp" model. Its instruction is to perform a task and set the session `status` to "completed" if it's the final step. A LoopAgent named StatusPoller is created. StatusPoller is configured with `max_iterations=10`. StatusPoller includes both ProcessingStep and an instance of ConditionChecker as sub-agents. The LoopAgent will execute the sub-agents sequentially for up to 10 iterations, stopping if ConditionChecker finds the status is "completed".
+以下程式說明如何在 Google ADK 框架中運用 LoopAgent 建立迭代工作流程。程式定義兩個代理：ConditionChecker 與 ProcessingStep。ConditionChecker 為自訂代理，負責檢查工作階段（session）狀態中的「status」值；若為「completed」則升級事件以停止迴圈，否則輸出事件以繼續迴圈。`ProcessingStep` 是使用「gemini-2.0-flash-exp」模型的 LlmAgent，其指令要求執行任務，若為最後一步則將工作階段的 `status` 設為「completed」。LoopAgent 名為 StatusPoller，設定 `max_iterations=10`，並包含 ProcessingStep 與 ConditionChecker 實例為子代理。LoopAgent 會依序執行子代理，最多 10 次迭代，若 ConditionChecker 判定狀態為「completed」則停止。
 
 ```python
 import asyncio
@@ -279,7 +278,7 @@ poller = LoopAgent(
 # or 10 iterations have passed.
 ```
 
-This code excerpt elucidates the SequentialAgent pattern within the Google ADK, engineered for the construction of linear workflows. This code defines a sequential agent pipeline using the google.adk.agents library. The pipeline consists of two agents, step1 and step2. step1 is named `Step1_Fetch` and its output will be stored in the session state under the key `data`. step2 is named `Step2_Process` and is instructed to analyze the information stored in `session.state["data"]` and provide a summary. The SequentialAgent named "MyPipeline" orchestrates the execution of these sub-agents. When the pipeline is run with an initial input, step1 will execute first. The response from step1 will be saved into the session state under the key "data". Subsequently, step2 will execute, utilizing the information that step1 placed into the state as per its instruction. This structure allows for building workflows where the output of one agent becomes the input for the next. This is a common pattern in creating multi-step AI or data processing pipelines.
+以下程式闡釋 Google ADK 中的 SequentialAgent 模式，設計線性工作流程。此程式使用 google.adk.agents 函式庫定義兩個代理 step1 與 step2。step1 名為 `Step1_Fetch`，其輸出會儲存在工作階段狀態的 `data` 鍵值下；step2 名為 `Step2_Process`，指示其分析儲存在 `session.state["data"]` 的資訊並提供摘要。SequentialAgent 名為「MyPipeline」，負責編排子代理的執行。當管線以初始輸入啟動時，step1 先執行並把回應存入 `session.state["data"]`，隨後 step2 執行並依指示使用該資訊。此結構允許建立多步驟人工智能或資料處理管線，其中一個代理的輸出成為下一個代理的輸入。
 
 ```python
 from google.adk.agents import SequentialAgent, Agent
@@ -308,7 +307,7 @@ pipeline = SequentialAgent(
 # Step2 will execute, using the information from the state as instructed.
 ```
 
-The following code example illustrates the ParallelAgent pattern within the Google ADK, which facilitates the concurrent execution of multiple agent tasks. The `data_gatherer` is designed to run two sub-agents concurrently: `weather_fetcher` and `news_fetcher`. The `weather_fetcher` agent is instructed to get the weather for a given location and store the result in `session.state["weather_data"]`. Similarly, the `news_fetcher` agent is instructed to retrieve the top news story for a given topic and store it in `session.state["news_data"]`. Each sub-agent is configured to use the "gemini-2.0-flash-exp" model. The ParallelAgent orchestrates the execution of these sub-agents, allowing them to work in parallel. The results from both `weather_fetcher` and `news_fetcher` would be gathered and stored in the session state. Finally, the example shows how to access the collected weather and news data from the `final_state` after the agent's execution is complete.
+以下程式示範 Google ADK 中的 ParallelAgent 模式，可並行執行多個代理任務。`data_gatherer` 旨在同時執行兩個子代理：`weather_fetcher` 與 `news_fetcher`。`weather_fetcher` 指示為取得指定地點的天氣並將結果存入 `session.state["weather_data"]`；`news_fetcher` 則取得指定主題的頭條新聞並存入 `session.state["news_data"]`。每個子代理皆使用「gemini-2.0-flash-exp」模型。ParallelAgent 協調子代理的平行工作，並在執行完成後於最終狀態（final state）中讀取天氣與新聞資料。
 
 ```python
 from google.adk.agents import Agent, ParallelAgent
@@ -343,7 +342,7 @@ data_gatherer = ParallelAgent(
 )
 ```
 
-The provided code segment exemplifies the "Agent as a Tool" paradigm within the Google ADK, enabling an agent to utilize the capabilities of another agent in a manner analogous to function invocation. Specifically, the code defines an image generation system using Google's LlmAgent and AgentTool classes. It consists of two agents: a parent `artist_agent` and a sub-agent `image_generator_agent`. The `generate_image` function is a simple tool that simulates image creation, returning mock image data. The `image_generator_agent` is responsible for using this tool based on a text prompt it receives. The `artist_agent`'s role is to first invent a creative image prompt. It then calls the `image_generator_agent` through an AgentTool wrapper. The AgentTool acts as a bridge, allowing one agent to use another agent as a tool. When the `artist_agent` calls the `image_tool`, the AgentTool invokes the `image_generator_agent` with the artist's invented prompt. The `image_generator_agent` then uses the `generate_image` function with that prompt. Finally, the generated image (or mock data) is returned back up through the agents. This architecture demonstrates a layered agent system where a higher-level agent orchestrates a lower-level, specialized agent to perform a task.
+上述程式片段示範「代理即工具（Agent as a Tool）」範式，使代理能以類似函式呼叫的方式運用另一個代理的能力。程式利用 Google 的 LlmAgent 與 AgentTool 類別建立圖像生成系統，包括父級 `artist_agent` 與子級 `image_generator_agent`。`generate_image` 函式作為簡單工具，模擬圖像生成並回傳模擬資料。`image_generator_agent` 會依收到的文字提示運用該工具；`artist_agent` 則先構想創意圖像提示，再透過 AgentTool 包裝呼叫 `image_generator_agent`。當 `artist_agent` 透過 `image_tool` 呼叫時，AgentTool 會以創作的提示喚起 `image_generator_agent`，後者使用 `generate_image` 函式生成圖像並將結果回傳。此架構展示高階代理如何編排低階專業代理執行任務。
 
 ```python
 from google.adk.agents import LlmAgent
@@ -411,30 +410,30 @@ artist_agent = LlmAgent(
 )
 ```
 
-## At a Glance
+## 重點速覽（At a Glance）
 
-**What:** Complex problems often exceed the capabilities of a single, monolithic LLM-based agent. A solitary agent may lack the diverse, specialized skills or access to the specific tools needed to address all parts of a multifaceted task. This limitation creates a bottleneck, reducing the system's overall effectiveness and scalability. As a result, tackling sophisticated, multi-domain objectives becomes inefficient and can lead to incomplete or suboptimal outcomes.
+**內容：** 複雜問題往往超出單一、單體大型語言模型代理的能力。單一代理可能缺乏多樣專業技能或無法存取解決多面向任務所需的特定工具，造成瓶頸，降低系統效能與擴展性，使處理跨領域目標效率低下，甚至輸出不完整或欠佳。
 
-**Why:** The Multi-Agent Collaboration pattern offers a standardized solution by creating a system of multiple, cooperating agents. A complex problem is broken down into smaller, more manageable sub-problems. Each sub-problem is then assigned to a specialized agent with the precise tools and capabilities required to solve it. These agents work together through defined communication protocols and interaction models like sequential handoffs, parallel workstreams, or hierarchical delegation. This agentic, distributed approach creates a synergistic effect, allowing the group to achieve outcomes that would be impossible for any single agent.
+**原因：** 多代理協作模式提供標準化解決方案，透過建立多個協作代理的系統來拆解複雜問題。把大型問題拆為較小且可管理的子問題，再指派給擁有相應工具與能力的專業代理。這些代理透過明確的通訊協定與互動模型（如循序交接、平行工作流程或階層式委派）協同合作，形成人工代理網絡（agentic, distributed approach），達成單一代理無法實現的成果。
 
-**Rule of thumb:** Use this pattern when a task is too complex for a single agent and can be decomposed into distinct sub-tasks requiring specialized skills or tools. It is ideal for problems that benefit from diverse expertise, parallel processing, or a structured workflow with multiple stages, such as complex research and analysis, software development, or creative content generation.
+**經驗法則：** 當任務過於複雜、可拆分為需要專業技能或工具的離散子任務時，宜採用此模式。特別適合受益於多元專業、平行處理或具多階段結構化工作流程的問題，如複雜研究與分析、軟件開發或創意內容生成。
 
-**Visual summary:**
+**視覺摘要：**
 
-![Multi-Agent Design Pattern](../assets/Multi_Agent_Design_Pattern.png)
+![多代理設計模式（Multi-Agent Design Pattern）](../assets/Multi_Agent_Design_Pattern.png)
 
-Fig.3: Multi-Agent design pattern
+圖三：多代理設計模式。
 
-## Key Takeaways
+## 重要提示（Key Takeaways）
 
-* Multi-agent collaboration involves multiple agents working together to achieve a common goal.  
-* This pattern leverages specialized roles, distributed tasks, and inter-agent communication.  
-* Collaboration can take forms like sequential handoffs, parallel processing, debate, or hierarchical structures.  
-* This pattern is ideal for complex problems requiring diverse expertise or multiple distinct stages.
+* 多代理協作涉及多個代理合作以達成共同目標。
+* 此模式運用專業化角色、分散任務與代理間通訊。
+* 協作形式可為循序交接、平行處理、辯論或階層式結構。
+* 此模式適合需要多元專業或多個明確階段的複雜問題。
 
-## Conclusion
+## 結語（Conclusion）
 
-This chapter explored the Multi-Agent Collaboration pattern, demonstrating the benefits of orchestrating multiple specialized agents within systems. We examined various collaboration models, emphasizing the pattern's essential role in addressing complex, multifaceted problems across diverse domains. Understanding agent collaboration naturally leads to an inquiry into their interactions with the external environment.
+本章探討多代理協作模式，闡明在系統中協調多個專業代理的優勢。我們檢視多種協作模型，強調此模式在應對橫跨多領域的複雜問題時的關鍵作用。理解代理協作自然而然引導我們進一步探究其與外部環境的互動。
 
 ## References
 
