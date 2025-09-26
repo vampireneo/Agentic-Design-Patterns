@@ -207,7 +207,7 @@ print(final_result)
 
 脈絡工程(Context Engineering)（見圖1）是指在語彙生成(token generation)之前，為AI模型設計、建構與提供完整資訊環境(informational environment)的系統化學科(discipline)。此方法認為，模型輸出的品質較少取決於模型架構(architecture)，而更依賴提供的脈絡(context)是否充足。
 
-![Context Engineering](../assets/context_engineering.png)
+![Context Engineering](../assets/Context_Engineering.png)
 
 圖1：脈絡工程(Context Engineering)是一門為AI建構豐富且全面資訊環境的學科，該脈絡的品質是成就進階代理式(agentic)效能的主要因素。
 
