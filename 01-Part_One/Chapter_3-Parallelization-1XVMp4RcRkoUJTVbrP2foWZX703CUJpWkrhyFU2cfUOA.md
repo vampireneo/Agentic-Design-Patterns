@@ -1,108 +1,108 @@
-# Chapter 3: Parallelization
+# 第三章：並行化（Parallelization）
 
-## Parallelization Pattern Overview
+## 並行化模式概覽（Parallelization Pattern Overview）
 
-In the previous chapters, we've explored Prompt Chaining for sequential workflows and Routing for dynamic decision-making and transitions between different paths. While these patterns are essential, many complex agentic tasks involve multiple sub-tasks that can be executed *simultaneously* rather than one after another. This is where the **Parallelization** pattern becomes crucial.
+在前幾章中，我們已經探討了用於順序工作流程的提示鏈結（Prompt Chaining）以及用於動態決策與路徑轉換的導向（Routing）。雖然這些模式相當重要，但許多複雜的代理任務會包含多個子工作，這些子工作可以*同時地（simultaneously）*執行，而非逐一完成。這正是**並行化（Parallelization）**模式至關重要之處。
 
-Parallelization involves executing multiple components, such as LLM calls, tool usages, or even entire sub-agents, concurrently (see Fig.1). Instead of waiting for one step to complete before starting the next, parallel execution allows independent tasks to run at the same time, significantly reducing the overall execution time for tasks that can be broken down into independent parts.
+並行化（Parallelization）涉及同時執行多個元件，例如大型語言模型呼叫（LLM calls）、工具使用（tool usages），甚至整個子代理（sub-agents）（見圖一）。與其等待前一步驟完成才啟動下一個步驟，並行執行能讓彼此獨立的任務同時運行，顯著縮短可拆解為獨立部分之工作的整體執行時間。
 
-Consider an agent designed to research a topic and summarize its findings. A sequential approach might:
+想像一個代理被設計用來研究某個主題並總結其發現。順序式方法可能會：
 
-1. Search for Source A.  
-2. Summarize Source A.  
-3. Search for Source B.  
-4. Summarize Source B.  
-5. Synthesize a final answer from summaries A and B.
+1. 搜尋來源 A。
+2. 摘要來源 A。
+3. 搜尋來源 B。
+4. 摘要來源 B。
+5. 由摘要 A 與摘要 B 合成最終答案。
 
-A parallel approach could instead:
+而並行方式則可以改為：
 
-1. Search for Source A *and* Search for Source B simultaneously.  
-2. Once both searches are complete, Summarize Source A *and* Summarize Source B simultaneously.  
-3. Synthesize a final answer from summaries A and B (this step is typically sequential, waiting for the parallel steps to finish).
+1. 同時搜尋來源 A *與* 搜尋來源 B。
+2. 一旦兩個搜尋都完成，就同時摘要來源 A *與* 摘要來源 B。
+3. 由摘要 A 與摘要 B 合成最終答案（此步驟通常是順序的，需要等待並行步驟完成）。
 
-The core idea is to identify parts of the workflow that do not depend on the output of other parts and execute them in parallel. This is particularly effective when dealing with external services (like APIs or databases) that have latency, as you can issue multiple requests concurrently.
+核心理念是找出工作流程中彼此不相依賴的部分，並將它們並行執行。這在處理具有延遲的外部服務（例如應用程式介面（APIs）或資料庫（databases））時特別有效，因為可以同時發出多個請求。
 
-Implementing parallelization often requires frameworks that support asynchronous execution or multi-threading/multi-processing. Modern agentic frameworks are designed with asynchronous operations in mind, allowing you to easily define steps that can run in parallel.
+實作並行化（Parallelization）通常需要支援非同步執行或多執行緒／多製程（multi-threading/multi-processing）的框架。現代的代理框架是以非同步操作為設計核心，使您能輕鬆定義可並行執行的步驟。
 
-![Parallelization with Sub-Agents](../assets/Parallelization_with_Sub_Agents.png)
+![並行化與子代理（Parallelization with Sub-Agents）](../assets/Parallelization_with_Sub_Agents.png)
 
-Fig.1. Example of parallelization with sub-agents
+圖一。具有子代理的並行化範例
 
-Frameworks like LangChain, LangGraph, and Google ADK provide mechanisms for parallel execution. In LangChain Expression Language (LCEL), you can achieve parallel execution by combining runnable objects using operators like | (for sequential) and by structuring your chains or graphs to have branches that execute concurrently. LangGraph, with its graph structure, allows you to define multiple nodes that can be executed from a single state transition, effectively enabling parallel branches in the workflow. Google ADK provides robust, native mechanisms to facilitate and manage the parallel execution of agents, significantly enhancing the efficiency and scalability of complex, multi-agent systems. This inherent capability within the ADK framework allows developers to design and implement solutions where multiple agents can operate concurrently, rather than sequentially.
+例如 LangChain 框架（LangChain）、LangGraph 框架（LangGraph）與 Google 代理開發套件（Google ADK）等框架都提供並行執行機制。在 LangChain 表達語言（LangChain Expression Language，LCEL）中，您可以透過使用像 |（順序）等運算子結合可執行物件（runnable objects），並將鏈結（chains）或圖形（graphs）結構化為可以同時運行的分支，以達致並行執行。LangGraph 框架（LangGraph）透過圖形結構，允許您在單一狀態轉換中定義多個節點（nodes），實際上在工作流程中實現並行分支。Google 代理開發套件（Google ADK）提供穩健且原生的機制，以便促進並管理代理的並行執行，大幅提升複雜多代理系統的效率與可擴充性。這項 ADK 框架（ADK）的內建能力讓開發人員可以設計與實作多個代理同時（而非依序）運作的解決方案。
 
-The Parallelization pattern is vital for improving the efficiency and responsiveness of agentic systems, especially when dealing with tasks that involve multiple independent lookups, computations, or interactions with external services. It's a key technique for optimizing the performance of complex agent workflows.
+並行化（Parallelization）模式對於提升代理系統的效率與回應速度至關重要，尤其在需要多次獨立查詢、計算或與外部服務互動的工作上。它是優化複雜代理工作流程效能的關鍵技術之一。
 
-## Practical Applications & Use Cases
+## 實務應用與使用情境（Practical Applications & Use Cases）
 
-Parallelization is a powerful pattern for optimizing agent performance across various applications:
+並行化（Parallelization）是跨越多種應用以最佳化代理效能的強大模式：
 
-### 1. Information Gathering and Research
+### 1. 資訊收集與研究（Information Gathering and Research）
 
-Collecting information from multiple sources simultaneously is a classic use case.
+同時從多個來源收集資訊是經典使用情境。
 
-* **Use Case:** An agent researching a company.  
-  * **Parallel Tasks:** Search news articles, pull stock data, check social media mentions, and query a company database, all at the same time.  
-  * **Benefit:** Gathers a comprehensive view much faster than sequential lookups.
+* **使用情境：** 研究某間公司的代理。
+  * **並行任務：** 同時搜尋新聞文章、擷取股票數據、檢視社交媒體提及，並查詢公司資料庫。
+  * **效益：** 相較於逐一查詢，能更快速獲得全面觀點。
 
-### 2. Data Processing and Analysis
+### 2. 數據處理與分析（Data Processing and Analysis）
 
-Applying different analysis techniques or processing different data segments concurrently.
+同時套用不同的分析技術或並行處理不同的資料區段。
 
-* **Use Case:** An agent analyzing customer feedback.  
-  * **Parallel Tasks:** Run sentiment analysis, extract keywords, categorize feedback, and identify urgent issues simultaneously across a batch of feedback entries.  
-  * **Benefit:** Provides a multi-faceted analysis quickly.
+* **使用情境：** 分析顧客回饋的代理。
+  * **並行任務：** 針對一批回饋項目，同步執行情感分析（sentiment analysis）、關鍵詞擷取（keyword extraction）、回饋分類（feedback categorization），以及辨識緊急議題（urgent issues）。
+  * **效益：** 能快速提供多面向分析。
 
-### 3. Multi-API or Tool Interaction
+### 3. 多應用程式介面或工具互動（Multi-API or Tool Interaction）
 
-Calling multiple independent APIs or tools to gather different types of information or perform different actions.
+呼叫多個彼此獨立的應用程式介面（APIs）或工具，以收集不同類型資訊或執行不同操作。
 
-* **Use Case:** A travel planning agent.  
-  * **Parallel Tasks:** Check flight prices, search for hotel availability, look up local events, and find restaurant recommendations concurrently.  
-  * **Benefit:** Presents a complete travel plan faster.
+* **使用情境：** 旅遊規劃代理。
+  * **並行任務：** 同時查詢機票價格、搜尋飯店空房、檢索當地活動，以及尋找餐廳推薦。
+  * **效益：** 更快速地提供完整旅遊計畫。
 
-### 4. Content Generation with Multiple Components
+### 4. 多元組件的內容生成（Content Generation with Multiple Components）
 
-Generating different parts of a complex piece of content in parallel.
+為複雜內容的不同部分進行並行生成。
 
-* **Use Case:** An agent creating a marketing email.  
-  * **Parallel Tasks:** Generate a subject line, draft the email body, find a relevant image, and create a call-to-action button text simultaneously.  
-  * **Benefit:** Assembles the final email more efficiently.
+* **使用情境：** 建構行銷電郵的代理。
+  * **並行任務：** 同步產生主旨、撰寫電郵正文、尋找相關圖片，以及建立行動呼籲按鈕文字。
+  * **效益：** 更有效率地組合最終電郵。
 
-### 5. Validation and Verification
+### 5. 驗證與核實（Validation and Verification）
 
-Performing multiple independent checks or validations concurrently.
+並行執行多個獨立的檢查或驗證。
 
-* **Use Case:** An agent verifying user input.  
-  * **Parallel Tasks:** Check email format, validate phone number, verify address against a database, and check for profanity simultaneously.  
-  * **Benefit:** Provides faster feedback on input validity.
+* **使用情境：** 核實使用者輸入的代理。
+  * **並行任務：** 同時檢查電郵格式、驗證電話號碼、以資料庫核實地址，以及進行辱罵詞檢測。
+  * **效益：** 更快速地提供輸入有效性的回饋。
 
-### 6. Multi-Modal Processing
+### 6. 多模態處理（Multi-Modal Processing）
 
-Processing different modalities (text, image, audio) of the same input concurrently.
+同時處理同一輸入的不同模態（例如文字、圖像、音訊）。
 
-* **Use Case:** An agent analyzing a social media post with text and an image.  
-  * **Parallel Tasks:** Analyze the text for sentiment and keywords *and* analyze the image for objects and scene description simultaneously.  
-  * **Benefit:** Integrates insights from different modalities more quickly.
+* **使用情境：** 分析含文字與圖像的社交媒體貼文的代理。
+  * **並行任務：** 同步分析文字以取得情感與關鍵詞，並分析圖像以獲得物件與場景描述。
+  * **效益：** 更快速整合不同模態的洞見。
 
-### 7. A/B Testing or Multiple Options Generation
+### 7. A/B 測試或多選項生成（A/B Testing or Multiple Options Generation）
 
-Generating multiple variations of a response or output in parallel to select the best one.
+並行產生多個回應或輸出變體，以便挑選最佳選項。
 
-* **Use Case:** An agent generating different creative text options.  
-  * **Parallel Tasks:** Generate three different headlines for an article simultaneously using slightly different prompts or models.  
-  * **Benefit:** Allows for quick comparison and selection of the best option.
+* **使用情境：** 生成多種創意文字選項的代理。
+  * **並行任務：** 透過稍有不同的提示或模型，同步產生三個文章標題。
+  * **效益：** 允許迅速比較並選擇最佳方案。
 
-Parallelization is a fundamental optimization technique in agentic design, allowing developers to build more performant and responsive applications by leveraging concurrent execution for independent tasks.
+並行化（Parallelization）是代理設計中的基本最佳化技術，透過對獨立任務的同時執行，讓開發人員能打造效能更佳且回應更靈敏的應用程式。
 
-## Hands-On Code Example (LangChain)
+## 實作範例：LangChain（Hands-On Code Example (LangChain)）
 
-Parallel execution within the LangChain framework is facilitated by the LangChain Expression Language (LCEL). The primary method involves structuring multiple runnable components within a dictionary or list construct. When this collection is passed as input to a subsequent component in the chain, the LCEL runtime executes the contained runnables concurrently.
+在 LangChain 框架（LangChain）內，並行執行由 LangChain 表達語言（LangChain Expression Language，LCEL）所支援。主要方法是將多個可執行元件結構化於字典或清單（dictionary or list）中。當該集合作為輸入傳遞給後續鏈結元件時，LCEL 執行階段（LCEL runtime）會並行執行其中的可執行單元。
 
-In the context of LangGraph, this principle is applied to the graph's topology. Parallel workflows are defined by architecting the graph such that multiple nodes, lacking direct sequential dependencies, can be initiated from a single common node. These parallel pathways execute independently before their results can be aggregated at a subsequent convergence point in the graph.
+在 LangGraph 框架（LangGraph）的脈絡中，這項原則套用於圖形拓撲（graph topology）。透過設計，使得圖上缺乏直接順序相依的多個節點可以從同一個共通節點啟動，即可定義並行工作流程。這些並行路徑會獨立執行，然後在圖上後續的匯流點（convergence point）聚合結果。
 
-The following implementation demonstrates a parallel processing workflow constructed with the LangChain framework. This workflow is designed to execute two independent operations concurrently in response to a single user query. These parallel processes are instantiated as distinct chains or functions, and their respective outputs are subsequently aggregated into a unified result.
+以下實作展示一個使用 LangChain 框架（LangChain）建構的並行處理工作流程。此流程旨在針對單一使用者查詢，同時執行兩個獨立操作。這些並行程序被建立為獨立的鏈結或函式，之後其輸出會整合為統一結果。
 
-The prerequisites for this implementation include the installation of the requisite Python packages, such as langchain, langchain-community, and a model provider library like langchain-openai. Furthermore, a valid API key for the chosen language model must be configured in the local environment for authentication.
+此實作的先決條件包括安裝必要的 Python 套件，如 langchain（langchain）、langchain-community（langchain-community），以及如 langchain-openai（langchain-openai）等模型提供者函式庫。此外，必須在本機環境設定所選語言模型的有效應用程式介面金鑰（API key），以進行驗證。
 
 ```python
 import os
@@ -214,17 +214,19 @@ if __name__ == "__main__":
     asyncio.run(run_parallel_example(test_topic))
 ```
 
-The provided Python code implements a LangChain application designed for processing a given topic efficiently by leveraging parallel execution. Note that asyncio provides concurrency, not parallelism. It achieves this on a single thread by using an event loop that intelligently switches between tasks when one is idle (e.g., waiting for a network request). This creates the effect of multiple tasks progressing at once, but the code itself is still being executed by only one thread, constrained by Python's Global Interpreter Lock (GIL).
+上述 Python 程式碼實作了一個運用並行執行的 LangChain 應用程式（LangChain），用以高效率處理指定主題。值得注意的是，asyncio（asyncio）提供的是併發（concurrency），而非平行處理（parallelism）。它在單一執行緒上透過事件迴圈（event loop）在任務閒置（例如等待網路請求）時智慧切換任務，營造多個任務同時進行的效果，但程式碼仍由單一執行緒執行，受限於 Python 全域直譯器鎖（Global Interpreter Lock，GIL）。
 
-The code begins by importing essential modules from `langchain_openai` and `langchain_core`, including components for language models, prompts, output parsing, and runnable structures. The code attempts to initialize a ChatOpenAI instance, specifically using the "gpt-4o-mini" model, with a specified temperature for controlling creativity. A try-except block is used for robustness during the language model initialization. Three independent LangChain "chains" are then defined, each designed to perform a distinct task on the input topic. The first chain is for summarizing the topic concisely, using a system message and a user message containing the topic placeholder. The second chain is configured to generate three interesting questions related to the topic. The third chain is set up to identify between 5 and 10 key terms from the input topic, requesting them to be comma-separated. Each of these independent chains consists of a ChatPromptTemplate tailored to its specific task, followed by the initialized language model and a StrOutputParser to format the output as a string.
+程式一開始匯入來自 `langchain_openai` 與 `langchain_core` 的重要模組，包括語言模型（language models）、提示（prompts）、輸出剖析（output parsing）與可執行結構（runnable structures）。程式嘗試初始化 ChatOpenAI（ChatOpenAI）實例，特別是使用 "gpt-4o-mini" 模型，並設定溫度以控制創意度。透過例外處理（try-except）確保語言模型初始化的穩健性。接著定義三個獨立的 LangChain 鏈結（LangChain chains），各自對輸入主題執行特定任務。第一個鏈結負責精簡摘要該主題，使用系統訊息與包含主題佔位符的使用者訊息。第二個鏈結則產生與主題相關的三個有趣問題。第三個鏈結設定為辨識五至十個關鍵詞，並要求以逗號分隔。每個獨立鏈結都包含為其任務量身打造的 ChatPromptTemplate（ChatPromptTemplate），接著是初始化的語言模型，以及將輸出格式化為字串的 StrOutputParser（StrOutputParser）。
 
-A RunnableParallel block is then constructed to bundle these three chains, allowing them to execute simultaneously. This parallel runnable also includes a RunnablePassthrough to ensure the original input topic is available for subsequent steps. A separate ChatPromptTemplate is defined for the final synthesis step, taking the summary, questions, key terms, and the original topic as input to generate a comprehensive answer. The full end-to-end processing chain, named `full_parallel_chain`, is created by sequencing the `map_chain` (the parallel block) into the synthesis prompt, followed by the language model and the output parser. An asynchronous function `run_parallel_example` is provided to demonstrate how to invoke this `full_parallel_chain`. This function takes the topic as input and uses invoke to run the asynchronous chain. Finally, the standard Python `if __name__ \== "__main__":` block shows how to execute the `run_parallel_example` with a sample topic, in this case, "The history of space exploration", using asyncio.run to manage the asynchronous execution.
+接下來建立 RunnableParallel（RunnableParallel）區塊，將這三個鏈結打包，以便同時執行。此並行可執行單元也包含 RunnablePassthrough（RunnablePassthrough），以確保原始輸入主題可供後續步驟使用。之後定義獨立的合成提示（synthesis prompt），取用摘要、問題、關鍵詞與原始主題作為輸入，以產生全面答案。透過串接 `map_chain`（map_chain，並行區塊）、合成提示、語言模型與輸出剖析器，形成完整的 `full_parallel_chain`（full_parallel_chain）。
 
-In essence, this code sets up a workflow where multiple LLM calls (for summarizing, questions, and terms) happen at the same time for a given topic, and their results are then combined by a final LLM call. This showcases the core idea of parallelization in an agentic workflow using LangChain.
+提供的非同步函式 `run_parallel_example`（run_parallel_example）示範如何呼叫 `full_parallel_chain`（full_parallel_chain）。此函式接收主題作為輸入，並使用 `ainvoke`（ainvoke）執行非同步鏈結。最後，標準的 Python `if __name__ == "__main__":` 區塊展示如何以範例主題「太空探索史」（"The history of space exploration"）搭配 asyncio.run（asyncio.run）執行此非同步流程。
 
-## Hands-On Code Example (Google ADK)
+總而言之，這段程式碼建立了一個工作流程，對單一主題同時進行多個大型語言模型呼叫（LLM calls），包括摘要、問題與關鍵詞產出，然後由最終大型語言模型呼叫彙整結果。這展示了在代理工作流程中運用 LangChain 框架（LangChain）實現並行化的核心概念。
 
-Okay, let's now turn our attention to a concrete example illustrating these concepts within the Google ADK framework. We'll examine how the ADK primitives, such as ParallelAgent and SequentialAgent, can be applied to build an agent flow that leverages concurrent execution for improved efficiency.
+## 實作範例：Google ADK（Hands-On Code Example (Google ADK)）
+
+接下來，我們將焦點轉向在 Google 代理開發套件（Google ADK）框架中的具體範例。此處將檢視如何運用 ADK 原語（primitives），例如 ParallelAgent（ParallelAgent）與 SequentialAgent（SequentialAgent），構建能善用併發執行以提升效率的代理流程。
 
 ```python
 from google.adk.agents import LlmAgent, ParallelAgent, SequentialAgent
@@ -319,7 +321,6 @@ Output *only* the structured report following this format. Do not include introd
     # No output_key needed here, as its direct response is the final output of the sequence
 )
 
-
 # --- 4. Create the SequentialAgent (Orchestrates the overall flow) ---
 # This is the main agent that will be run. It first executes the ParallelAgent
 # to populate the state, and then executes the MergerAgent to produce the final output.
@@ -333,52 +334,52 @@ sequential_pipeline_agent = SequentialAgent(
 root_agent = sequential_pipeline_agent
 ```
 
-This code defines a multi-agent system used to research and synthesize information on sustainable technology advancements. It sets up three LlmAgent instances to act as specialized researchers. `ResearcherAgent_1` focuses on renewable energy sources, `ResearcherAgent_2` researches electric vehicle technology, and `ResearcherAgent_3` investigates carbon capture methods. Each researcher agent is configured to use a `GEMINI_MODEL` and the `google_search` tool. They are instructed to summarize their findings concisely (1-2 sentences) and store these summaries in the session state using `output_key`.
+上述程式碼定義了一套多代理系統，用於研究並綜整永續科技進展。它建立三個 LlmAgent（LlmAgent）實例作為專業研究員：`ResearcherAgent_1`（ResearcherAgent_1）專注可再生能源來源，`ResearcherAgent_2`（ResearcherAgent_2）研究電動車技術，而 `ResearcherAgent_3`（ResearcherAgent_3）調查碳捕捉方法。每個研究員代理都設定使用 GEMINI 模型（GEMINI_MODEL）與 google_search 工具（google_search tool），被指示以一至兩句的精簡摘要回報重點，並透過 `output_key`（output_key）將摘要儲存於工作階段狀態。
 
-A ParallelAgent named ParallelWebResearchAgent is then created to run these three researcher agents concurrently. This allows the research to be conducted in parallel, potentially saving time. The ParallelAgent completes its execution once all its sub-agents (the researchers) have finished and populated the state.
+接著建立名為 ParallelWebResearchAgent（ParallelWebResearchAgent）的 ParallelAgent（ParallelAgent），以並行方式執行三個研究員代理，讓研究能同步進行並節省時間。ParallelAgent（ParallelAgent）會在所有子代理完成並將結果寫入狀態後結束執行。
 
-Next, a MergerAgent (also an LlmAgent) is defined to synthesize the research results. This agent takes the summaries stored in the session state by the parallel researchers as input. Its instruction emphasizes that the output must be strictly based only on the provided input summaries, prohibiting the addition of external knowledge. The MergerAgent is designed to structure the combined findings into a report with headings for each topic and a brief overall conclusion.
+之後定義 MergerAgent（MergerAgent），同樣為 LlmAgent（LlmAgent），用以綜合研究成果。此代理從並行研究員寫入工作階段狀態的摘要作為輸入，指令強調輸出必須嚴格根據提供的摘要，禁止加入外部知識。MergerAgent（MergerAgent）旨在將整合結果以每個主題的標題呈現，並提供簡短總結。
 
-Finally, a SequentialAgent named ResearchAndSynthesisPipeline is created to orchestrate the entire workflow. As the primary controller, this main agent first executes the ParallelAgent to perform the research. Once the ParallelAgent is complete, the SequentialAgent then executes the MergerAgent to synthesize the collected information. The `sequential_pipeline_agent` is set as the `root_agent`, representing the entry point for running this multi-agent system. The overall process is designed to efficiently gather information from multiple sources in parallel and then combine it into a single, structured report.
+最後，建立名為 ResearchAndSynthesisPipeline（ResearchAndSynthesisPipeline）的 SequentialAgent（SequentialAgent）來統籌整個工作流程。此主控代理會先執行 ParallelAgent（ParallelAgent）進行研究，待並行研究完成後，再執行 MergerAgent（MergerAgent）整合資訊。`sequential_pipeline_agent`（sequential_pipeline_agent）被設定為 `root_agent`（root_agent），作為運行這套多代理系統的入口。整體流程旨在有效率地並行蒐集多方資訊，然後整合成單一結構化報告。
 
-## At a Glance
+## 重點速覽（At a Glance）
 
-**What:** Many agentic workflows involve multiple sub-tasks that must be completed to achieve a final goal. A purely sequential execution, where each task waits for the previous one to finish, is often inefficient and slow. This latency becomes a significant bottleneck when tasks depend on external I/O operations, such as calling different APIs or querying multiple databases. Without a mechanism for concurrent execution, the total processing time is the sum of all individual task durations, hindering the system's overall performance and responsiveness.
+**重點：** 許多代理工作流程包含必須完成多個子任務才能達成最終目標。純粹的順序執行（sequential execution），即每個任務都等待前一個完成，往往效率低且耗時。當任務仰賴外部輸入／輸出作業（例如呼叫不同應用程式介面或查詢多個資料庫）時，這種延遲更成為顯著瓶頸。如果缺乏併發執行機制，總處理時間就是全部個別任務時間的總和，阻礙系統整體效能與回應力。
 
-**Why:** The Parallelization pattern provides a standardized solution by enabling the simultaneous execution of independent tasks. It works by identifying components of a workflow, like tool usages or LLM calls, that do not rely on each other's immediate outputs. Agentic frameworks like LangChain and the Google ADK provide built-in constructs to define and manage these concurrent operations. For instance, a main process can invoke several sub-tasks that run in parallel and wait for all of them to complete before proceeding to the next step. By running these independent tasks at the same time rather than one after another, this pattern drastically reduces the total execution time.
+**原因：** 並行化（Parallelization）模式提供標準化的解決方案，能夠同時執行相互獨立的任務。它的運作方式是辨識工作流程中不依賴彼此即時輸出的元件，例如工具使用或大型語言模型呼叫。像 LangChain 框架（LangChain）與 Google 代理開發套件（Google ADK）等代理框架提供內建結構，用以定義並管理這些併發操作。例如，主流程可以啟動多個並行子任務，並在全部完成後再進行下一步。透過同時執行獨立任務而非依序處理，此模式能大幅縮短整體執行時間。
 
-**Rule of thumb:** Use this pattern when a workflow contains multiple independent operations that can run simultaneously, such as fetching data from several APIs, processing different chunks of data, or generating multiple pieces of content for later synthesis.
+**經驗法則：** 當工作流程包含多個可以同時運行的獨立操作時，應採用此模式，例如從多個應用程式介面擷取資料、處理不同資料區塊，或生成多項內容以供後續綜整。
 
-**Visual summary:**
+**視覺摘要：**
 
-![Parallelization Design Pattern](../assets/Parallelization_Design_Pattern.png)
+![並行化設計模式（Parallelization Design Pattern）](../assets/Parallelization_Design_Pattern.png)
 
-Fig.2: Parallelization design pattern
+圖二：並行化設計模式
 
-## Key Takeaways
+## 重要重點（Key Takeaways）
 
-Here are the key takeaways:
+以下為關鍵重點：
 
-* Parallelization is a pattern for executing independent tasks concurrently to improve efficiency.  
-* It is particularly useful when tasks involve waiting for external resources, such as API calls.  
-* The adoption of a concurrent or parallel architecture introduces substantial complexity and cost, impacting key development phases such as design, debugging, and system logging.  
-* Frameworks like LangChain and Google ADK provide built-in support for defining and managing parallel execution.  
-* In LangChain Expression Language (LCEL), RunnableParallel is a key construct for running multiple runnables side-by-side.  
-* Google ADK can facilitate parallel execution through LLM-Driven Delegation, where a Coordinator agent's LLM identifies independent sub-tasks and triggers their concurrent handling by specialized sub-agents.  
-* Parallelization helps reduce overall latency and makes agentic systems more responsive for complex tasks.
+* 並行化（Parallelization）是用於同時執行獨立任務以提升效率的模式。
+* 當任務需要等待外部資源（例如應用程式介面呼叫）時，此模式特別有用。
+* 採用併發或平行架構會引入相當的複雜度與成本，影響設計、除錯與系統記錄等開發關鍵階段。
+* 像 LangChain 框架（LangChain）與 Google 代理開發套件（Google ADK）等框架提供內建支援，以定義並管理並行執行。
+* 在 LangChain 表達語言（LangChain Expression Language，LCEL）中，RunnableParallel（RunnableParallel）是並行執行多個可執行單元的核心構件。
+* Google 代理開發套件（Google ADK）可透過大型語言模型驅動的委派（LLM-Driven Delegation），由協調者代理（Coordinator agent）的大型語言模型辨識獨立子任務，並觸發專門子代理的並行處理。
+* 並行化（Parallelization）有助於降低整體延遲，讓代理系統在處理複雜任務時更為靈敏。
 
-## Conclusion
+## 結論（Conclusion）
 
-The parallelization pattern is a method for optimizing computational workflows by concurrently executing independent sub-tasks. This approach reduces overall latency, particularly in complex operations that involve multiple model inferences or calls to external services.
+並行化（Parallelization）模式是一種藉由同時執行獨立子任務以最佳化計算工作流程的方法。此作法能降低整體延遲，尤其適用於包含多次模型推論或外部服務呼叫的複雜操作。
 
-Frameworks provide distinct mechanisms for implementing this pattern. In LangChain, constructs like RunnableParallel are used to explicitly define and execute multiple processing chains simultaneously. In contrast, frameworks like the Google Agent Developer Kit (ADK) can achieve parallelization through multi-agent delegation, where a primary coordinator model assigns different sub-tasks to specialized agents that can operate concurrently.
+各種框架提供不同的實作機制。在 LangChain 框架（LangChain）中，可使用 RunnableParallel（RunnableParallel）等構件明確定義並同時執行多個處理鏈結。相對地，像 Google Agent Developer Kit（Google Agent Developer Kit，ADK）等框架可透過多代理委派（multi-agent delegation）達成並行化，由主要協調代理分派不同子任務給能同步運作的專門代理。
 
-By integrating parallel processing with sequential (chaining) and conditional (routing) control flows, it becomes possible to construct sophisticated, high-performance computational systems capable of efficiently managing diverse and complex tasks.
+將並行處理與順序（鏈結）（sequential chaining）及條件（導向）（conditional routing）控制流程整合後，即可建構高度複雜且高效能的計算系統，有效管理多樣且複雜的任務。
 
 ## References
 
 Here are some resources for further reading on the Parallelization pattern and related concepts:
 
 1. LangChain Expression Language (LCEL) Documentation (Parallelism): [https://python.langchain.com/docs/concepts/lcel/](https://python.langchain.com/docs/concepts/lcel/)
-2. Google Agent Developer Kit (ADK) Documentation (Multi-Agent Systems): [https://google.github.io/adk-docs/agents/multi-agents/](https://google.github.io/adk-docs/agents/multi-agents/)  
+2. Google Agent Developer Kit (ADK) Documentation (Multi-Agent Systems): [https://google.github.io/adk-docs/agents/multi-agents/](https://google.github.io/adk-docs/agents/multi-agents/)
 3. Python `asyncio` Documentation: [https://docs.python.org/3/library/asyncio.html](https://docs.python.org/3/library/asyncio.html)
