@@ -1,67 +1,67 @@
-# Chapter 8: Memory Management
+# 第八章：記憶體管理（Memory Management）
 
-Effective memory management is crucial for intelligent agents to retain information. Agents require different types of memory, much like humans, to operate efficiently. This chapter delves into memory management, specifically addressing the immediate (short-term) and persistent (long-term) memory requirements of agents.
+有效的記憶體管理（memory management）對智能代理（intelligent agents）保留資訊至關重要。代理（agents）與人類相似，需要不同類型的記憶（memory）才能高效運作。本章深入探討記憶體管理，特別關注代理在即時（短期）（short-term）與持久（長期）（long-term）記憶需求上的處理。
 
-In agent systems, memory refers to an agent's ability to retain and utilize information from past interactions, observations, and learning experiences. This capability allows agents to make informed decisions, maintain conversational context, and improve over time. Agent memory is generally categorized into two main types:
+在代理系統（agent systems）中，記憶（memory）指的是代理保留與運用過往互動、觀察與學習經驗資訊的能力。這項能力讓代理得以作出明智決策、維持對話脈絡並隨時間改善。代理記憶（agent memory）一般分為兩大類別：
 
-* **Short-Term Memory (Contextual Memory):** Similar to working memory, this holds information currently being processed or recently accessed. For agents using large language models (LLMs), short-term memory primarily exists within the context window. This window contains recent messages, agent replies, tool usage results, and agent reflections from the current interaction, all of which inform the LLM's subsequent responses and actions. The context window has a limited capacity, restricting the amount of recent information an agent can directly access. Efficient short-term memory management involves keeping the most relevant information within this limited space, possibly through techniques like summarizing older conversation segments or emphasizing key details. The advent of models with 'long context' windows simply expands the size of this short-term memory, allowing more information to be held within a single interaction. However, this context is still ephemeral and is lost once the session concludes, and it can be costly and inefficient to process every time. Consequently, agents require separate memory types to achieve true persistence, recall information from past interactions, and build a lasting knowledge base.  
-* **Long-Term Memory (Persistent Memory):** This acts as a repository for information agents need to retain across various interactions, tasks, or extended periods, akin to long-term knowledge bases. Data is typically stored outside the agent's immediate processing environment, often in databases, knowledge graphs, or vector databases. In vector databases, information is converted into numerical vectors and stored, enabling agents to retrieve data based on semantic similarity rather than exact keyword matches, a process known as semantic search. When an agent needs information from long-term memory, it queries the external storage, retrieves relevant data, and integrates it into the short-term context for immediate use, thus combining prior knowledge with the current interaction.
+* **短期記憶（語境記憶）（Short-Term Memory (Contextual Memory)）**：類似工作記憶，儲存目前正在處理或最近存取的資訊。對於使用大型語言模型（Large Language Models，LLMs）的代理而言，短期記憶主要存在於語境視窗（context window）內。這個視窗包含近期訊息、代理回覆、工具使用結果以及代理在當前互動中的反思，所有這些都會影響 LLM 隨後的回應與動作。語境視窗具有容量限制，制約代理可以直接存取的近期資訊量。高效的短期記憶管理涉及在這個有限空間內保留最相關的資訊，可能透過摘要較早的對話片段或強調關鍵細節的技巧來達成。具有「長語境」（long context）視窗的模型出現，僅僅是擴大了這種短期記憶的容量，讓單次互動中能保留更多資訊。然而，這類語境依舊是暫時的，一旦工作階段結束便會消失，而且每次處理所有內容既昂貴又低效。因此，代理需要額外的記憶類型，才能達成真正的持久性、從過往互動中提取資訊並建構持續的知識庫。
+* **長期記憶（持久記憶）（Long-Term Memory (Persistent Memory)）**：扮演代理在多重互動、任務或較長時間範圍內需要保留資訊的儲存庫，類似長期知識庫。資料通常儲存在代理的即時處理環境之外，常見於資料庫、知識圖譜或向量資料庫（vector databases）中。在向量資料庫內，資訊會轉換成數值向量並加以儲存，使代理能夠根據語意相似度而非精確關鍵字匹配來檢索資料，這個過程稱為語意搜尋（semantic search）。當代理需要長期記憶中的資訊時，會查詢外部儲存體、擷取相關資料並將其整合進短期語境中立即使用，從而把既有知識與當前互動結合起來。
 
-## Practical Applications & Use Cases
+## 實務應用與使用情境（Practical Applications & Use Cases）
 
-Memory management is vital for agents to track information and perform intelligently over time. This is essential for agents to surpass basic question-answering capabilities. Applications include:
+記憶體管理對代理追蹤資訊並在時間軸上展現智慧至關重要。這是代理超越基本問答能力的必要條件。應用情境包括：
 
-* **Chatbots and Conversational AI:** Maintaining conversation flow relies on short-term memory. Chatbots require remembering prior user inputs to provide coherent responses. Long-term memory enables chatbots to recall user preferences, past issues, or prior discussions, offering personalized and continuous interactions.  
-* **Task-Oriented Agents:** Agents managing multi-step tasks need short-term memory to track previous steps, current progress, and overall goals. This information might reside in the task's context or temporary storage. Long-term memory is crucial for accessing specific user-related data not in the immediate context.  
-* **Personalized Experiences:** Agents offering tailored interactions utilize long-term memory to store and retrieve user preferences, past behaviors, and personal information. This allows agents to adapt their responses and suggestions.  
-* **Learning and Improvement:** Agents can refine their performance by learning from past interactions. Successful strategies, mistakes, and new information are stored in long-term memory, facilitating future adaptations. Reinforcement learning agents store learned strategies or knowledge in this way.  
-* **Information Retrieval (RAG):** Agents designed for answering questions access a knowledge base, their long-term memory, often implemented within Retrieval Augmented Generation (RAG). The agent retrieves relevant documents or data to inform its responses.  
-* **Autonomous Systems:** Robots or self-driving cars require memory for maps, routes, object locations, and learned behaviors. This involves short-term memory for immediate surroundings and long-term memory for general environmental knowledge.
+* **聊天機器人與會話式人工智慧（Chatbots and Conversational AI）**：維持對話流程依賴短期記憶。聊天機器人需要記住先前使用者輸入，才能提供一致的回應。長期記憶讓聊天機器人能回想使用者偏好、過往問題或先前對話，提供個人化且持續的互動。
+* **任務導向型代理（Task-Oriented Agents）**：負責管理多步驟任務的代理需要短期記憶來追蹤先前步驟、目前進度與整體目標。這些資訊可能存放在任務語境或暫存區中。長期記憶對於存取不在即時語境內的特定使用者資料至關重要。
+* **個人化體驗（Personalized Experiences）**：提供客製化互動的代理會運用長期記憶儲存並擷取使用者偏好、過往行為與個人資訊，讓代理可以調整回應與建議。
+* **學習與改進（Learning and Improvement）**：代理可以透過學習過往互動來優化表現。成功策略、錯誤與新資訊會儲存在長期記憶中，以利日後調整。強化學習代理（reinforcement learning agents）以此方式儲存已學得的策略或知識。
+* **資訊檢索（檢索增強生成）（Information Retrieval (Retrieval Augmented Generation, RAG)）**：專為回答問題而設計的代理會存取知識庫，也就是它們的長期記憶，通常透過檢索增強生成（RAG）實作。代理會擷取相關文件或資料來支援回應。
+* **自主系統（Autonomous Systems）**：機器人或自動駕駛車需要記憶地圖、路線、物件位置與學得的行為。這包含短期記憶用於處理即時環境，以及長期記憶用於一般環境知識。
 
-Memory enables agents to maintain history, learn, personalize interactions, and manage complex, time-dependent problems.
+記憶（memory）讓代理能維持歷史、學習、個人化互動並處理複雜且依賴時間的問題。
 
-## Hands-On Code: Memory Management in Google Agent Developer Kit (ADK)
+## 實作程式碼：Google Agent Developer Kit（ADK）中的記憶體管理（Hands-On Code: Memory Management in Google Agent Developer Kit (ADK)）
 
-The Google Agent Developer Kit (ADK) offers a structured method for managing context and memory, including components for practical application. A solid grasp of ADK's Session, State, and Memory is vital for building agents that need to retain information.
+Google Agent Developer Kit（ADK）提供一套結構化方法來管理語境與記憶（memory），包含適用於實務的元件。扎實掌握 ADK 的 Session、State 與 Memory 對於構建需要保留資訊的代理至關重要。
 
-Just as in human interactions, agents require the ability to recall previous exchanges to conduct coherent and natural conversations. ADK simplifies context management through three core concepts and their associated services.
+就像人類互動一樣，代理需要回想先前交流才能進行連貫自然的對話。ADK 透過三個核心概念及其相關服務來簡化語境管理。
 
-Every interaction with an agent can be considered a unique conversation thread. Agents might need to access data from earlier interactions. ADK structures this as follows:
+與代理的每次互動都可視為一條獨特的對話線索。代理可能需要存取較早互動的資料。ADK 的結構如下：
 
-* **Session:** An individual chat thread that logs messages and actions (Events) for that specific interaction, also storing temporary data (State) relevant to that conversation.  
-* **State (`session.state`):** Data stored within a Session, containing information relevant only to the current, active chat thread.  
-* **Memory:** A searchable repository of information sourced from various past chats or external sources, serving as a resource for data retrieval beyond the immediate conversation.
+* **Session（工作階段）**：個別聊天線索，會記錄該次互動的訊息與動作（Events），同時儲存與該對話相關的暫存資料（State）。
+* **State（`session.state`，狀態）**：儲存在 Session 內的資料，包含僅與目前活躍聊天線索相關的資訊。
+* **Memory（記憶）**：可搜尋的資訊儲存庫，來源可能是過去多次聊天或外部來源，提供超出即時對話的資料檢索資源。
 
-ADK provides dedicated services for managing critical components essential for building complex, stateful, and context-aware agents. The SessionService manages chat threads (Session objects) by handling their initiation, recording, and termination, while the MemoryService oversees the storage and retrieval of long-term knowledge (Memory).
+ADK 為管理構建複雜、具狀態與語境感知代理所需的關鍵元件提供專用服務。Session 服務（SessionService）管理聊天線索（Session 物件），負責啟動、記錄與結束；記憶服務（MemoryService）則監督長期知識（Memory）的儲存與擷取。
 
-Both the SessionService and MemoryService offer various configuration options, allowing users to choose storage methods based on application needs. In-memory options are available for testing purposes, though data will not persist across restarts. For persistent storage and scalability, ADK also supports database and cloud-based services.
+Session 服務（SessionService）與記憶服務（MemoryService）都提供多種設定選項，讓使用者能依應用需求選擇儲存方式。記憶體內（in-memory）選項適合測試用途，但資料不會在重啟後保留。為了持久儲存與擴充性，ADK 亦支援資料庫與雲端服務。
 
-### Session: Keeping Track of Each Chat
+### Session：追蹤每一次聊天（Session: Keeping Track of Each Chat）
 
-A Session object in ADK is designed to track and manage individual chat threads. Upon initiation of a conversation with an agent, the SessionService generates a Session object, represented as `google.adk.sessions.Session`. This object encapsulates all data relevant to a specific conversation thread, including unique identifiers (`id`, `app\_name`, `user\_id`), a chronological record of events as Event objects, a storage area for session-specific temporary data known as state, and a timestamp indicating the last update (`last\_update\_time`). Developers typically interact with Session objects indirectly through the SessionService. The SessionService is responsible for managing the lifecycle of conversation sessions, which includes initiating new sessions, resuming previous sessions, recording session activity (including state updates), identifying active sessions, and managing the removal of session data. The ADK provides several SessionService implementations with varying storage mechanisms for session history and temporary data, such as the InMemorySessionService, which is suitable for testing but does not provide data persistence across application restarts.
+ADK 中的 Session 物件專為追蹤與管理個別聊天線索而設計。當與代理展開對話時，Session 服務（SessionService）會產生一個 `google.adk.sessions.Session` 物件。該物件封裝了特定對話線索的所有資料，包括唯一識別碼（`id`、`app_name`、`user_id`）、以 Event 物件呈現的時間順序記錄、稱為 state 的會話專屬暫存資料儲存區，以及顯示最後更新時間的時間戳記（`last_update_time`）。開發者通常透過 Session 服務（SessionService）間接與 Session 物件互動。Session 服務（SessionService）負責管理對話工作階段的生命週期，包括啟動新工作階段、恢復先前工作階段、記錄工作階段活動（包含狀態更新）、識別活躍工作階段並管理刪除工作階段資料。ADK 提供多種 Session 服務（SessionService）實作，採用不同儲存機制來保存工作階段歷史與暫存資料，例如 InMemorySessionService，適合測試但無法在應用重啟後保留資料。
 
 ```python
-# Example: Using InMemorySessionService 
-# This is suitable for local development and testing where data 
-# persistence across application restarts is not required. 
+# Example: Using InMemorySessionService
+# This is suitable for local development and testing where data
+# persistence across application restarts is not required.
 from google.adk.sessions import InMemorySessionService
 session_service = InMemorySessionService()
 ```
 
-Then there's DatabaseSessionService if you want reliable saving to a database you manage.
+此外，如果想將資料可靠地儲存到自行管理的資料庫，還可以使用 DatabaseSessionService。
 
 ```python
-# Example: Using DatabaseSessionService 
-# This is suitable for production or development requiring persistent storage. 
-# You need to configure a database URL (e.g., for SQLite, PostgreSQL, etc.). 
-# Requires: pip install google-adk[sqlalchemy] and a database driver (e.g., psycopg2 for PostgreSQL) 
-from google.adk.sessions import DatabaseSessionService 
-# Example using a local SQLite file: 
+# Example: Using DatabaseSessionService
+# This is suitable for production or development requiring persistent storage.
+# You need to configure a database URL (e.g., for SQLite, PostgreSQL, etc.).
+# Requires: pip install google-adk[sqlalchemy] and a database driver (e.g., psycopg2 for PostgreSQL)
+from google.adk.sessions import DatabaseSessionService
+# Example using a local SQLite file:
 db_url = "sqlite:///./my_agent_data.db"
 session_service = DatabaseSessionService(db_url=db_url)
 ```
 
-Besides, there's VertexAiSessionService which uses Vertex AI infrastructure for scalable production on Google Cloud.
+此外，VertexAiSessionService 利用 Vertex AI 基礎設施，適用於 Google Cloud 上可擴充的生產環境。
 
 ```python
 # Example: Using VertexAiSessionService
@@ -89,29 +89,29 @@ session_service = VertexAiSessionService(project=PROJECT_ID, location=LOCATION)
 # session_service.delete_session(app_name=REASONING_ENGINE_APP_NAME, ...)
 ```
 
-Choosing an appropriate SessionService is crucial as it determines how the agent's interaction history and temporary data are stored and their persistence.
+選擇適合的 Session 服務（SessionService）至關重要，因為它決定代理互動歷史與暫存資料的儲存方式與持久性。
 
-Each message exchange involves a cyclical process: A message is received, the Runner retrieves or establishes a Session using the SessionService, the agent processes the message using the Session's context (state and historical interactions), the agent generates a response and may update the state, the Runner encapsulates this as an Event, and the `session\_service.append\_event` method records the new event and updates the state in storage. The Session then awaits the next message. Ideally, the `delete\_session` method is employed to terminate the session when the interaction concludes. This process illustrates how the SessionService maintains continuity by managing the Session-specific history and temporary data.
+每次訊息交換都涉及循環流程：系統接收訊息，執行器（Runner）透過 Session 服務（SessionService） 取得或建立 Session，代理使用 Session 的語境（state 與歷史互動）處理訊息，代理產生回應並可能更新 state，執行器（Runner）將結果封裝為 Event，而 `session_service.append_event` 方法則在儲存中紀錄新事件並更新 state。Session 接著等待下一則訊息。理想情況下，互動結束時應使用 `delete_session` 方法終止工作階段。這個流程顯示 Session 服務（SessionService）如何透過管理 Session 專屬歷史與暫存資料來維持連續性。
 
-### State: The Session's Scratchpad
+### State：工作階段的草稿本（State: The Session's Scratchpad）
 
-In the ADK, each Session, representing a chat thread, includes a state component akin to an agent's temporary working memory for the duration of that specific conversation. While session.events logs the entire chat history, session.state stores and updates dynamic data points relevant to the active chat.
+在 ADK 中，每個代表聊天線索的 Session 都包含 state 元件，類似代理在該次對話期間的臨時工作記憶。`session.events` 會記錄整個聊天歷史，而 `session.state` 則儲存並更新與活躍對話相關的動態資料。
 
-Fundamentally, session.state operates as a dictionary, storing data as key-value pairs. Its core function is to enable the agent to retain and manage details essential for coherent dialogue, such as user preferences, task progress, incremental data collection, or conditional flags influencing subsequent agent actions.
+根本上，`session.state` 以字典形式運作，透過鍵值配對存放資料。其核心功能是讓代理保留並管理對於連貫對話至關重要的細節，例如使用者偏好、任務進度、逐步累積的資料或影響代理後續行動的條件旗標。
 
-The state’s structure comprises string keys paired with values of serializable Python types, including strings, numbers, booleans, lists, and dictionaries containing these basic types. State is dynamic, evolving throughout the conversation. The permanence of these changes depends on the configured SessionService.
+state 結構由字串鍵與可序列化的 Python 型別值組成，包括字串、數字、布林值、清單以及包含這些基本型別的字典。state 是動態的，會在對話期間持續演變，其變更是否長存取決於所設定的 Session 服務（SessionService）。
 
-State organization can be achieved using key prefixes to define data scope and persistence. Keys without prefixes are session-specific.
+可以利用鍵前綴來規劃 state，界定資料範圍與持久性。沒有前綴的鍵為工作階段專屬：
 
-* The user: prefix associates data with a user ID across all sessions.
-* The app: prefix designates data shared among all users of the application.
-* The temp: prefix indicates data valid only for the current processing turn and is not persistently stored.
+* `user:` 前綴會將資料與使用者 ID 連結，跨所有工作階段共用。
+* `app:` 前綴指定應用程式所有使用者共享的資料。
+* `temp:` 前綴代表僅在當前處理輪次有效且不會永久儲存的資料。
 
-The agent accesses all state data through a single session.state dictionary. The SessionService handles data retrieval, merging, and persistence. State should be updated upon adding an Event to the session history via `session\_service.append\_event()`. This ensures accurate tracking, proper saving in persistent services, and safe handling of state changes.
+代理會透過單一的 `session.state` 字典存取所有 state 資料。Session 服務（SessionService）會處理資料擷取、合併與持久化。應在透過 `session_service.append_event()` 將 Event 加入工作階段歷史時更新 state，確保追蹤精確、在持久性服務中正確保存並安全處理 state 變更。
 
-#### 1. The Simple Way: Using `output\_key` (for Agent Text Replies)
+#### 1. 簡易方式：使用 `output_key`（適用於代理文字回覆）（The Simple Way: Using `output_key` (for Agent Text Replies)）
 
-This is the easiest method if you just want to save your agent's final text response directly into the state. When you set up your LlmAgent, just tell it the output\_key you want to use. The Runner sees this and automatically creates the necessary actions to save the response to the state when it appends the event. Let's look at a code example demonstrating state update via `output\_key`.
+若只想把代理的最終文字回覆直接保存到 state，這是最簡單的方法。設定 LlmAgent 時，只需指定想使用的 `output_key`。執行器（Runner）會偵測到並在附加事件時自動建立必要的動作，把回應保存到 state。以下程式碼示範透過 `output_key` 更新 state：
 
 ```python
 # Import necessary classes from the Google Agent Developer Kit (ADK)
@@ -169,11 +169,11 @@ updated_session = session_service.get_session(app_name, user_id, session_id)
 print(f"\nState after agent run: {updated_session.state}")
 ```
 
-Behind the scenes, the Runner sees your `output\_key` and automatically creates the necessary actions with a `state\_delta` when it calls `append\_event`.
+在背後，執行器（Runner）會偵測你的 `output_key`，並在呼叫 `append_event` 時自動建立包含 `state_delta` 的必要動作。
 
-#### 2. The Standard Way: Using `EventActions.state\_delta` (for More Complicated Updates)
+#### 2. 標準方式：使用 `EventActions.state_delta`（適用於更複雜的更新）（The Standard Way: Using `EventActions.state_delta` (for More Complicated Updates)）
 
-For times when you need to do more complex things – like updating several keys at once, saving things that aren't just text, targeting specific scopes like user: or app:, or making updates that aren't tied to the agent's final text reply – you'll manually build a dictionary of your state changes (the `state\_delta`) and include it within the EventActions of the Event you're appending. Let's look at one example:
+當你需要處理較複雜的情境——例如同時更新多個鍵、儲存非文字內容、鎖定 `user:` 或 `app:` 這類特定範圍，或進行與代理最終文字回覆無關的更新——就需要自行建立 state 變更字典（`state_delta`），並把它包含在你要附加的 Event 的 EventActions 中。以下為示例：
 
 ```python
 import time
@@ -255,18 +255,18 @@ print(f"State after tool execution: {updated_session.state}")
 # but the code organization is significantly cleaner and more robust.
 ```
 
-This code demonstrates a tool-based approach for managing user session state in an application. It defines a function *log\_user\_login*, which acts as a tool. This tool is responsible for updating the session state when a user logs in.  
-The function takes a ToolContext object, provided by the ADK, to access and modify the session's state dictionary. Inside the tool, it increments a *user:login\_count*, sets the t*ask\_status* to "active", records the *user:last\_login\_ts (timestamp)*, and adds a temporary flag temp:validation\_needed.
+這段程式碼示範以工具為基礎的方式管理應用程式中的使用者工作階段 state。它定義函式 `log_user_login` 作為工具，負責在使用者登入事件時更新工作階段 state。
+函式接收 ADK 提供的 ToolContext 物件，以存取並修改工作階段的 state 字典。工具內部會遞增 `user:login_count`、將 `task_status` 設為 "active"、紀錄 `user:last_login_ts`（timestamp），並加入暫時旗標 `temp:validation_needed`。
 
-The demonstration part of the code simulates how this tool would be used. It sets up an in-memory session service and creates an initial session with some predefined state. A ToolContext is then manually created to mimic the environment in which the ADK Runner would execute the tool. The `log\_user\_login` function is called with this mock context. Finally, the code retrieves the session again to show that the state has been updated by the tool's execution. The goal is to show how encapsulating state changes within tools makes the code cleaner and more organized compared to directly manipulating state outside of tools.
+程式碼示範部分模擬此工具的使用方式。它設定記憶體內工作階段服務並建立具有預設 state 的初始工作階段。接著手動建立 ToolContext，以模擬 ADK 執行器（Runner）執行工具的環境，並呼叫 `log_user_login`。最後再次擷取 Session，顯示 state 已被工具更新。目的在於展示將 state 變更封裝在工具內如何讓程式碼更精簡且結構更佳，相較於在工具外直接操作 state。
 
-Note that direct modification of the `session.state` dictionary after retrieving a session is strongly discouraged as it bypasses the standard event processing mechanism. Such direct changes will not be recorded in the session's event history, may not be persisted by the selected `SessionService`, could lead to concurrency issues, and will not update essential metadata such as timestamps. The recommended methods for updating the session state are using the `output\_key` parameter on an `LlmAgent` (specifically for the agent's final text responses) or including state changes within `EventActions.state\_delta` when appending an event via `session\_service.append\_event()`. The `session.state` should primarily be used for reading existing data.
+請注意，直接在擷取 Session 後修改 `session.state` 字典並不建議，因為這會繞過標準事件處理機制。這類直接變更不會被記錄在工作階段的事件歷史中，可能無法由所選的 `SessionService`（Session 服務）持久化，可能導致併發問題，且無法更新時間戳記等重要中介資料。建議的做法是，在 `LlmAgent`（特別是代理最終文字回覆）上使用 `output_key` 參數，或在透過 `session_service.append_event()` 附加事件時，把 state 變更放進 `EventActions.state_delta`。`session.state` 應主要用於讀取既有資料。
 
-To recap, when designing your state, keep it simple, use basic data types, give your keys clear names and use prefixes correctly, avoid deep nesting, and always update state using the append\_event process.
+總結來說，設計 state 時保持簡潔、使用基本資料型別、為鍵賦予清晰名稱並正確使用前綴，避免過度巢狀，且務必透過 append_event 流程更新 state。
 
-## Memory: Long-Term Knowledge with MemoryService
+## 記憶（Memory）：結合 MemoryService 的長期知識（Memory: Long-Term Knowledge with MemoryService）
 
-In agent systems, the Session component maintains a record of the current chat history (events) and temporary data (state) specific to a single conversation. However, for agents to retain information across multiple interactions or access external data, long-term knowledge management is necessary. This is facilitated by the MemoryService.
+在代理系統中，Session 元件會維持單一對話的聊天歷史（events）與暫存資料（state）。然而，若代理要在多次互動間保留資訊或存取外部資料，就需要長期知識管理，這由記憶服務（MemoryService）促成。
 
 ```python
 # Example: Using InMemoryMemoryService
@@ -279,9 +279,9 @@ from google.adk.memory import InMemoryMemoryService
 memory_service = InMemoryMemoryService()
 ```
 
-Session and State can be conceptualized as short-term memory for a single chat session, whereas the Long-Term Knowledge managed by the MemoryService functions as a persistent and searchable repository. This repository may contain information from multiple past interactions or external sources. The MemoryService, as defined by the BaseMemoryService interface, establishes a standard for managing this searchable, long-term knowledge. Its primary functions include adding information, which involves extracting content from a session and storing it using the add\_session\_to\_memory method, and retrieving information, which allows an agent to query the store and receive relevant data using the search\_memory method.
+可以把 Session 與 State 視為單一聊天工作階段的短期記憶，而由記憶服務（MemoryService）管理的長期知識則是持久且可搜尋的儲存庫。這個儲存庫可能包含多次過往互動或外部來源的資訊。BaseMemoryService 介面定義了管理這種可搜尋長期知識的標準。其主要功能包括新增資訊（從工作階段擷取內容並透過 `add_session_to_memory` 儲存）以及擷取資訊（讓代理查詢儲存庫並透過 `search_memory` 取得相關資料）。
 
-The ADK offers several implementations for creating this long-term knowledge store. The InMemoryMemoryService provides a temporary storage solution suitable for testing purposes, but data is not preserved across application restarts. For production environments, the VertexAiRagMemoryService is typically utilized. This service leverages Google Cloud's Retrieval Augmented Generation (RAG) service, enabling scalable, persistent, and semantic search capabilities (Also, refer to the chapter 14 on RAG).
+ADK 提供多種實作來建立這個長期知識庫。InMemoryMemoryService 提供暫時儲存方案，適用於測試用途，但在應用重啟後資料不會保留。在生產環境中通常會使用 VertexAiRagMemoryService。此服務利用 Google Cloud 的檢索增強生成（Retrieval Augmented Generation，RAG）服務，提供可擴充、持久且具語意搜尋能力的解決方案（另請參閱第十四章的 RAG）。
 
 ```python
 # Example: Using VertexAiRagMemoryService
@@ -314,17 +314,17 @@ memory_service = VertexAiRagMemoryService(
 # RAG Corpus.
 ```
 
-## Hands-on code: Memory Management in LangChain and LangGraph
+## 實作程式碼：LangChain 與 LangGraph 的記憶體管理（Hands-on code: Memory Management in LangChain and LangGraph）
 
-In LangChain and LangGraph, Memory is a critical component for creating intelligent and natural-feeling conversational applications. It allows an AI agent to remember information from past interactions, learn from feedback, and adapt to user preferences. LangChain's memory feature provides the foundation for this by referencing a stored history to enrich current prompts and then recording the latest exchange for future use. As agents handle more complex tasks, this capability becomes essential for both efficiency and user satisfaction.
+在 LangChain 與 LangGraph 中，記憶（Memory）是打造智慧且具自然互動感對話應用程式的關鍵元件。它讓人工智慧代理能記住過往互動中的資訊、從回饋中學習並調整以符合使用者偏好。LangChain 的記憶功能透過參照儲存歷史來加強當前提示，然後記錄最新互動供未來使用。隨著代理處理更複雜的任務，這項能力對效率與使用者滿意度愈發重要。
 
-**Short-Term Memory:** This is thread-scoped, meaning it tracks the ongoing conversation within a single session or thread. It provides immediate context, but a full history can challenge an LLM's context window, potentially leading to errors or poor performance. LangGraph manages short-term memory as part of the agent's state, which is persisted via a checkpointer, allowing a thread to be resumed at any time.
+**短期記憶（Short-Term Memory）**：以工作執行緒為範圍，追蹤單一 Session 或執行緒內持續進行的對話。它提供即時語境，但完整歷史可能對 LLM 的語境視窗造成負擔，導致錯誤或效能不佳。LangGraph 將短期記憶管理為代理 state 的一部分，透過 checkpoint 機制持久化，使執行緒可隨時恢復。
 
-**Long-Term Memory:** This stores user-specific or application-level data across sessions and is shared between conversational threads. It is saved in custom "namespaces" and can be recalled at any time in any thread. LangGraph provides stores to save and recall long-term memories, enabling agents to retain knowledge indefinitely.
+**長期記憶（Long-Term Memory）**：儲存跨 Session 的使用者專屬或應用層級資料，並在對話執行緒間共用。它保存在自訂「命名空間」（namespaces）中，可在任何執行緒隨時取回。LangGraph 提供儲存機制以保存與召回長期記憶，讓代理能無限期保留知識。
 
-LangChain provides several tools for managing conversation history, ranging from manual control to automated integration within chains.
+LangChain 提供多種工具管理對話歷史，從手動控制到自動整合於 chain 之中。
 
-**ChatMessageHistory: Manual Memory Management.** For direct and simple control over a conversation's history outside of a formal chain, the ChatMessageHistory class is ideal. It allows for the manual tracking of dialogue exchanges.
+**ChatMessageHistory：手動記憶管理（ChatMessageHistory: Manual Memory Management）**。若想在正式 chain 之外直接且簡易地掌控對話歷史，ChatMessageHistory 類別是理想選擇，可手動追蹤對話交換。
 
 ```python
 from langchain.memory import ChatMessageHistory
@@ -341,12 +341,12 @@ history.add_ai_message("Great! It's a fantastic city.")
 print(history.messages)
 ```
 
-**ConversationBufferMemory: Automated Memory for Chains**. For integrating memory directly into chains, ConversationBufferMemory is a common choice. It holds a buffer of the conversation and makes it available to your prompt. Its behavior can be customized with two key parameters:
+**ConversationBufferMemory：chain 的自動記憶（ConversationBufferMemory: Automated Memory for Chains）**。若要把記憶直接整合進 chains，ConversationBufferMemory 是常見選擇。它保存對話緩衝並將其提供給提示，可透過兩個關鍵參數調整行為：
 
-* `memory\_key`: A string that specifies the variable name in your prompt that will hold the chat history. It defaults to "history".  
-* `return\_messages`: A boolean that dictates the format of the history.  
-  * If `False` (the default), it returns a single formatted string, which is ideal for standard LLMs.  
-  * If `True`, it returns a list of message objects, which is the recommended format for Chat Models.
+* `memory_key`：指定在提示中存放聊天歷史的變數名稱，預設為 "history"。
+* `return_messages`：布林值，決定歷史的格式。
+  * 若為 `False`（預設），會回傳單一格式化字串，適合標準 LLM。
+  * 若為 `True`，會回傳訊息物件清單，為聊天模型（Chat Models）建議的格式。
 
 ```python
 from langchain.memory import ConversationBufferMemory
@@ -365,7 +365,7 @@ memory.save_context(
 print(memory.load_memory_variables({}))
 ```
 
-Integrating this memory into an LLMChain allows the model to access the conversation's history and provide contextually relevant responses
+將這類記憶整合進 LLMChain，可讓模型存取對話歷史並提供語境相關的回應。
 
 ```python
 from langchain_openai import OpenAI
@@ -401,7 +401,7 @@ response = conversation.predict(question="What was my name again?")
 print(response)
 ```
 
-For improved effectiveness with chat models, it is recommended to use a structured list of message objects by setting \`return\_messages=True\`.
+為了在聊天模型上獲得更佳效果，建議將 `return_messages=True`，以結構化訊息物件清單形式使用。
 
 ```python
 from langchain_openai import ChatOpenAI
@@ -441,13 +441,13 @@ response = conversation.predict(question="Do you remember my name?")
 print(response)
 ```
 
-**Types of Long-Term Memory**: Long-term memory allows systems to retain information across different conversations, providing a deeper level of context and personalization. It can be broken down into three types analogous to human memory:
+**長期記憶的類型（Types of Long-Term Memory）**：長期記憶讓系統能在不同對話中保留資訊，提供更深入的語境與個人化體驗。它可比照人類記憶分成三種類型：
 
-* **Semantic Memory: Remembering Facts:** This involves retaining specific facts and concepts, such as user preferences or domain knowledge. It is used to ground an agent's responses, leading to more personalized and relevant interactions. This information can be managed as a continuously updated user "profile" (a JSON document) or as a "collection" of individual factual documents.  
-* **Episodic Memory: Remembering Experiences:** This involves recalling past events or actions. For AI agents, episodic memory is often used to remember how to accomplish a task. In practice, it's frequently implemented through few-shot example prompting, where an agent learns from past successful interaction sequences to perform tasks correctly.  
-* **Procedural Memory: Remembering Rules:**  This is the memory of how to perform tasks—the agent's core instructions and behaviors, often contained in its system prompt. It's common for agents to modify their own prompts to adapt and improve. An effective technique is "Reflection," where an agent is prompted with its current instructions and recent interactions, then asked to refine its own instructions.
+* **語意記憶：記住事實（Semantic Memory: Remembering Facts）**：用於保留特定事實與概念，例如使用者偏好或領域知識。這些資訊可作為代理回應的根基，讓互動更個人化且相關。這類資訊可以持續更新成使用者「檔案」（profile，JSON 文件），或整理成個別事實文件的「集合」（collection）。
+* **情節記憶：記住經驗（Episodic Memory: Remembering Experiences）**：用於回想過往事件或行動。對人工智慧代理而言，情節記憶常被用來記住如何完成任務。實務上經常透過少樣本提示（few-shot example prompting）實作，代理會從過往成功的互動序列中學習，以正確完成任務。
+* **程序記憶：記住規則（Procedural Memory: Remembering Rules）**：用於記住如何執行任務，也就是代理的核心指令與行為，通常包含在系統提示中。代理常會調整自身提示以適應與改進。「反思」（Reflection）是有效技巧，代理會檢視目前指令與近期互動，然後修訂自己的指令。
 
-Below is pseudo-code demonstrating how an agent might use reflection to update its procedural memory stored in a LangGraph BaseStore
+以下偽程式碼示範代理如何透過反思更新儲存在 LangGraph BaseStore 中的程序記憶：
 
 ```python
 # Node that updates the agent's instructions
@@ -486,7 +486,7 @@ def call_model(state: State, store: BaseStore):
     # ... application logic continues
 ```
 
-LangGraph stores long-term memories as JSON documents in a store. Each memory is organized under a custom namespace (like a folder) and a distinct key (like a filename). This hierarchical structure allows for easy organization and retrieval of information. The following code demonstrates how to use InMemoryStore to put, get, and search for memories.
+LangGraph 會將長期記憶儲存在 store 中的 JSON 文件。每筆記憶都按照自訂命名空間（如資料夾）與獨特鍵（如檔名）組織。這種階層式結構便於整理與擷取資訊。下列程式碼示範如何使用 InMemoryStore 放入、讀取與搜尋記憶。
 
 ```python
 from langgraph.store.memory import InMemoryStore
@@ -533,13 +533,13 @@ items = store.search(
 print("Search Results:", items)
 ```
 
-## Vertex Memory Bank
+## Vertex 記憶庫（Vertex Memory Bank）
 
-Memory Bank, a managed service in the Vertex AI Agent Engine, provides agents with persistent, long-term memory. The service uses Gemini models to asynchronously analyze conversation histories to extract key facts and user preferences.
+Memory Bank 是 Vertex AI Agent Engine 中的受管服務，為代理提供持久的長期記憶。該服務使用 Gemini 模型非同步分析對話歷史，以萃取關鍵事實與使用者偏好。
 
-This information is stored persistently, organized by a defined scope like user ID, and intelligently updated to consolidate new data and resolve contradictions. Upon starting a new session, the agent retrieves relevant memories through either a full data recall or a similarity search using embeddings. This process allows an agent to maintain continuity across sessions and personalize responses based on recalled information.
+這些資訊會永久儲存，依預先定義的範圍（例如使用者 ID）進行組織，並智慧地更新以整合新資料與解決矛盾。開啟新 Session 時，代理會透過完整資料召回或使用嵌入向量的相似度搜尋來擷取相關記憶。此流程讓代理得以在多個 Session 中維持連續性，並根據回想出的資訊提供個人化回應。
 
-The agent's runner interacts with the VertexAiMemoryBankService, which is initialized first. This service handles the automatic storage of memories generated during the agent's conversations. Each memory is tagged with a unique USER\_ID and APP\_NAME, ensuring accurate retrieval in the future.
+代理的執行器（Runner）會與 VertexAiMemoryBankService 互動，須先完成初始化。該服務負責自動儲存代理在對話期間產生的記憶。每筆記憶都標記唯一的 `USER_ID` 與 `APP_NAME`，以確保日後能正確擷取。
 
 ```python
 from google.adk.memory import VertexAiMemoryBankService
@@ -562,42 +562,42 @@ session = await session_service.get_session(
 await memory_service.add_session_to_memory(session)
 ```
 
-Memory Bank offers seamless integration with the Google ADK, providing an immediate out-of-the-box experience. For users of other agent frameworks, such as LangGraph and CrewAI, Memory Bank also offers support through direct API calls. Online code examples demonstrating these integrations are readily available for interested readers.
+Memory Bank 與 Google ADK 無縫整合，提供開箱即用的體驗。對於其他代理框架使用者，例如 LangGraph 與 CrewAI，Memory Bank 也透過直接 API 呼叫提供支援。網路上有許多展示這些整合的程式碼範例，供有興趣的讀者參考。
 
-## At a Glance
+## 快速瀏覽（At a Glance）
 
-**What**: Agentic systems need to remember information from past interactions to perform complex tasks and provide coherent experiences. Without a memory mechanism, agents are stateless, unable to maintain conversational context, learn from experience, or personalize responses for users. This fundamentally limits them to simple, one-shot interactions, failing to handle multi-step processes or evolving user needs. The core problem is how to effectively manage both the immediate, temporary information of a single conversation and the vast, persistent knowledge gathered over time.
+**內容（What）**：代理系統需要記住過往互動的資訊，才能執行複雜任務並提供一致體驗。若缺乏記憶機制，代理會變得無狀態，無法維持對話脈絡、從經驗中學習或為使用者客製化回應。這根本上限制代理只能處理簡單的一次性互動，無法應對多步驟流程或不斷演變的使用者需求。核心問題在於如何有效管理單次對話的即時暫存資訊，以及隨時間累積的大量持久知識。
 
-**Why:** The standardized solution is to implement a dual-component memory system that distinguishes between short-term and long-term storage. Short-term, contextual memory holds recent interaction data within the LLM's context window to maintain conversational flow. For information that must persist, long-term memory solutions use external databases, often vector stores, for efficient, semantic retrieval. Agentic frameworks like the Google ADK provide specific components to manage this, such as Session for the conversation thread and State for its temporary data. A dedicated MemoryService is used to interface with the long-term knowledge base, allowing the agent to retrieve and incorporate relevant past information into its current context.
+**原因（Why）**：標準化的解決方案是實作區分短期與長期儲存的雙元記憶系統。短期語境記憶保留 LLM 語境視窗內的近期互動資料，以維持對話流暢。需要持久保存的資訊則透過外部資料庫（通常是向量儲存）以高效率、語意化方式檢索。像 Google ADK 這類代理框架提供具體元件來管理這些需求，例如 Session 負責對話線索，State 負責暫存資料。專用的記憶服務（MemoryService）則介接長期知識庫，讓代理能擷取並整合過往相關資訊到當前語境中。
 
-**Rule of thumb:** Use this pattern when an agent needs to do more than answer a single question. It is essential for agents that must maintain context throughout a conversation, track progress in multi-step tasks, or personalize interactions by recalling user preferences and history. Implement memory management whenever the agent is expected to learn or adapt based on past successes, failures, or newly acquired information.
+**使用準則（Rule of thumb）**：當代理需要做的不只是回答單一問題時，就應使用此模式。它對必須在對話期間維持語境、追蹤多步驟任務進度或透過回想使用者偏好與歷史進行個人化互動的代理而言不可或缺。每當期望代理能根據過往成功、失敗或新獲資訊來學習或調整時，都應實施記憶體管理。
 
-**Visual summary:**
+**視覺摘要（Visual summary）**：
 
 ![Memory Management Design Pattern](../assets/Memory_Management_Design_Pattern.png)
 
-Fig.1: Memory management design pattern
+圖 1：記憶體管理設計模式（Memory management design pattern）
 
-## Key Takeaways
+## 重要重點（Key Takeaways）
 
-To quickly recap the main points about memory management:
+快速複習記憶體管理的重點：
 
-* Memory is super important for agents to keep track of things, learn, and personalize interactions.  
-* Conversational AI relies on both short-term memory for immediate context within a single chat and long-term memory for persistent knowledge across multiple sessions.  
-* Short-term memory (the immediate stuff) is temporary, often limited by the LLM's context window or how the framework passes context.  
-* Long-term memory (the stuff that sticks around) saves info across different chats using outside storage like vector databases and is accessed by searching.  
-* Frameworks like ADK have specific parts like Session (the chat thread), State (temporary chat data), and MemoryService (the searchable long-term knowledge) to manage memory.  
-* ADK's SessionService handles the whole life of a chat session, including its history (events) and temporary data (state).  
-* ADK's session.state is a dictionary for temporary chat data. Prefixes (user:, app:, temp:) tell you where the data belongs and if it sticks around.  
-* In ADK, you should update state by using EventActions.state\_delta or output\_key when adding events, not by changing the state dictionary directly.  
-* ADK's MemoryService is for putting info into long-term storage and letting agents search it, often using tools.  
-* LangChain offers practical tools like ConversationBufferMemory to automatically inject the history of a single conversation into a prompt, enabling an agent to recall immediate context.  
-* LangGraph enables advanced, long-term memory by using a store to save and retrieve semantic facts, episodic experiences, or even updatable procedural rules across different user sessions.  
-* Memory Bank is a managed service that provides agents with persistent, long-term memory by automatically extracting, storing, and recalling user-specific information to enable personalized, continuous conversations across frameworks like Google's ADK, LangGraph, and CrewAI.
+* 記憶（memory）對代理追蹤事項、學習與個人化互動極為重要。
+* 會話式人工智慧（conversational AI）同時仰賴短期記憶取得單一聊天的即時語境，以及長期記憶在多個 Session 間維持持久知識。
+* 短期記憶（short-term memory，立即資訊）是暫時的，常受限於 LLM 的語境視窗或框架傳遞語境的方式。
+* 長期記憶（long-term memory，可持續資訊）會將資料儲存在外部儲存體，例如向量資料庫，並透過搜尋存取。
+* ADK 等框架提供特定元件，例如 Session（聊天線索）、State（暫存聊天資料）與 記憶服務（MemoryService，可搜尋的長期知識），用來管理記憶。
+* ADK 的 Session 服務（SessionService）負責整個聊天工作階段生命週期，包括歷史（events）與暫存資料（state）。
+* ADK 的 `session.state` 是儲存暫存聊天資料的字典。前綴（`user:`、`app:`、`temp:`）說明資料歸屬與是否持久。
+* 在 ADK 中，應透過 `EventActions.state_delta` 或 `output_key` 在新增事件時更新 state，而非直接修改 state 字典。
+* ADK 的記憶服務（MemoryService）用於把資訊放進長期儲存，並讓代理搜尋它，通常透過工具完成。
+* LangChain 提供實用工具，例如 ConversationBufferMemory，自動把單一對話的歷史注入提示，讓代理能回想即時語境。
+* LangGraph 透過儲存機制，讓代理在不同使用者 Session 間保存並擷取語意事實、事件記憶甚至可更新的程序規則，實現進階長期記憶。
+* Memory Bank 是受管服務，可自動擷取、儲存並召回使用者專屬資訊，讓代理在 Google ADK、LangGraph 與 CrewAI 等框架中進行個人化且持續的對話。
 
-## Conclusion
+## 結論（Conclusion）
 
-This chapter dove into the really important job of memory management for agent systems, showing the difference between the short-lived context and the knowledge that sticks around for a long time. We talked about how these types of memory are set up and where you see them used in building smarter agents that can remember things. We took a detailed look at how Google ADK gives you specific pieces like Session, State, and MemoryService to handle this. Now that we've covered how agents can remember things, both short-term and long-term, we can move on to how they can learn and adapt. The next pattern ​​"Learning and Adaptation" is about an agent changing how it thinks, acts, or what it knows, all based on new experiences or data.
+本章深入探討代理系統中記憶體管理的關鍵任務，說明短期語境與長期知識之間的差異。我們討論了這些記憶類型的架構與應用情境，展展示如何在建構更聰明、能記住資訊的代理時加以運用。我們詳細檢視了 Google ADK 如何提供 Session、State 與 記憶服務（MemoryService）等特定元件來處理這些需求。既然已掌握代理如何記住資訊（無論短期或長期），下一章「學習與適應（Learning and Adaptation）」將探討代理如何根據新經驗或資料改變思考、行動或知識。
 
 ## References
 
