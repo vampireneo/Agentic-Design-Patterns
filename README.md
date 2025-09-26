@@ -80,3 +80,19 @@
 - [第十七章：推理技術（Reasoning Techniques）](04-Part_Four/Chapter_17-Reasoning_Techniques-1Yt1W_hLaC6ZNgJXfT4W6NrCL4TzNVdKOX50kgpHiIq4.md)
 - [第十八章：護欄與安全模式（Guardrails and Safety Patterns）](04-Part_Four/Chapter_18-Guardrails_Safety_Patterns-1Gpc5af_okze1kprRLohP6-81e1KwL6HggjeLvxQyIuk.md)
 - [第十九章：評估與監控](04-Part_Four/Chapter_19-Evaluation_and_Monitoring-1G3zOZM2ZOd0gUp5dy66FUjKMOcALh9l-JpvPxgGMm8w.md)
+- [第二十章：優先次序（Prioritization）](04-Part_Four/Chapter_20-Prioritization-1qyXxGM2hNqW_qjXuBFxrEUeoYVO79BoW1ogKu1bfdCY.md)
+- [第二十一章：探索與發現（Exploration and Discovery）](04-Part_Four/Chapter_21-Exploration_and_Discovery-1zeeMVTqjqRIli6G9MMWThhoQhvKqLOjJF2EHHUXLhdk.md)
+
+### 附錄
+
+- [附錄 A：進階提示技巧（Advanced Prompting Techniques）](05-Appendix/Appendix_A-Advanced_Prompting_Techniques-1V7EKEWibOH6IhHD_PtbFZiml492-2191jDQCcTkhtTI.md)
+- [附錄 B：AI 代理互動——從圖形使用者介面延伸至真實世界環境（AI Agentic Interactions from GUI to Real World Environment）](05-Appendix/Appendix_B-AI_Agentic_Interactions_From_GUI_to_Real_World_Environment-11pma_tCoC7uZ2SFKjcR5KyIq0_ooMGSoadI6f9mxG2I.md)
+- [附錄 C：代理式框架快速概覽（Quick Overview of Agentic Frameworks）](05-Appendix/Appendix_C-Quick_Overview_of_Agentic_Frameworks-151rGsiEYOkXUcNDRus_N8TxxuvjoyTDViBhzt9z0Mfw.md)
+- [附錄 D：使用 AgentSpace 建立代理（Building an Agent with AgentSpace，僅線上提供）](05-Appendix/Appendix_D-Building_an_Agent_with_AgentSpace_(on_line_only)-1bDRJ8mKtLTeWNC-cGD0Cr8pEJQgJHNcjqz5ekloAjaE.md)
+- [附錄 E：命令列上的人工智能代理（AI Agents on the CLI）](05-Appendix/Appendix_E-AI_Agents_on_the_CLI-1W4znto0a8Ikajw5a4tEyRAaB2nJPJw_iFc4w4qNnjho.md)
+- [附錄 F：幕後揭秘——深入了解代理推理引擎（Under the Hood: An Inside Look at the Agents' Reasoning Engines）](05-Appendix/Appendix_F-Under_the_Hood_An_Inside_Look_at_the_Agents_Reasoning_Engines-14q3fQ-FZmDgiughno_WLSILMWkURvUgR7mlGiFtvwd4.md)
+- [附錄 G：編碼代理（Coding Agents）](05-Appendix/Appendix_G-Coding_Agents-1tVyhgwrD4fu_D_pHUrwhNxoguRG3tLc1KObXFxrxE_s.md)
+
+## 授權
+
+本專案採用 MIT 授權條款，詳見 [LICENSE](LICENSE)。
