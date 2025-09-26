@@ -473,59 +473,6 @@ except RuntimeError as e:
     else:
         raise e  # Re-raise other runtime errors
 
-    print("Agent: ", end="", flush=True)
-    try:
-        # Construct the message content correctly
-        content = types.Content(role='user', parts=[types.Part(text=query)])
-
-        # Process events as they arrive from the asynchronous runner
-        async for event in runner.run_async(
-            user_id=USER_ID,
-            session_id=SESSION_ID,
-            new_message=content,
-        ):
-            # For token-by-token streaming of the response text
-            if hasattr(event, "content_part_delta") and event.content_part_delta:
-                print(event.content_part_delta.text, end="", flush=True)
-
-            # Process the final response and its associated metadata
-            if event.is_final_response():
-                print()  # Newline after the streaming response
-                if getattr(event, "grounding_metadata", None):
-                    print(
-                        f"  (Source Attributions: "
-                        f"{len(event.grounding_metadata.grounding_attributions)} sources found)"
-                    )
-                else:
-                    print("  (No grounding metadata found)")
-                print("-" * 30)
-    except Exception as e:
-        print(f"\nAn error occurred: {e}")
-        print("Please ensure your datastore ID is correct and that the service account has the necessary permissions.")
-        print("-" * 30)
-
-
-# --- Run Example ---
-async def run_vsearch_example():
-    # Replace with a question relevant to YOUR datastore content
-    await call_vsearch_agent_async("Summarize the main points about the Q2 strategy document.")
-    await call_vsearch_agent_async("What safety procedures are mentioned for lab X?")
-
-
-# --- Execution ---
-if __name__ == "__main__":
-    if not DATASTORE_ID:
-        print("Error: DATASTORE_ID environment variable is not set.")
-    else:
-        try:
-            asyncio.run(run_vsearch_example())
-        except RuntimeError as e:
-            # This handles cases where asyncio.run is called in an environment
-            # that already has a running event loop (like a Jupyter notebook).
-            if "cannot be called from a running event loop" in str(e):
-                print("Skipping execution in a running event loop. Please run this script directly.")
-            else:
-                raise e
 ```
 
 這個腳本利用 Google 的代理開發工具包（Agent Development Kit, ADK）建立一個透過撰寫並執行 Python 程式碼解決數學問題的代理。它定義了一個被明確指示扮演計算機角色的 LlmAgent，並替它配置 `built_in_code_execution` 工具。核心邏輯集中在 `call_agent_async` 函式，該函式會把使用者查詢送到代理的執行器（Runner）並處理回傳的事件。在這個函式中，非同步迴圈逐一走訪事件，為除錯用途輸出代理產生的 Python 程式碼以及執行結果。程式特別區分這些中間步驟與包含最終數值答案的事件。最後，`main` 函式以兩個不同的數學運算示範代理的計算能力。
