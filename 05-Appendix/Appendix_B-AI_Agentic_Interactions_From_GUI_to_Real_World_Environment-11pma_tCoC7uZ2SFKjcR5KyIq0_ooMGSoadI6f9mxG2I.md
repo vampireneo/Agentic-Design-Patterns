@@ -1,72 +1,72 @@
-# Appendix B - AI Agentic Interactions: From GUI to Real World environment
+# 附錄 B - AI 代理互動：由圖形使用者介面（Graphical User Interface，GUI）延伸至真實世界環境
 
-AI agents are increasingly performing complex tasks by interacting with digital interfaces and the physical world. Their ability to perceive, process, and act within these varied environments is fundamentally transforming automation, human-computer interaction, and intelligent systems. This appendix explores how agents interact with computers and their environments, highlighting advancements and projects.
+AI 代理（AI agents）愈來愈常透過與數碼介面及實體世界互動來執行複雜任務。它們感知、處理及在不同環境中行動的能力，正從根本上改變自動化、人機互動及智能系統。本附錄探討代理如何與電腦及其環境互動，並重點介紹最新進展與項目。
 
-## Interaction: Agents with Computers
+## 互動：代理與電腦
 
-The evolution of AI from conversational partners to active, task-oriented agents is being driven by Agent-Computer Interfaces (ACIs). These interfaces allow AI to interact directly with a computer's Graphical User Interface (GUI), enabling it to perceive and manipulate visual elements like icons and buttons just as a human would. This new method moves beyond the rigid, developer-dependent scripts of traditional automation that relied on APIs and system calls. By using the visual "front door" of software, AI can now automate complex digital tasks in a more flexible and powerful way, a process that involves several key stages:
+人工智能由對話夥伴演進為主動、以任務為導向的代理，背後推動力是代理-電腦介面（Agent-Computer Interfaces，ACIs）。這些介面讓人工智能能直接與電腦的圖形使用者介面（Graphical User Interface，GUI）互動，使其可以如同人類般感知及操控圖像元素，例如圖示及按鈕。這種新方法超越了傳統依賴應用程式介面（Application Programming Interfaces，APIs）及系統呼叫的僵硬、需開發者介入的腳本自動化。透過使用軟件的視覺「前門」，人工智能如今可以更靈活且更強大地自動化複雜的數碼任務，當中涉及數個關鍵階段：
 
-* **Visual Perception:** The agent first captures a visual representation of the screen, essentially taking a screenshot.  
-* **GUI Element Recognition:** It then analyzes this image to distinguish between various GUI elements. It must learn to "see" the screen not as a mere collection of pixels, but as a structured layout with interactive components, discerning a clickable "Submit" button from a static banner image or an editable text field from a simple label.  
-* **Contextual Interpretation:** The ACI module, acting as a bridge between the visual data and the agent's core intelligence (often a Large Language Model or LLM), interprets these elements within the context of the task. It understands that a magnifying glass icon typically means "search" or that a series of radio buttons represents a choice. This module is crucial for enhancing the LLM's reasoning, allowing it to form a plan based on visual evidence.  
-* **Dynamic Action and Response:** The agent then programmatically controls the mouse and keyboard to execute its plan—clicking, typing, scrolling, and dragging. Critically, it must constantly monitor the screen for visual feedback, dynamically responding to changes, loading screens, pop-up notifications, or errors to successfully navigate multi-step workflows.
+* **視覺感知：** 代理首先擷取螢幕的視覺呈現，本質上是截圖。
+* **圖形介面元素辨識：** 其後分析影像以分辨各種圖形使用者介面（Graphical User Interface，GUI）元素。代理必須學會不只把螢幕視為像素集合，而是具互動組件的結構化版面，分辨可點擊的「提交」按鈕、靜態橫額圖片、可編輯文字欄位與純標籤。
+* **語境詮釋：** 作為連結視覺數據與代理核心智能（往往是大型語言模型（Large Language Model，LLM））的橋樑，代理-電腦介面（Agent-Computer Interface，ACI）模組會在任務語境下詮釋這些元素。它會理解放大鏡圖示通常代表「搜尋」，或一系列圓點按鈕表示選項。此模組對提升大型語言模型（Large Language Model，LLM）的推理能力至關重要，讓其能根據視覺證據制定計劃。
+* **動態行動與回應：** 代理之後會以程式方式控制滑鼠及鍵盤，以執行計劃——點擊、輸入、捲動及拖曳。關鍵是必須持續監察螢幕獲取視覺回饋，動態回應變化、載入畫面、彈出通知或錯誤，才能成功完成多步驟工作流程。
 
-This technology is no longer theoretical. Several leading AI labs have developed functional agents that demonstrate the power of GUI interaction:
+這項技術不再停留於理論。多間領先的人工智能實驗室已開發出能展示圖形使用者介面（Graphical User Interface，GUI）互動威力的功能性代理：
 
-**ChatGPT Operator (OpenAI):** Envisioned as a digital partner, ChatGPT Operator is designed to automate tasks across a wide range of applications directly from the desktop. It understands on-screen elements, enabling it to perform actions like transferring data from a spreadsheet into a customer relationship management (CRM) platform, booking a complex travel itinerary across airline and hotel websites, or filling out detailed online forms without needing specialized API access for each service. This makes it a universally adaptable tool aimed at boosting both personal and enterprise productivity by taking over repetitive digital chores.
+**ChatGPT Operator（ChatGPT Operator）：** 作為數碼夥伴的願景，ChatGPT Operator 旨在直接於桌面上跨越各類應用程式自動化任務。它能理解螢幕上的元素，使其可以在不需要為每項服務取得專屬應用程式介面（Application Programming Interface，API）存取權的情況下，完成如把試算表資料轉移至客戶關係管理（Customer Relationship Management，CRM）平台、在航空公司與酒店網站上預訂複雜旅程，或填寫詳盡網上表格等操作。這令它成為一種可廣泛適應的工具，旨在透過接手重複的數碼工作，提升個人及企業的生產力。
 
-**Google Project Mariner:** As a research prototype, Project Mariner operates as an agent within the Chrome browser (see Fig. 1). Its purpose is to understand a user's intent and autonomously carry out web-based tasks on their behalf. For example, a user could ask it to find three apartments for rent within a specific budget and neighborhood; Mariner would then navigate to real estate websites, apply the filters, browse the listings, and extract the relevant information into a document. This project represents Google's exploration into creating a truly helpful and "agentive" web experience where the browser actively works for the user.
+**Google Project Mariner（Project Mariner）：** 作為研究原型，Project Mariner 在 Chrome 瀏覽器內以代理形式運作（見圖一）。其目的在於理解使用者意圖，並自主地代為執行網絡任務。例如，使用者可要求它在指定預算及地區內尋找三個出租單位；Mariner 便會瀏覽地產網站、套用篩選條件、查看房源，並把相關資訊整理成文件。此項目代表 Google 探索建立真正「代理化」網絡體驗的方向，讓瀏覽器主動為使用者工作。
 
-![Interaction between Agent and the Web Browser](../assets/Interaction_between_Agent_and_the_Web_Browser.png)
+![代理與網頁瀏覽器之間的互動](../assets/Interaction_between_Agent_and_the_Web_Browser.png)
 
-Fig.1: Interaction between and Agent and the Web Browser
+圖一：代理與網頁瀏覽器之間的互動
 
-**Anthropic's Computer Use:** This feature empowers Anthropic's AI model, Claude, to become a direct user of a computer's desktop environment. By capturing screenshots to perceive the screen and programmatically controlling the mouse and keyboard, Claude can orchestrate workflows that span multiple, unconnected applications. A user could ask it to analyze data in a PDF report, open a spreadsheet application to perform calculations on that data, generate a chart, and then paste that chart into an email draft—a sequence of tasks that previously required constant human input.
+**Anthropic 的 Computer Use（Computer Use）：** 此功能讓 Anthropic 的人工智能模型 Claude 成為電腦桌面環境的直接使用者。透過擷取截圖來感知螢幕，並以程式方式控制滑鼠及鍵盤，Claude 可以協調跨越多個互不相連應用程式的工作流程。使用者可以要求它分析 PDF 報告中的數據、開啟試算表應用程式處理該數據、生成圖表，然後把圖表貼到電郵草稿——這串任務過往需要人類持續參與。
 
-**Browser Use**: This  is an open-source library that provides a high-level API for programmatic browser automation. It enables AI agents to interface with web pages by granting them access to and control over the Document Object Model (DOM). The API abstracts the intricate, low-level commands of browser control protocols, into a more simplified and intuitive set of functions. This allows an agent to perform complex sequences of actions, including data extraction from nested elements, form submissions, and automated navigation across multiple pages. As a result, the library facilitates the transformation of unstructured web data into a structured format that an AI agent can systematically process and utilize for analysis or decision-making.
+**Browser Use（Browser Use）：** 這是一個開源函式庫，提供高階應用程式介面（Application Programming Interface，API）以進行程式化瀏覽器自動化。它讓人工智能代理能透過存取及控制文件物件模型（Document Object Model，DOM）來與網頁互動。此應用程式介面（Application Programming Interface，API）把瀏覽器控制協議繁複且低層的指令抽象化為更簡化、直觀的函式。如此一來，代理可以執行複雜操作序列，包括從巢狀元素擷取資料、提交表單，以及跨越多個頁面自動導航。因此，該函式庫促成把非結構化網頁數據轉化為人工智能代理可有系統地處理及用於分析或決策的結構化格式。
 
-## Interaction: Agents with the Environment
+## 互動：代理與環境
 
-Beyond the confines of a computer screen, AI agents are increasingly designed to interact with complex, dynamic environments, often mirroring the real world. This requires sophisticated perception, reasoning, and actuation capabilities.
+在螢幕範圍之外，人工智能代理愈來愈多地被設計為與複雜、動態且往往仿照真實世界的環境互動。這需要精密的感知、推理及動作能力。
 
-Google's **Project Astra** is a prime example of an initiative pushing the boundaries of agent interaction with the environment. Astra aims to create a universal AI agent that is helpful in everyday life, leveraging multimodal inputs (sight, sound, voice) and outputs to understand and interact with the world contextually. This project focuses on rapid understanding, reasoning, and response, allowing the agent to "see" and "hear" its surroundings through cameras and microphones and engage in natural conversation while providing real-time assistance. Astra's vision is an agent that can seamlessly assist users with tasks ranging from finding lost items to debugging code, by understanding the environment it observes. This moves beyond simple voice commands to a truly embodied understanding of the user's immediate physical context.
+Google 的 **Project Astra（Project Astra）** 是推動代理與環境互動邊界的代表性計劃。Astra 旨在創造一個在日常生活中提供協助的通用人工智能代理，利用多模態輸入（視覺、聲音、語音）及輸出，以語境化方式理解並互動。此項目聚焦快速理解、推理及回應，讓代理透過相機及麥克風「看見」及「聽見」周遭環境，同時以自然對話形式提供即時支援。Astra 的願景是代理能夠透過理解其所觀察的環境，協助使用者處理從尋找失物到除錯程式碼等任務，進一步超越簡單語音指令，達致對使用者即時物理語境的真實體現式理解。
 
-Google's **Gemini Live**, transforms standard AI interactions into a fluid and dynamic conversation. Users can speak to the AI and receive responses in a natural-sounding voice with minimal delay, and can even interrupt or change topics mid-sentence, prompting the AI to adapt immediately. The interface expands beyond voice, allowing users to incorporate visual information by using their phone's camera, sharing their screen, or uploading files for a more context-aware discussion. More advanced versions can even perceive a user's tone of voice and intelligently filter out irrelevant background noise to better understand the conversation. These capabilities combine to create rich interactions, such as receiving live instructions on a task by simply pointing a camera at it.
+Google 的 **Gemini Live（Gemini Live）** 把標準的人工智能互動轉化為流暢且動態的對話。使用者可以以自然語音與人工智能交流，並在極低延遲下獲得自然語調的回應，甚至可以在句子中途打斷或更換話題，促使人工智能即時調整。介面更延伸至語音以外，允許使用者透過手機相機、分享螢幕或上載檔案，以加入視覺資訊來進行更具語境感知的討論。更進階的版本甚至可以感知使用者的語氣，並智能過濾無關背景噪音，以更準確地理解對話。這些功能結合起來，能創造豐富的互動，例如只要把相機指向某項工作，便可即時獲得操作指示。
 
-OpenAI's **GPT-4o model** is an alternative designed for "omni" interaction, meaning it can reason across voice, vision, and text. It processes these inputs with low latency that mirrors human response times, which allows for real-time conversations. For example, users can show the AI a live video feed to ask questions about what is happening, or use it for language translation. OpenAI provides developers with a "Realtime API" to build applications requiring low-latency, speech-to-speech interactions.
+OpenAI 的 **GPT-4o 模型（GPT-4o model）** 是另一種為「全域」（omni）互動而設計的方案，意指它可以跨越語音、視覺及文字進行推理。它以接近人類回應時間的低延遲處理這些輸入，從而促成即時對話。例如，使用者可以向人工智能展示即時影片畫面並提問，或用於語言翻譯。OpenAI 向開發者提供「即時應用程式介面」（Realtime API），以構建需要低延遲、語音對語音互動的應用程式。
 
-OpenAI's **ChatGPT Agent** represents a significant architectural advancement over its predecessors, featuring an integrated framework of new capabilities. Its design incorporates several key functional modalities: the capacity for autonomous navigation of the live internet for real-time data extraction, the ability to dynamically generate and execute computational code for tasks like data analysis, and the functionality to interface directly with third-party software applications. The synthesis of these functions allows the agent to orchestrate and complete complex, sequential workflows from a singular user directive. It can therefore autonomously manage entire processes, such as performing market analysis and generating a corresponding presentation, or planning logistical arrangements and executing the necessary transactions. In parallel with the launch, OpenAI has proactively addressed the emergent safety considerations inherent in such a system. An accompanying "System Card" delineates the potential operational hazards associated with an AI capable of performing actions online, acknowledging the new vectors for misuse. To mitigate these risks, the agent's architecture includes engineered safeguards, such as requiring explicit user authorization for certain classes of actions and deploying robust content filtering mechanisms. The company is now engaging its initial user base to further refine these safety protocols through a feedback-driven, iterative process.
+OpenAI 的 **ChatGPT Agent（ChatGPT Agent）** 相對前代架構而言是重大進展，具備一套整合的新功能。其設計包含多項關鍵功能模態：自主瀏覽即時互聯網以提取最新數據的能力、動態生成及執行計算程式碼處理如數據分析等任務的能力，以及直接與第三方軟件應用程式介面互動的功能。這些功能的融合，使代理能從單一使用者指示出發，統籌並完成複雜、連續的工作流程。例如，它可以自主管理整個流程，如進行市場分析並製作相應簡報，或規劃物流安排並執行必要交易。與此同時，OpenAI 亦主動應對此類系統固有的新興安全考量。隨附的「系統說明書」（System Card）列舉具備線上行動能力的人工智能可能帶來的操作風險，並承認新的濫用途徑。為減輕這些風險，代理架構納入工程化保障措施，例如針對特定類別的行動要求使用者明確授權，以及部署強大的內容篩選機制。公司現正與首批使用者合作，透過回饋導向及反覆改進流程，進一步完善這些安全協議。
 
-**Seeing AI,** a complimentary mobile application from Microsoft, empowers individuals who are blind or have low vision by offering real-time narration of their surroundings. The app leverages artificial intelligence through the device's camera to identify and describe various elements, including objects, text, and even people. Its core functionalities encompass reading documents, recognizing currency, identifying products through barcodes, and describing scenes and colors. By providing enhanced access to visual information, Seeing AI ultimately fosters greater independence for visually impaired users.
+**Seeing AI（Seeing AI）** 是 Microsoft 推出的免費流動應用程式，透過提供即時環境旁白來協助盲人或弱視人士。該應用利用裝置相機與人工智能辨識及描述各種元素，包括物件、文字甚至人物。其核心功能涵蓋讀取文件、辨識貨幣、透過條碼識別產品，以及描述場景和顏色。藉由提供增強的視覺資訊存取能力，Seeing AI 最終為視障使用者帶來更高的自主性。
 
-**Anthropic's Claude 4 Series** Anthropic's Claude 4 is another alternative with capabilities for advanced reasoning and analysis. Though historically focused on text, Claude 4 includes robust vision capabilities, allowing it to process information from images, charts, and documents. The model is suited for handling complex, multi-step tasks and providing detailed analysis. While the real-time conversational aspect is not its primary focus compared to other models, its underlying intelligence is designed for building highly capable AI agents.
+**Anthropic 的 Claude 4 系列（Claude 4 Series）：** Anthropic 的 Claude 4 是另一種具備進階推理與分析能力的方案。雖然歷來以文字為主，Claude 4 現已擁有強大的視覺功能，能處理來自影像、圖表及文件的資訊。該模型適合處理複雜、多步驟的任務並提供詳盡分析。儘管與其他模型相比，即時對話不是其主要焦點，其底層智能卻是為打造高度能力的人工智能代理而設計。
 
-## Vibe Coding: Intuitive Development with AI
+## 氛圍編碼：以直覺結合人工智能的開發方式
 
-Beyond direct interaction with GUIs and the physical world, a new paradigm is emerging in how developers build software with AI: "vibe coding." This approach moves away from precise, step-by-step instructions and instead relies on a more intuitive, conversational, and iterative interaction between the developer and an AI coding assistant. The developer provides a high-level goal, a desired "vibe," or a general direction, and the AI generates code to match.
+除了直接與圖形使用者介面（Graphical User Interface，GUI）及實體世界互動之外，開發人員利用人工智能構建軟件亦出現了新典範：「氛圍編碼」（vibe coding）。此方式不再依賴精確、逐步的指令，而是透過開發人員與人工智能編碼助手之間更直覺、對話式且反覆的互動。開發人員提出高層次目標、期望的「氛圍」或大致方向，人工智能便生成相應程式碼。
 
-This process is characterized by:
+此過程具有以下特點：
 
-* **Conversational Prompts:** Instead of writing detailed specifications, a developer might say, "Create a simple, modern-looking landing page for a new app," or, "Refactor this function to be more Pythonic and readable." The AI interprets the "vibe" of "modern" or "Pythonic" and generates the corresponding code.  
-* **Iterative Refinement:** The initial output from the AI is often a starting point. The developer then provides feedback in natural language, such as, "That's a good start, but can you make the buttons blue?" or, "Add some error handling to that." This back-and-forth continues until the code meets the developer's expectations.  
-* **Creative Partnership:** In vibe coding, the AI acts as a creative partner, suggesting ideas and solutions that the developer may not have considered. This can accelerate the development process and lead to more innovative outcomes.  
-* **Focus on "What" not "How":** The developer focuses on the desired outcome (the "what") and leaves the implementation details (the "how") to the AI. This allows for rapid prototyping and exploration of different approaches without getting bogged down in boilerplate code.  
-* **Optional Memory Banks:** To maintain context across longer interactions, developers can use "memory banks" to store key information, preferences, or constraints. For example, a developer might save a specific coding style or a set of project requirements to the AI's memory, ensuring that future code generations remain consistent with the established "vibe" without needing to repeat the instructions.
+* **對話式提示：** 開發人員不需撰寫詳盡規格，可能只會說：「為新應用程式建立一個簡潔、現代感的登陸頁。」或「把這個函式重構得更貼近 Python 風格且易讀。」人工智能會詮釋「現代感」或「Python 風格」的氛圍，並生成對應程式碼。
+* **反覆改進：** 人工智能的初始輸出往往只是起點。開發人員會以自然語言提供回饋，例如：「這個開端不錯，但可以把按鈕改成藍色嗎？」或「請加上錯誤處理。」雙方會在這樣的來回對話中持續調整，直至程式碼符合開發人員期望。
+* **創意夥伴：** 在氛圍編碼中，人工智能扮演創意夥伴，提出開發人員可能未曾想到的點子與方案。這可以加快開發流程並帶來更具創新性的成果。
+* **專注「做什麼」而非「如何做」：** 開發人員專注於期望成果（「做什麼」），並把實作細節（「如何做」）交由人工智能處理。這讓快速原型設計及探索不同方法成為可能，而不會陷於樣板程式碼之中。
+* **選擇性記憶庫：** 為在較長互動中維持語境，開發人員可以利用「記憶庫」（memory banks）儲存關鍵資訊、偏好或限制。例如，開發人員可以把特定編碼風格或專案需求儲存到人工智能的記憶，以確保未來生成的程式碼在既定「氛圍」下保持一致，而無需重覆指示。
 
-Vibe coding is becoming increasingly popular with the rise of powerful AI models like GPT-4, Claude, and Gemini, which are integrated into development environments. These tools are not just auto-completing code; they are actively participating in the creative process of software development, making it more accessible and efficient. This new way of working is changing the nature of software engineering, emphasizing creativity and high-level thinking over rote memorization of syntax and APIs.
+隨著 GPT-4、Claude 及 Gemini 等強大人工智能模型整合進開發環境，氛圍編碼日益普及。這些工具不僅是自動補全程式碼，而是積極參與軟件開發的創意過程，使之更易於接觸且更有效率。這種新的工作方式正在改變軟件工程的本質，強調創意與高層次思維，而非死記語法及應用程式介面（Application Programming Interfaces，APIs）。
 
-## Key takeaways
+## 重要重點
 
-* AI agents are evolving from simple automation to visually controlling software through graphical user interfaces, much like a human would.  
-* The next frontier is real-world interaction, with projects like Google's Astra using cameras and microphones to see, hear, and understand their physical surroundings.  
-* Leading technology companies are converging these digital and physical capabilities to create universal AI assistants that operate seamlessly across both domains.  
-* This shift is creating a new class of proactive, context-aware AI companions capable of assisting with a vast range of tasks in users' daily lives.
+* 人工智能代理正在由簡單自動化演進至透過圖形使用者介面（Graphical User Interface，GUI）視覺操控軟件，如同人類一般。
+* 下一個前沿是實體世界互動，例如 Google 的 Astra 等項目透過相機及麥克風來看見、聽見並理解其物理環境。
+* 領先科技公司正把這些數碼與實體能力匯聚，創造能在兩個領域無縫運作的通用人工智能助手。
+* 這股轉變正在孕育新一代主動、具語境感知的人工智能夥伴，能協助使用者在日常生活中處理大量任務。
 
-## Conclusion
+## 結論
 
-Agents are undergoing a significant transformation, moving from basic automation to sophisticated interaction with both digital and physical environments. By leveraging visual perception to operate Graphical User Interfaces, these agents can now manipulate software just as a human would, bypassing the need for traditional APIs. Major technology labs are pioneering this space with agents capable of automating complex, multi-application workflows directly on a user's desktop. Simultaneously, the next frontier is expanding into the physical world, with initiatives like Google's Project Astra using cameras and microphones to contextually engage with their surroundings. These advanced systems are designed for multimodal, real-time understanding that mirrors human interaction.
+代理正在歷經重大轉型，從基本自動化進化為能夠與數碼及實體環境進行複雜互動的系統。透過運用視覺感知來操控圖形使用者介面（Graphical User Interface，GUI），這些代理如今可以如人類般操作軟件，無需依賴傳統應用程式介面（Application Programming Interface，API）。多間主要科技實驗室正開創此領域，推出可直接在使用者桌面上自動化複雜、多應用程式工作流程的代理。與此同時，下一個前沿亦延伸至實體世界，例如 Google 的 Project Astra 透過相機及麥克風語境化地與其周遭環境互動。這些先進系統旨在提供多模態、即時的理解，與人類互動方式相近。
 
-The ultimate vision is a convergence of these digital and physical capabilities, creating universal AI assistants that operate seamlessly across all of a user's environments. This evolution is also reshaping software creation itself through "vibe coding," a more intuitive and conversational partnership between developers and AI. This new method prioritizes high-level goals and creative intent, allowing developers to focus on the desired outcome rather than implementation details. This shift accelerates development and fosters innovation by treating AI as a creative partner. Ultimately, these advancements are paving the way for a new era of proactive, context-aware AI companions capable of assisting with a vast array of tasks in our daily lives.
+最終願景是把這些數碼與實體能力融合，創造能在使用者所有環境中無縫運作的通用人工智能助手。這種演化亦透過「氛圍編碼」（vibe coding）徹底改變軟件創作本身，實現開發人員與人工智能之間更直覺、對話式的合作。這個新方法強調高層次目標及創意意圖，讓開發人員專注於期望結果而非實作細節。此轉變加速開發並透過把人工智能視為創意夥伴來激發創新。最終，這些進展正為一個嶄新的時代鋪路，屆時主動、具語境感知的人工智能夥伴能在我們的日常生活中協助處理大量任務。
 
 ## References
 
@@ -74,7 +74,7 @@ The ultimate vision is a convergence of these digital and physical capabilities,
 2. Open AI ChatGPT Agent: [https://openai.com/index/introducing-chatgpt-agent/](https://openai.com/index/introducing-chatgpt-agent/)
 3. Browser Use: [https://docs.browser-use.com/introduction](https://docs.browser-use.com/introduction)
 4. Project Mariner, [https://deepmind.google/models/project-mariner/](https://deepmind.google/models/project-mariner/)
-5. Anthropic Computer use: [https://docs.anthropic.com/en/docs/build-with-claude/computer-use](https://docs.anthropic.com/en/docs/build-with-claude/computer-use)  
+5. Anthropic Computer use: [https://docs.anthropic.com/en/docs/build-with-claude/computer-use](https://docs.anthropic.com/en/docs/build-with-claude/computer-use)
 6. Project Astra, [https://deepmind.google/models/project-astra/](https://deepmind.google/models/project-astra/)
 7. Gemini Live, [https://gemini.google/overview/gemini-live/?hl=en](https://gemini.google/overview/gemini-live/?hl=en)
 8. OpenAI's GPT-4,  [https://openai.com/index/gpt-4-research/](https://openai.com/index/gpt-4-research/)
