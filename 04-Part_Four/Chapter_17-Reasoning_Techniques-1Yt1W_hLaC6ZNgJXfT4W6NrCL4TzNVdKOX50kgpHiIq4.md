@@ -1,122 +1,116 @@
-# Chapter 17: Reasoning Techniques
+# 第17章：推理技巧（Reasoning Techniques）
 
-This chapter delves into advanced reasoning methodologies for intelligent agents, focusing on multi-step logical inferences and problem-solving. These techniques go beyond simple sequential operations, making the agent's internal reasoning explicit. This allows agents to break down problems, consider intermediate steps, and reach more robust and accurate conclusions.  A core principle among these advanced methods is the allocation of increased computational resources during inference. This means granting the agent, or the underlying LLM, more processing time or steps to process a query and generate a response. Rather than a quick, single pass, the agent can engage in iterative refinement, explore multiple solution paths, or utilize external tools. This extended processing time during inference often significantly enhances accuracy, coherence, and robustness, especially for complex problems requiring deeper analysis and deliberation.
+本章深入探討智能代理的進階推理方法，焦點在於多步驟邏輯推論與解題能力。這些技巧超越簡單的順序操作，令代理的內部思考過程變得透明，讓代理可以拆解問題、考慮中間步驟，並得出更穩健及準確的結論。這類進階方法的核心原則，是在推論期間分配更多運算資源，亦即給予代理或底層大型語言模型（LLM）更多處理查詢與產出回應的時間或步驟。代理不再只是一遍過，而是可以進行反覆修訂、探索多條解決路徑，或使用外部工具。這段額外的推論時間，往往能大幅提升面對複雜問題時的準確度、連貫性與穩健性。
 
-## Practical Applications & Use Cases
+## 實際應用與使用情境（Practical Applications & Use Cases）
 
-Practical applications include:
+實務應用包括：
 
-* **Complex Question Answering:** Facilitating the resolution of multi-hop queries, which necessitate the integration of data from diverse sources and the execution of logical deductions, potentially involving the examination of multiple reasoning paths, and benefiting from extended inference time to synthesize information.  
-* **Mathematical Problem Solving:** Enabling the division of mathematical problems into smaller, solvable components, illustrating the step-by-step process, and employing code execution for precise computations, where prolonged inference enables more intricate code generation and validation.  
-* **Code Debugging and Generation:** Supporting an agent's explanation of its rationale for generating or correcting code, pinpointing potential issues sequentially, and iteratively refining the code based on test results (Self-Correction), leveraging extended inference time for thorough debugging cycles.  
-* **Strategic Planning:** Assisting in the development of comprehensive plans through reasoning across various options, consequences, and preconditions, and adjusting plans based on real-time feedback (ReAct), where extended deliberation can lead to more effective and reliable plans.  
-* **Medical Diagnosis:** Aiding an agent in systematically assessing symptoms, test outcomes, and patient histories to reach a diagnosis, articulating its reasoning at each phase, and potentially utilizing external instruments for data retrieval (ReAct). Increased inference time allows for a more comprehensive differential diagnosis.  
-* **Legal Analysis:** Supporting the analysis of legal documents and precedents to formulate arguments or provide guidance, detailing the logical steps taken, and ensuring logical consistency through self-correction. Increased inference time allows for more in-depth legal research and argument construction.
+* **複雜問題解答（Complex Question Answering）：** 協助解決需要多重跳躍推論的查詢，整合不同來源的數據並執行邏輯推斷，可能需要檢視多條推理路徑，並利用延長推論時間來綜合資訊。
+* **數學問題求解（Mathematical Problem Solving）：** 讓代理把數學問題拆成較小且可解的部分，展示逐步過程，並利用程式碼執行精確運算；較長的推論時間可生成更複雜的程式碼並加以驗證。
+* **程式碼除錯與產生（Code Debugging and Generation）：** 支援代理解釋其產生或修正程式碼的理由，按步驟指出潛在問題，並根據測試結果反覆修訂（Self-Correction），藉由延長推論時間完成更徹底的除錯循環。
+* **策略規劃（Strategic Planning）：** 協助代理在多個選項、結果與前置條件之間進行推理，並基於即時回饋（ReAct）調整計劃；較長的思考時間可帶來更有效及更可靠的計劃。
+* **醫療診斷（Medical Diagnosis）：** 協助代理有系統地評估症狀、檢查結果與病歷，逐步說明推理過程，並視需要運用外部工具檢索資料（ReAct）。增加推論時間有助於更全面的鑑別診斷。
+* **法律分析（Legal Analysis）：** 協助分析法律文件與先例，以建構論點或提供建議，詳細交代所採用的邏輯步驟，並透過自我修正維持一致性。延長推論時間可支持更深入的法律研究與論證建構。
 
-## Reasoning techniques
+## 推理技巧（Reasoning Techniques）
 
-To start, let's delve into the core reasoning techniques used to enhance the problem-solving abilities of AI models..
+首先，我們來探討能提升人工智能模型解題能力的核心推理技巧。
 
-**Chain-of-Thought (CoT)** prompting significantly enhances LLMs complex reasoning abilities by mimicking a step-by-step thought process (see Fig. 1). Instead of providing a direct answer, CoT prompts guide the model to generate a sequence of intermediate reasoning steps. This explicit breakdown allows LLMs to tackle complex problems by decomposing them into smaller, more manageable sub-problems. This technique markedly improves the model's performance on tasks requiring multi-step reasoning, such as arithmetic, common sense reasoning, and symbolic manipulation. A primary advantage of CoT is its ability to transform a difficult, single-step problem into a series of simpler steps, thereby increasing the transparency of the LLM's reasoning process. This approach not only boosts accuracy but also offers valuable insights into the model's decision-making, aiding in debugging and comprehension.  CoT can be implemented using various strategies, including offering few-shot examples that demonstrate step-by-step reasoning or simply instructing the model to "think step by step." Its effectiveness stems from its ability to guide the model's internal processing toward a more deliberate and logical progression. As a result, Chain-of-Thought has become a cornerstone technique for enabling advanced reasoning capabilities in contemporary LLMs. This enhanced transparency and breakdown of complex problems into manageable sub-problems is particularly important for autonomous agents, as it enables them to perform more reliable and auditable actions in complex environments.  
+**鏈式思考（Chain-of-Thought，CoT）** 提示透過模仿逐步思考過程（見圖1），顯著提升大型語言模型的複雜推理能力。CoT 提示不是直接給答案，而是引導模型產出一連串中間推理步驟。清晰的拆解讓模型可以把複雜問題分成較小且可管理的子問題，對需要多步推理的任務（例如算術、常識推理、符號操作）特別有效。CoT 的主要優點，是把困難的單步問題轉化為一系列較簡單的步驟，增加模型推理過程的透明度。這種做法不但提升準確度，還可提供模型決策的洞察，協助除錯與理解。CoT 可以透過多種策略實現，包括提供展示逐步推理的少量示例，或單純指示模型「逐步思考」。其成效來自於引導模型的內部處理更審慎、更具邏輯性。因此，鏈式思考已成為當代大型語言模型實現進階推理能力的基石。這種透明度與拆解複雜問題的能力，對自主代理尤其重要，因為它能讓代理在複雜環境中採取更可靠、可稽核的行動。
 
-![COT: Chain of Thought](../assets/COT_Chain_of_Thought.png)  
+![COT: Chain of Thought](../assets/COT_Chain_of_Thought.png)
 
-Fig. 1: CoT prompt alongside the detailed, step-by-step response generated by the agent.
+圖1：展示 CoT 提示與代理產生的詳細逐步回應。
 
-Let's see an example.  It begins with a set of instructions that tell the AI how to think, defining its persona and a clear five-step process to follow. This is the prompt that initiates structured thinking.
+我們來看看例子。流程由一組指示開始，告訴人工智能如何思考，設定其角色與清晰的五步流程，這就是啟動結構化思維的提示。
 
-Following that, the example shows the CoT process in action. The section labeled "Agent's Thought Process" is the internal monologue where the model executes the instructed steps. This is the literal "chain of thought." Finally, the "Agent's Final Answer" is the polished, comprehensive output generated as a result of that careful, step-by-step reasoning process
+接着，範例展示 CoT 運作過程。標示為「代理的思考過程」的部分，是模型執行指示步驟的內部獨白，也就是實際的「思路鏈」。最後，「代理的最終答案」是經過仔細、逐步推理後產生的完整輸出。
 
 ```markdown
-You are an Information Retrieval Agent. Your goal is to answer the user's question comprehensively and accurately by thinking step-by-step. 
+You are an Information Retrieval Agent. Your goal is to answer the user's question comprehensively and accurately by thinking step-by-step.
 
-Here's the process you must follow: 
-1.  **Analyze the Query:** Understand the core subject and specific requirements of the user's question. Identify key entities, keywords, and the type of information being sought. 
-2.  **Formulate Search Queries (for Knowledge Base):** Based on your analysis, generate a list of precise search queries that you would use to retrieve relevant information from a knowledge base or external tools. 
-3.  **Simulate Information Retrieval (Self-Correction/Reasoning):** For each search query, mentally consider what kind of information you expect to find. If you were to retrieve the content, what would be the most relevant snippets? Think about potential ambiguities or missing pieces. 
-4.  **Synthesize Information:** Based on the simulated retrieval and your understanding of the user's original query, synthesize the gathered information into a coherent and complete answer. Ensure all aspects of the query are addressed. 
-5.  **Review and Refine:** Before finalizing, critically evaluate your answer. Is it accurate? Is it comprehensive? Is it easy to understand? Is it concise? If not, identify what needs to be improved and how. 
+Here's the process you must follow:
+1.  **Analyze the Query:** Understand the core subject and specific requirements of the user's question. Identify key entities, keywords, and the type of information being sought.
+2.  **Formulate Search Queries (for Knowledge Base):** Based on your analysis, generate a list of precise search queries that you would use to retrieve relevant information from a knowledge base or external tools.
+3.  **Simulate Information Retrieval (Self-Correction/Reasoning):** For each search query, mentally consider what kind of information you expect to find. If you were to retrieve the content, what would be the most relevant snippets? Think about potential ambiguities or missing pieces.
+4.  **Synthesize Information:** Based on the simulated retrieval and your understanding of the user's original query, synthesize the gathered information into a coherent and complete answer. Ensure all aspects of the query are addressed.
+5.  **Review and Refine:** Before finalizing, critically evaluate your answer. Is it accurate? Is it comprehensive? Is it easy to understand? Is it concise? If not, identify what needs to be improved and how.
 
-**User Query:** "Explain the main differences between classical computers and quantum computers, and briefly describe a potential application of quantum computing." 
+**User Query:** "Explain the main differences between classical computers and quantum computers, and briefly describe a potential application of quantum computing."
 
-**Agent's Thought Process (Internal CoT Output - encouraged by the prompt):** 
+**Agent's Thought Process (Internal CoT Output - encouraged by the prompt):**
 
-**Thought 1 (Analyze Query):** 
-The user wants two things: 
-    1.  Main differences between classical and quantum computers. 
-    2.  One potential application of quantum computing. Keywords: classical computers, quantum computers, differences, potential application. 
+**Thought 1 (Analyze Query):**
+The user wants two things:
+    1.  Main differences between classical and quantum computers.
+    2.  One potential application of quantum computing. Keywords: classical computers, quantum computers, differences, potential application.
 
-**Thought 2 (Formulate Search Queries):** 
-    - "differences classical vs quantum computers" 
-    - "how quantum computers work" 
-    - "how classical computers work" 
-    - "applications of quantum computing" 
-    
-**Thought 3 (Simulate Information Retrieval & Identify Key Concepts):** 
-    - From "differences": Expect concepts like bits vs. qubits, superposition, entanglement, probabilistic nature, computational power for specific problems. 
-    - From "how they work": Classical uses transistors/binary. Quantum uses quantum mechanics. 
-    - From "applications": Expect drug discovery, material science, cryptography, optimization. 
+**Thought 2 (Formulate Search Queries):**
+    - "differences classical vs quantum computers"
+    - "how quantum computers work"
+    - "how classical computers work"
+    - "applications of quantum computing"
 
-**Thought 4 (Synthesize Information):** 
-Classical computers use bits (0 or 1), processing information sequentially. Quantum computers use qubits, which can be 0, 1, or both simultaneously (superposition), and can be entangled, allowing for vastly different computational approaches. This enables them to solve certain problems (like factoring large numbers or simulating complex molecules) far more efficiently than classical computers. A potential application is in drug discovery, where quantum computers could simulate molecular interactions with unprecedented accuracy, accelerating the development of new medicines. 
+**Thought 3 (Simulate Information Retrieval & Identify Key Concepts):**
+    - From "differences": Expect concepts like bits vs. qubits, superposition, entanglement, probabilistic nature, computational power for specific problems.
+    - From "how they work": Classical uses transistors/binary. Quantum uses quantum mechanics.
+    - From "applications": Expect drug discovery, material science, cryptography, optimization.
 
-**Thought 5 (Review and Refine):** 
-    - Differences are covered (bits vs qubits, superposition, entanglement, processing). 
-    - Application is given (drug discovery). - Is it brief? Yes. - Is it clear? Yes. - Looks good. 
+**Thought 4 (Synthesize Information):**
+Classical computers use bits (0 or 1), processing information sequentially. Quantum computers use qubits, which can be 0, 1, or both simultaneously (superposition), and can be entangled, allowing for vastly different computational approaches. This enables them to solve certain problems (like factoring large numbers or simulating complex molecules) far more efficiently than classical computers. A potential application is in drug discovery, where quantum computers could simulate molecular interactions with unprecedented accuracy, accelerating the development of new medicines.
 
-**Agent's Final Answer (Output to User):** 
+**Thought 5 (Review and Refine):**
+    - Differences are covered (bits vs qubits, superposition, entanglement, processing).
+    - Application is given (drug discovery). - Is it brief? Yes. - Is it clear? Yes. - Looks good.
+
+**Agent's Final Answer (Output to User):**
 Classical computers process information using bits, which can be either a 0 or a 1 at any given time, performing operations sequentially. In contrast, quantum computers utilize qubits, which can exist in multiple states simultaneously through superposition and can be linked through entanglement, allowing for exponentially more complex computations. This fundamental difference enables quantum machines to tackle certain problems, such as simulating molecular structures or breaking complex encryption, that are intractable for even the most powerful classical supercomputers. A significant potential application of quantum computing lies in drug discovery, where its ability to precisely model molecular behavior could revolutionize the development of new pharmaceuticals.
 ```
 
-**Tree-of-Thought (ToT)** is a reasoning technique that builds upon Chain-of-Thought (CoT). It allows large language models to explore multiple reasoning paths by branching into different intermediate steps, forming a tree structure (see Fig. 2\) This approach supports complex problem-solving by enabling backtracking, self-correction, and exploration of alternative solutions. Maintaining a tree of possibilities allows the model to evaluate various reasoning trajectories before finalizing an answer. This iterative process enhances the model's ability to handle challenging tasks that require strategic planning and decision-making.  
+...
 
-![TOT: Tree of Thought](../assets/TOT_Tree_of_Thought.png)
-
-Fig.2: Example of Tree of Thoughts
-
-**Self-correction**, also known as self-refinement, is a crucial aspect of an agent's reasoning process, particularly within Chain-of-Thought prompting. It involves the agent's internal evaluation of its generated content and intermediate thought processes. This critical review enables the agent to identify ambiguities, information gaps, or inaccuracies in its understanding or solutions. This iterative cycle of reviewing and refining allows the agent to adjust its approach, improve response quality, and ensure accuracy and thoroughness before delivering a final output. This internal critique enhances the agent's capacity to produce reliable and high-quality results, as demonstrated in examples within the dedicated Chapter 4.
-
-This example demonstrates a systematic process of self-correction, crucial for refining AI-generated content. It involves an iterative loop of drafting, reviewing against original requirements, and implementing specific improvements. The illustration begins by outlining the AI's function as a "Self-Correction Agent" with a defined five-step analytical and revision workflow. Following this, a subpar "Initial Draft" of a social media post is presented. The "Self-Correction Agent's Thought Process" forms the core of the demonstration. Here, the Agent critically evaluates the draft according to its instructions, pinpointing weaknesses such as low engagement and a vague call to action. It then suggests concrete enhancements, including the use of more impactful verbs and emojis. The process concludes with the "Final Revised Content," a polished and notably improved version that integrates the self-identified adjustments.
+這個流程的核心在於引導代理產生多個想法、識別改進之處，並以清晰的系統檢查清單形式呈現：語氣、準確度、具體建議、代替字詞、最佳實務、格式、避免重複字詞與表情符號。流程最後輸出「最終修訂內容」，即整合自我檢視調整後的精緻版本。
 
 ```markdown
-You are a highly critical and detail-oriented Self-Correction Agent. Your task is to review a previously generated piece of content against its original requirements and identify areas for improvement. Your goal is to refine the content to be more accurate, comprehensive, engaging, and aligned with the prompt. 
+You are a highly critical and detail-oriented Self-Correction Agent. Your task is to review a previously generated piece of content against its original requirements and identify areas for improvement. Your goal is to refine the content to be more accurate, comprehensive, engaging, and aligned with the prompt.
 
-Here's the process you must follow for self-correction: 
+Here's the process you must follow for self-correction:
 
-1.  **Understand Original Requirements:** Review the initial prompt/requirements that led to the content's creation. What was the *original intent*? What were the key constraints or goals? 
-2.  **Analyze Current Content:** Read the provided content carefully. 
-3.  **Identify Discrepancies/Weaknesses:** Compare the current content against the original requirements. Look for:    
-    * **Accuracy Issues:** Are there any factual errors or misleading statements?    
-    * **Completeness Gaps:** Does it fully address all aspects of the original prompt? Is anything missing?    
-    * **Clarity & Coherence:** Is the language clear, concise, and easy to understand? Does it flow logically?    
-    * **Tone & Style:** Does it match the desired tone and style (e.g., professional, engaging, concise)?    
-    * **Engagement:** Is it captivating? Does it hold the reader's attention?    
-    * **Redundancy/Verbosity:** Can any parts be condensed or removed without losing meaning? 
-4.  **Propose Specific Improvements:** For each identified weakness, suggest concrete and actionable changes. Do not just state the problem; propose a solution. 
-5.  **Generate Revised Content:** Based on your proposed improvements, rewrite the original content to incorporate all the necessary changes. Ensure the revised content is polished and ready for final use. 
+1.  **Understand Original Requirements:** Review the initial prompt/requirements that led to the content's creation. What was the *original intent*? What were the key constraints or goals?
+2.  **Analyze Current Content:** Read the provided content carefully.
+3.  **Identify Discrepancies/Weaknesses:** Compare the current content against the original requirements. Look for:
+    * **Accuracy Issues:** Are there any factual errors or misleading statements?
+    * **Completeness Gaps:** Does it fully address all aspects of the original prompt? Is anything missing?
+    * **Clarity & Coherence:** Is the language clear, concise, and easy to understand? Does it flow logically?
+    * **Tone & Style:** Does it match the desired tone and style (e.g., professional, engaging, concise)?
+    * **Engagement:** Is it captivating? Does it hold the reader's attention?
+    * **Redundancy/Verbosity:** Can any parts be condensed or removed without losing meaning?
+4.  **Propose Specific Improvements:** For each identified weakness, suggest concrete and actionable changes. Do not just state the problem; propose a solution.
+5.  **Generate Revised Content:** Based on your proposed improvements, rewrite the original content to incorporate all the necessary changes. Ensure the revised content is polished and ready for final use.
 
-**Original Prompt/Requirements:** "Write a short, engaging social media post (max 150 characters) announcing a new eco-friendly product line: 'GreenTech Gadgets'." 
+**Original Prompt/Requirements:** "Write a short, engaging social media post (max 150 characters) announcing a new eco-friendly product line: 'GreenTech Gadgets'."
 
-**Initial Draft (Content to be corrected):** "We have new products. They are green and techy. Buy GreenTech Gadgets now!" 
+**Initial Draft (Content to be corrected):** "We have new products. They are green and techy. Buy GreenTech Gadgets now!"
 
-**Self-Correction Agent's Thought Process (Internal CoT Output - encouraged by the prompt):** 
+**Self-Correction Agent's Thought Process (Internal CoT Output - encouraged by the prompt):**
 
-**Thought 1 (Understand Original Requirements):** 
-    - Short, engaging social media post. 
-    - Max 150 characters. 
-    - Announce "GreenTech Gadgets" - a new eco-friendly product line. 
+**Thought 1 (Understand Original Requirements):**
+    - Short, engaging social media post.
+    - Max 150 characters.
+    - Announce "GreenTech Gadgets" - a new eco-friendly product line.
 
-**Thought 2 (Analyze Current Content):** 
-"We have new products. They are green and techy. Buy GreenTech Gadgets now!" (64 characters) 
+**Thought 2 (Analyze Current Content):**
+"We have new products. They are green and techy. Buy GreenTech Gadgets now!" (64 characters)
 
-**Thought 3 (Identify Discrepancies/Weaknesses):** - **Engaging:** Not very engaging. Sounds generic. - **Eco-friendly:** Implied by "green," but not explicitly highlighted as a benefit. - **Call to Action:** "Buy now!" is okay, but could be more compelling. - **Conciseness:** It's short, but could use stronger verbs/phrasing. - **Impact:** Lacks excitement for a new product launch. 
+**Thought 3 (Identify Discrepancies/Weaknesses):** - **Engaging:** Not very engaging. Sounds generic. - **Eco-friendly:** Implied by "green," but not explicitly highlighted as a benefit. - **Call to Action:** "Buy now!" is okay, but could be more compelling. - **Conciseness:** It's short, but could use stronger verbs/phrasing. - **Impact:** Lacks excitement for a new product launch.
 
 **Thought 4 (Propose Specific Improvements):** - Make it more dynamic and exciting. - Emphasize "eco-friendly" and "innovation." - Use stronger verbs and more active voice. - Add a clear, engaging call to action. - Ensure it stays under 150 characters. **Thought 5 (Generate Revised Content):** Original: "We have new products. They are green and techy. Buy GreenTech Gadgets now!" Revised idea 1: "🌱 Discover GreenTech Gadgets! Our new eco-friendly line blends innovation with sustainability. Go green, go smart! Shop now! #EcoFriendly #GreenTech" (148 characters) This revision directly addresses eco-friendliness, uses emojis for engagement, adds a stronger call to action, and includes relevant hashtags while staying within the character limit. **Self-Correction Agent's Final Revised Content (Output to User):** 🌱 Discover GreenTech Gadgets! Our new eco-friendly line blends innovation with sustainability. Go green, go smart! Shop now! #EcoFriendly #GreenTech
 ```
 
-Fundamentally, this technique integrates a quality control measure directly into the Agent's content generation, yielding more refined, precise, and superior results that more effectively meet intricate user demands.
+從本質上說，這種技巧把品質控制直接整合進代理的內容產生流程，能輸出更精緻、準確且優質的結果，以更有效地滿足複雜的使用者需求。
 
-**Program-Aided Language Models (PALMs)** integrate LLMs with symbolic reasoning capabilities. This integration allows the LLM to generate and execute code, such as Python, as part of its problem-solving process. PALMs offload complex calculations, logical operations, and data manipulation to a deterministic programming environment. This approach utilizes the strengths of traditional programming for tasks where LLMs might exhibit limitations in accuracy or consistency. When faced with symbolic challenges, the model can produce code, execute it, and convert the results into natural language. This hybrid methodology combines the LLM's understanding and generation abilities with precise computation, enabling the model to address a wider range of complex problems with potentially increased reliability and accuracy. This is important for agents as it allows them to perform more accurate and reliable actions by leveraging precise computation alongside their understanding and generation capabilities. An example is the use of external tools within Google's ADK for generating code.
+**程式輔助語言模型（Program-Aided Language Models，PALMs）** 將大型語言模型與符號推理能力結合。這種整合讓模型可以在解題過程中產生並執行程式碼（例如 Python）。PALM 會把複雜計算、邏輯操作與資料處理交給具決定性的程式環境處理。這個方法善用傳統編程在面對大型語言模型可能出現準確度或一致性限制時的優勢。當碰到符號挑戰時，模型可以產生程式碼、執行之，並把結果轉換成自然語言。這種混合方法結合模型的理解與生成能力，以及精準運算，使模型能以更高可靠度與準確度處理更廣泛的複雜問題。對代理而言，這非常重要，因為可以在理解與生成的基礎上，透過精準運算做出更準確可靠的行動。例子之一，是在 Google 的 Agentic Development Kit（ADK）中使用外部工具來生成程式碼。
 
 ```python
 from google.adk.tools import agent_tool
@@ -154,146 +148,125 @@ root_agent = Agent(
 )
 ```
 
-**Reinforcement Learning with Verifiable Rewards (RLVR):** While effective, the standard Chain-of-Thought (CoT) prompting used by many LLMs is a somewhat basic approach to reasoning. It generates a single, predetermined line of thought without adapting to the complexity of the problem. To overcome these limitations, a new class of specialized "reasoning models" has been developed. These models operate differently by dedicating a variable amount of "thinking" time before providing an answer. This "thinking" process produces a more extensive and dynamic Chain-of-Thought that can be thousands of tokens long. This extended reasoning allows for more complex behaviors like self-correction and backtracking, with the model dedicating more effort to harder problems. The key innovation enabling these models is a training strategy called Reinforcement Learning from Verifiable Rewards (RLVR). By training the model on problems with known correct answers (like math or code), it learns through trial and error to generate effective, long-form reasoning. This allows the model to evolve its problem-solving abilities without direct human supervision. Ultimately, these reasoning models don't just produce an answer; they generate a "reasoning trajectory" that demonstrates advanced skills like planning, monitoring, and evaluation. This enhanced ability to reason and strategize is fundamental to the development of autonomous AI agents, which can break down and solve complex tasks with minimal human intervention.
+**可驗證獎勵強化學習（Reinforcement Learning with Verifiable Rewards，RLVR）**：雖然鏈式思考（CoT）提示非常有效，但仍屬於較基本的推理方式，它只產生單一、預定的思路，未能根據問題複雜度調整。為了突破限制，出現了一批專門的「推理模型」，會在回答前投入可變長度的「思考」時間。這段思考過程可以形成更長、更具動態的鏈式思考，長度甚至可達數千個權杖。延伸的推理讓模型能進行自我修正與回溯，對困難問題投入更多精力。促成這些模型的關鍵創新，是名為可驗證獎勵強化學習的訓練策略。透過讓模型在已有正確答案（例如數學或程式）的問題上反覆嘗試，它會學習產出有效的長篇推理，毋須人類直接監督。最終，這些推理模型不只是給出答案，更會生成展現高階能力（如規劃、監控、評估）的「推理軌跡」。這種增強的推理與策劃能力，是自主人工智能代理得以拆解並獨立解決複雜任務的根基。
 
-**ReAct** (Reasoning and Acting, see Fig. 3, where KB stands for Knowledge Base) is a paradigm that integrates Chain-of-Thought (CoT) prompting with an agent's ability to interact with external environments through tools. Unlike generative models that produce a final answer, a ReAct agent reasons about which actions to take. This reasoning phase involves an internal planning process, similar to CoT, where the agent determines its next steps, considers available tools, and anticipates outcomes. Following this, the agent acts by executing a tool or function call, such as querying a database, performing a calculation, or interacting with an API.
+**ReAct（Reasoning and Acting）**（見圖3，其中 KB 代表知識庫 Knowledge Base）是一種把鏈式思考提示與代理使用工具互動能力整合的範式。不同於只輸出最終答案的生成模型，ReAct 代理會先推敲應採取的行動。推理階段涉及與 CoT 類似的內部規劃，代理會決定下一步、考慮可用工具並預測結果。然後代理會採取行動，例如查詢資料庫、執行計算或呼叫 API。
 
 ![REACT: Reasoning and Act](../assets/REACT_Reasoning_and_Act.png)
 
-Fig.3: Reasoning and Act
+圖3：Reasoning and Act
 
-ReAct operates in an interleaved manner: the agent executes an action, observes the outcome, and incorporates this observation into subsequent reasoning. This iterative loop of “Thought, Action, Observation, Thought...” allows the agent to dynamically adapt its plan, correct errors, and achieve goals requiring multiple interactions with the environment. This provides a more robust and flexible problem-solving approach compared to linear CoT, as the agent responds to real-time feedback. By combining language model understanding and generation with the capability to use tools, ReAct enables agents to perform complex tasks requiring both reasoning and practical execution. This approach is crucial for agents as it allows them to not only reason but also to practically execute steps and interact with dynamic environments.
+ReAct 以交錯方式運作：代理執行行動、觀察結果，並把觀察納入後續推理。這個「思考—行動—觀察—思考…」的循環，讓代理可以動態調整計劃、修正錯誤，並在需要多次互動的情境中達成目標。相較於線性的鏈式思考，這種方法更穩健、更靈活，因為代理會回應即時回饋。透過結合語言模型的理解與生成能力，以及使用工具的能力，ReAct 讓代理可以處理同時需要推理與實際執行的複雜任務。這對代理十分關鍵，因為它不只讓代理思考，更能實際行動並與動態環境互動。
 
-**CoD** (Chain of Debates) is a formal AI framework proposed by Microsoft where multiple, diverse models collaborate and argue to solve a problem, moving beyond a single AI's "chain of thought." This system operates like an AI council meeting, where different models present initial ideas, critique each other's reasoning, and exchange counterarguments. The primary goal is to enhance accuracy, reduce bias, and improve the overall quality of the final answer by leveraging collective intelligence. Functioning as an AI version of peer review, this method creates a transparent and trustworthy record of the reasoning process. Ultimately, it represents a shift from a solitary Agent providing an answer to a collaborative team of Agents working together to find a more robust and validated solution.
+**辯論鏈（Chain of Debates，CoD）** 是微軟提出的正式人工智能框架，由多個多樣化模型合作與辯論，以超越單一人工智能的「思路鏈」。這個系統好比人工智能會議，不同模型提出初步想法、批判彼此推理並交換反駁。主要目標是透過集體智慧提升準確度、降低偏差並改善最終答案品質。其運作類似人工智能版的同儕審查，建立透明且可信的推理紀錄，象徵從單一代理回答，走向協作式代理團隊尋找更穩健且經驗證的解決方案。
 
-**GoD** (Graph of Debates)  is an advanced Agentic framework that reimagines discussion as a dynamic, non-linear network rather than a simple chain. In this model, arguments are individual nodes connected by edges that signify relationships like 'supports' or 'refutes,' reflecting the multi-threaded nature of real debate. This structure allows new lines of inquiry to dynamically branch off, evolve independently, and even merge over time. A conclusion is reached not at the end of a sequence, but by identifying the most robust and well-supported cluster of arguments within the entire graph. In this context, "well-supported" refers to knowledge that is firmly established and verifiable. This can include information considered to be ground truth, which means it is inherently correct and widely accepted as fact. Additionally, it encompasses factual evidence obtained through search grounding, where information is validated against external sources and real-world data. Finally, it also pertains to a consensus reached by multiple models during a debate, indicating a high degree of agreement and confidence in the information presented. This comprehensive approach ensures a more robust and reliable foundation for the information being discussed. This approach provides a more holistic and realistic model for complex, collaborative AI reasoning.
+**辯論圖（Graph of Debates，GoD）** 是進階的代理框架，把討論重新想像成動態且非線性的網絡，而非簡單的鏈條。在此模型中，論點是個別節點，透過邊線表示「支持」或「反駁」等關係，反映真實辯論中的多線並行特性。這種結構讓新的探究路徑可以動態分支、獨立演化甚至重新匯合。結論不是在序列末端出現，而是透過辨識整個圖中最穩固、最受支持的論點群落而得。所謂「受支持」，指的是確立且可驗證的知識，包括被視為真實的資訊、透過搜尋驗證的事實證據，或多個模型在辯論中達成的共識。這種方法提供更全面、更貼近現實的複雜協作推理模型。
 
-**MASS (optional advanced topic):** An in-depth analysis of the design of multi-agent systems reveals that their effectiveness is critically dependent on both the quality of the prompts used to program individual agents and the topology that dictates their interactions. The complexity of designing these systems is significant, as it involves a vast and intricate search space. To address this challenge, a novel framework called Multi-Agent System Search (MASS) was developed to automate and optimize the design of MAS.
+**多代理系統搜尋（Multi-Agent System Search，MASS）**（屬可選的進階主題）深入分析多代理系統設計，指出效能取決於個別代理的提示品質與決定其互動的拓撲結構。設計這類系統極為複雜，因為涉及龐大且錯綜的搜尋空間。為了解決挑戰，MASS 提供嶄新的框架，自動化並優化多代理系統的設計。
 
-MASS employs a multi-stage optimization strategy that systematically navigates the complex design space by interleaving prompt and topology optimization (see Fig. 4)
+MASS 採用多階段優化策略，在提示與拓撲優化之間交錯操作，以系統性地導航複雜設計空間（見圖4）。
 
-**1. Block-Level Prompt Optimization:** The process begins with a local optimization of prompts for individual agent types, or "blocks," to ensure each component performs its role effectively before being integrated into a larger system. This initial step is crucial as it ensures that the subsequent topology optimization builds upon well-performing agents, rather than suffering from the compounding impact of poorly configured ones. For example, when optimizing for the HotpotQA dataset, the prompt for a "Debator" agent is creatively framed to instruct it to act as an "expert fact-checker for a major publication". Its optimized task is to meticulously review proposed answers from other agents, cross-reference them with provided context passages, and identify any inconsistencies or unsupported claims. This specialized role-playing prompt, discovered during block-level optimization, aims to make the debator agent highly effective at synthesizing information before it's even placed into a larger workflow
+**1. 模組層級提示優化（Block-Level Prompt Optimization）：** 先在局部層面為個別代理類型或「模組」優化提示，確保每個元件在整合前都能有效履行角色。這一步極為重要，因為後續的拓撲優化要建立在表現良好的代理之上，避免因配置不佳而連鎖拖累。例如在 HotpotQA 資料集上進行優化時，「辯論者」代理的提示被創意地設定為「大型媒體的專業事實查證員」，其任務是仔細檢視其他代理提出的答案、與提供的上下文比對並指出不一致或缺乏支持的地方。這個在模組層級發現的角色扮演提示，能讓辯論者在進入大型工作流程前已具備極高效能。
 
-**2. Workflow Topology Optimization:** Following local optimization, MASS optimizes the workflow topology by selecting and arranging different agent interactions from a customizable design space. To make this search efficient, MASS employs an influence-weighted method. This method calculates the "incremental influence" of each topology by measuring its performance gain relative to a baseline agent and uses these scores to guide the search toward more promising combinations. For instance, when optimizing for the MBPP coding task, the topology search discovers that a specific hybrid workflow is most effective. The best-found topology is not a simple structure but a combination of an iterative refinement process with external tool use. Specifically, it consists of one predictor agent that engages in several rounds of reflection, with its code being verified by one executor agent that runs the code against test cases. This discovered workflow shows that for coding, a structure that combines iterative self-correction with external verification is superior to simpler MAS designs
+**2. 工作流程拓撲優化（Workflow Topology Optimization）：** 在局部優化後，MASS 會在可自訂的設計空間中挑選並排列不同的代理互動，以優化工作流程拓撲。為了讓搜尋更有效率，MASS 使用影響力加權的方法，計算每種拓撲相對於基線代理的「增量影響」，並用這些分數指引搜尋朝更有前景的組合前進。例如在優化 MBPP 程式任務時，拓撲搜尋發現特定的混合流程最有效。最佳拓撲並非簡單結構，而是把反覆修訂過程與外部工具使用結合：一個預測代理會進行多輪反思，其程式碼則由執行代理運行測試案例驗證。這顯示對程式任務而言，結合自我修正與外部驗證的結構比簡單的多代理系統設計更優越。
 
 ![MASS: Multi-Agent System Search](../assets/MASS_Multi_Agent_System_Search.png)
 
-Fig. 4: (Courtesy of the Authors): The Multi-Agent System Search (MASS) Framework is a three-stage optimization process that navigates a search space encompassing optimizable prompts (instructions and demonstrations) and configurable agent building blocks (Aggregate, Reflect, Debate, Summarize, and Tool-use). The first stage, Block-level Prompt Optimization, independently optimizes prompts for each agent module. Stage two, Workflow Topology Optimization, samples valid system configurations from an influence-weighted design space, integrating the optimized prompts. The final stage, Workflow-level Prompt Optimization, involves a second round of prompt optimization for the entire multi-agent system after the optimal workflow from Stage two has been identified
+圖4（作者授權）：多代理系統搜尋框架是一個三階段優化流程，探索涵蓋可優化提示（指令與示例）及可配置代理模組（聚合、反思、辯論、總結與工具使用）的搜尋空間。第一階段「模組層級提示優化」獨立優化每個代理模組的提示。第二階段「工作流程拓撲優化」則從影響力加權的設計空間中抽樣有效的系統配置並整合已優化的提示。最終階段「工作流程層級提示優化」在第二階段找出最佳流程後，對整個多代理系統進行第二輪提示優化。
 
-**3. Workflow-Level Prompt Optimization:** The final stage involves a global optimization of the entire system's prompts. After identifying the best-performing topology, the prompts are fine-tuned as a single, integrated entity to ensure they are tailored for orchestration and that agent interdependencies are optimized. As an example, after finding the best topology for the DROP dataset, the final optimization stage refines the "Predictor" agent's prompt. The final, optimized prompt is highly detailed, beginning by providing the agent with a summary of the dataset itself, noting its focus on "extractive question answering" and "numerical information". It then includes few-shot examples of correct question-answering behavior and frames the core instruction as a high-stakes scenario: "You are a highly specialized AI tasked with extracting critical numerical information for an urgent news report. A live broadcast is relying on your accuracy and speed". This multi-faceted prompt, combining meta-knowledge, examples, and role-playing, is tuned specifically for the final workflow to maximize accuracy
+**3. 工作流程層級提示優化（Workflow-Level Prompt Optimization）：** 最後階段針對整個系統的提示進行全局優化。在找出最佳拓撲後，會把提示視為單一整合體進行微調，確保協作得宜並最佳化代理間的相互依賴。例如在 DROP 資料集找到最佳拓撲後，最終優化階段會調整「預測者」代理的提示。完成後的提示極為詳盡，首先提供資料集摘要，指出其聚焦於「擷取式問答」及「數值資訊」，接着加入少量範例說明正確的問答行為，並把核心指示設定為高風險場景：「你是一個高度專業的人工智能，負責為即時新聞報導擷取關鍵數據，直播節目仰賴你的準確與速度。」這種結合元知識、示例與角色扮演的提示，專為最終工作流程調整以最大化準確度。
 
-Key Findings and Principles: Experiments demonstrate that MAS optimized by MASS significantly outperform existing manually designed systems and other automated design methods across a range of tasks. The key design principles for effective MAS, as derived from this research, are threefold
+關鍵發現與原則：實驗顯示，由 MASS 優化的多代理系統，在多項任務上明顯優於現有的手動設計系統與其他自動化設計方法。有效多代理系統的三大設計原則如下：
 
-* Optimize individual agents with high-quality prompts before composing them.  
-* Construct MAS by composing influential topologies rather than exploring an unconstrained search space.  
-* Model and optimize the interdependencies between agents through a final, workflow-level joint optimization.
+* 在組合前，先用高品質提示優化個別代理。
+* 透過組合具影響力的拓撲建構多代理系統，而非在不受限的搜尋空間盲目探索。
+* 透過最後的工作流程層級聯合優化，建模並優化代理之間的相依性。
 
-Building on our discussion of key reasoning techniques, let's first examine a core performance principle: the Scaling Inference Law for LLMs. This law states that a model's performance predictably improves as the computational resources allocated to it increase. We can see this principle in action in complex systems like Deep Research, where an AI agent leverages these resources to autonomously investigate a topic by breaking it down into sub-questions, using Web search as a tool, and synthesizing its findings.
+在探討關鍵推理技巧後，我們先檢視一項核心效能原則：大型語言模型的推論擴展定律（Scaling Inference Law）。此定律指出，隨著分配給模型的運算資源增加，其表現會可預測地提升。這項原則在複雜系統中十分明顯，例如深度研究（Deep Research），人工智能代理會把主題拆分成子問題、把網絡搜尋作為工具並綜合成果，自主完成調查。
 
-**Deep Research.** The term "Deep Research" describes a category of AI Agentic tools designed to act as tireless, methodical research assistants. Major platforms in this space include Perplexity AI, Google's Gemini research capabilities, and OpenAI's advanced functions within ChatGPT (see Fig.5).
+**深度研究（Deep Research）** 指一類旨在擔任不知疲倦、細緻研究助理的代理工具。這個領域的主要平台包括 Perplexity AI、Google 的 Gemini 研究功能，以及 OpenAI 在 ChatGPT 中的進階功能（見圖5）。
 
 ![Google Deep Research for Information Gathering](../assets/Google_Deep_Research_for_Information_Gathering.png)
 
-Fig. 5: Google Deep Research for Information Gathering
+圖5：Google Deep Research 的資訊蒐集介面
 
-A fundamental shift introduced by these tools is the change in the search process itself. A standard search provides immediate links, leaving the work of synthesis to you. Deep Research operates on a different model. Here, you task an AI with a complex query and grant it a "time budget"—usually a few minutes. In return for this patience, you receive a detailed report.
+這些工具帶來的根本改變，是搜尋流程本身。傳統搜尋即時給出連結，還要你自行整合資訊；Deep Research 則採用截然不同的模式。你給人工智能一個複雜問題，並給它一段「時間預算」，通常幾分鐘。作為回報，你會收到詳盡報告。
 
-During this time, the AI works on your behalf in an agentic way. It autonomously performs a series of sophisticated steps that would be incredibly time-consuming for a person:
+在這段時間內，人工智能會以代理方式代表你完成以下繁複步驟，這對人類而言極為耗時：
 
-1. Initial Exploration: It runs multiple, targeted searches based on your initial prompt.  
-2. Reasoning and Refinement: It reads and analyzes the first wave of results, synthesizes the findings, and critically identifies gaps, contradictions, or areas that require more detail.  
-3. Follow-up Inquiry: Based on its internal reasoning, it conducts new, more nuanced searches to fill those gaps and deepen its understanding.  
-4. Final Synthesis: After several rounds of this iterative searching and reasoning, it compiles all the validated information into a single, cohesive, and structured summary.
+1. **初步探索：** 根據最初提示執行多個精準搜尋。
+2. **推理與修正：** 閱讀及分析第一批結果，綜合發現並批判性地找出缺口、矛盾或需要更多細節之處。
+3. **後續查詢：** 按照內部推理，進行更細緻的新搜尋以填補缺口並深化理解。
+4. **最終綜整：** 經過數輪搜尋與推理後，將所有經驗證的資訊整理成單一、連貫且結構化的摘要。
 
-This systematic approach ensures a comprehensive and well-reasoned response, significantly enhancing the efficiency and depth of information gathering, thereby facilitating more agentic decision-making.
+這種系統化方法確保回應全面且推理充分，大幅提升資訊蒐集的效率與深度，從而促進更具代理性的決策。
 
-## Scaling Inference Law
+## 推論擴展定律（Scaling Inference Law）
 
-This critical principle dictates the relationship between an LLM's performance and the computational resources allocated during its operational phase, known as inference. The Inference Scaling Law differs from the more familiar scaling laws for training, which focus on how model quality improves with increased data volume and computational power during a model's creation. Instead, this law specifically examines the dynamic trade-offs that occur when an LLM is actively generating an output or answer.
+...
 
-A cornerstone of this law is the revelation that superior results can frequently be achieved from a comparatively smaller LLM by augmenting the computational investment at inference time. This doesn't necessarily mean using a more powerful GPU, but rather employing more sophisticated or resource-intensive inference strategies. A prime example of such a strategy is instructing the model to generate multiple potential answers—perhaps through techniques like diverse beam search or self-consistency methods—and then employing a selection mechanism to identify the most optimal output. This iterative refinement or multiple-candidate generation process demands more computational cycles but can significantly elevate the quality of the final response.
-
-This principle offers a crucial framework for informed and economically sound decision-making in the deployment of Agents systems. It challenges the intuitive notion that a larger model will always yield better performance. The law posits that a smaller model, when granted a more substantial "thinking budget" during inference, can occasionally surpass the performance of a much larger model that relies on a simpler, less computationally intensive generation process. The "thinking budget" here refers to the additional computational steps or complex algorithms applied during inference, allowing the smaller model to explore a wider range of possibilities or apply more rigorous internal checks before settling on an answer.
-
-Consequently, the Scaling Inference Law becomes fundamental to constructing efficient and cost-effective Agentic systems. It provides a methodology for meticulously balancing several interconnected factors:
-
-* **Model Size:** Smaller models are inherently less demanding in terms of memory and storage.  
-* **Response Latency:** While increased inference-time computation can add to latency, the law helps identify the point at which the performance gains outweigh this increase, or how to strategically apply computation to avoid excessive delays.  
-* **Operational Cost:** Deploying and running larger models typically incurs higher ongoing operational costs due to increased power consumption and infrastructure requirements. The law demonstrates how to optimize performance without unnecessarily escalating these costs.
-
-By understanding and applying the Scaling Inference Law, developers and organizations can make strategic choices that lead to optimal performance for specific agentic applications, ensuring that computational resources are allocated where they will have the most significant impact on the quality and utility of the LLM's output. This allows for more nuanced and economically viable approaches to AI deployment, moving beyond a simple "bigger is better" paradigm.
-
-## Hands-On Code Example
-
-The DeepSearch code, open-sourced by Google, is available through the gemini-fullstack-langgraph-quickstart repository (Fig. 6). This repository provides a template for developers to construct full-stack AI agents using Gemini 2.5 and the LangGraph orchestration framework. This open-source stack facilitates experimentation with agent-based architectures and can be integrated with local LLLMs such as Gemma. It utilizes Docker and modular project scaffolding for rapid prototyping. It should be noted that this release serves as a well-structured demonstration and is not intended as a production-ready backend.
-
-![Example of DeepSearch with multiple Reflection Steps](../assets/Example_of_DeepSearch_with_multiple_Reflection_Steps.png)
-
-
-Fig. 6: (Courtesy of authors) Example of DeepSearch with multiple Reflection steps
-
-This project provides a full-stack application featuring a React frontend and a LangGraph backend, designed for advanced research and conversational AI. A LangGraph agent dynamically generates search queries using Google Gemini models and integrates web research via the Google Search API. The system employs reflective reasoning to identify knowledge gaps, refine searches iteratively, and synthesize answers with citations. The frontend and backend support hot-reloading. The project's structure includes separate frontend/ and backend/ directories. Requirements for setup include Node.js, npm, Python 3.8+, and a Google Gemini API key. After configuring the API key in the backend's .env file, dependencies for both the backend (using pip install .) and frontend (npm install) can be installed. Development servers can be run concurrently with make dev or individually. The backend agent, defined in backend/src/agent/graph.py, generates initial search queries, conducts web research, performs knowledge gap analysis, refines queries iteratively, and synthesizes a cited answer using a Gemini model. Production deployment involves the backend server delivering a static frontend build and requires Redis for streaming real-time output and a Postgres database for managing data. A Docker image can be built and run using docker-compose up, which also requires a LangSmith API key for the docker-compose.yml example. The application utilizes React with Vite, Tailwind CSS, Shadcn UI, LangGraph, and Google Gemini. The project is licensed under the Apache License 2.0.
+在後端的 .env 檔設定 API 金鑰後，可分別為後端（透過 `pip install .`）與前端（`npm install`）安裝依賴。可使用 `make dev` 同時啟動開發伺服器，或分別啟動。後端代理定義於 `backend/src/agent/graph.py`，負責產生初始搜尋查詢、執行網絡研究、分析知識缺口、反覆修正查詢並使用 Gemini 模型綜整帶引用的答案。正式部署時，後端伺服器會提供靜態前端建置，並需要 Redis 以串流即時輸出及 Postgres 資料庫管理資料。可透過 `docker-compose up` 建立並執行 Docker 映像，該示例亦需要在 `docker-compose.yml` 設定 LangSmith API 金鑰。此應用採用 React、Vite、Tailwind CSS、Shadcn UI、LangGraph 與 Google Gemini，並以 Apache License 2.0 授權。
 
 | ``# Create our Agent Graph builder = StateGraph(OverallState, config_schema=Configuration) # Define the nodes we will cycle between builder.add_node("generate_query", generate_query) builder.add_node("web_research", web_research) builder.add_node("reflection", reflection) builder.add_node("finalize_answer", finalize_answer) # Set the entrypoint as `generate_query` # This means that this node is the first one called builder.add_edge(START, "generate_query") # Add conditional edge to continue with search queries in a parallel branch builder.add_conditional_edges(    "generate_query", continue_to_web_research, ["web_research"] ) # Reflect on the web research builder.add_edge("web_research", "reflection") # Evaluate the research builder.add_conditional_edges(    "reflection", evaluate_research, ["web_research", "finalize_answer"] ) # Finalize the answer builder.add_edge("finalize_answer", END) graph = builder.compile(name="pro-search-agent")`` |
 | :---- |
 
-Fig.4: Example of DeepSearch with LangGraph (code from backend/src/agent/graph.py)
+圖4：LangGraph 中 DeepSearch 的示例（程式碼來自 `backend/src/agent/graph.py`）
 
-## So, what do agents think?
+## 代理在想什麼？（So, what do agents think?）
 
-In summary, an agent's thinking process is a structured approach that combines reasoning and acting to solve problems. This method allows an agent to explicitly plan its steps, monitor its progress, and interact with external tools to gather information.
+總結來說，代理的思考流程是一套結合推理與行動的結構化方法，讓代理可以明確規劃步驟、監察進度，並與外部工具互動以蒐集資訊。
 
-At its core, the agent's "thinking" is facilitated by a powerful LLM. This LLM generates a series of thoughts that guide the agent's subsequent actions. The process typically follows a thought-action-observation loop:
+代理的「思考」核心由強大的大型語言模型驅動，模型會生成一連串想法，指引後續行動。流程通常遵循「思考—行動—觀察」循環：
 
-1. **Thought:** The agent first generates a textual thought that breaks down the problem, formulates a plan, or analyzes the current situation. This internal monologue makes the agent's reasoning process transparent and steerable.  
-2. **Action:** Based on the thought, the agent selects an action from a predefined, discrete set of options. For example, in a question-answering scenario, the action space might include searching online, retrieving information from a specific webpage, or providing a final answer.  
-3. **Observation:** The agent then receives feedback from its environment based on the action taken. This could be the results of a web search or the content of a webpage.
+1. **思考（Thought）：** 代理先產生文字化的想法，拆解問題、擬定計劃或分析現況。這段內部獨白令代理的推理過程變得透明且可操控。
+2. **行動（Action）：** 基於思考，代理從預先定義的離散選項中選取行動。例如在問答情境中，可能包含線上搜尋、從特定網頁擷取資訊或提供最終答案。
+3. **觀察（Observation）：** 代理會收到環境回饋，例如搜尋結果或網頁內容。
 
-This cycle repeats, with each observation informing the next thought, until the agent determines that it has reached a final solution and performs a "finish" action.
+這個循環會重複，每次觀察都會影響下一個想法，直至代理認為達成最終解決方案並執行「完成」動作。
 
-The effectiveness of this approach relies on the advanced reasoning and planning capabilities of the underlying LLM. To guide the agent, the ReAct framework often employs few-shot learning, where the LLM is provided with examples of human-like problem-solving trajectories. These examples demonstrate how to effectively combine thoughts and actions to solve similar tasks.
+此方法的效能仰賴底層大型語言模型的進階推理與規劃能力。為了引導代理，ReAct 框架常採用少量示例學習，把人類式問題解決的軌跡提供給模型，示範如何有效結合思考與行動解決相似任務。
 
-The frequency of an agent's thoughts can be adjusted depending on the task. For knowledge-intensive reasoning tasks like fact-checking, thoughts are typically interleaved with every action to ensure a logical flow of information gathering and reasoning. In contrast, for decision-making tasks that require many actions, such as navigating a simulated environment, thoughts may be used more sparingly, allowing the agent to decide when thinking is necessary
+代理思考的頻率可因任務而調整。對於依賴知識的推理任務（例如事實查證），通常在每次行動後穿插思考，以確保資訊蒐集與推理的邏輯流程；相反地，在需要大量行動的決策任務（例如導航模擬環境）中，可較少使用思考，由代理自行判斷何時需要再思考。
 
-## At a Glance
+## 一覽表（At a Glance）
 
-**What**: Complex problem-solving often requires more than a single, direct answer, posing a significant challenge for AI. The core problem is enabling AI agents to tackle multi-step tasks that demand logical inference, decomposition, and strategic planning. Without a structured approach, agents may fail to handle intricacies, leading to inaccurate or incomplete conclusions. These advanced reasoning methodologies aim to make an agent's internal "thought" process explicit, allowing it to systematically work through challenges.
+**內容（What）：** 複雜問題往往不是單一直接答案就能處理，對人工智能造成巨大挑戰。核心問題是如何讓代理處理需要邏輯推論、拆解與策略規劃的多步任務。若欠缺結構化方法，代理可能無法處理細節，導致答案不準或不完整。這些進階推理方法旨在讓代理的內在「思考」過程清晰呈現，讓它能有系統地解決難題。
 
-**Why:** The standardized solution is a suite of reasoning techniques that provide a structured framework for an agent's problem-solving process. Methodologies like Chain-of-Thought (CoT) and Tree-of-Thought (ToT) guide LLMs to break down problems and explore multiple solution paths. Self-Correction allows for the iterative refinement of answers, ensuring higher accuracy. Agentic frameworks like ReAct integrate reasoning with action, enabling agents to interact with external tools and environments to gather information and adapt their plans. This combination of explicit reasoning, exploration, refinement, and tool use creates more robust, transparent, and capable AI systems.
+**原因（Why）：** 標準化的解決方案是一套推理技巧，為代理的解題流程提供結構化框架。鏈式思考（CoT）與思維樹（Tree-of-Thought，ToT）等方法引導大型語言模型拆解問題並探索多條解決路徑；自我修正（Self-Correction）讓答案可以反覆打磨，提高準確度；ReAct 等代理框架把推理與行動結合，令代理可與外部工具及環境互動，蒐集資訊並調整計劃。這種把明確推理、探索、修正及工具使用結合的方式，造就更穩健、透明且能力更強的人工智能系統。
 
-**Rule of Thumb:** Use these reasoning techniques when a problem is too complex for a single-pass answer and requires decomposition, multi-step logic, interaction with external data sources or tools, or strategic planning and adaptation. They are ideal for tasks where showing the "work" or thought process is as important as the final answer.
+**經驗法則（Rule of Thumb）：** 當問題太複雜，無法透過單次回答處理，需要拆解、多步邏輯、與外部資料來源或工具互動，或需要策略規劃與調整時，就應使用這些推理技巧。這些技巧特別適合需要展示「過程」與最終答案同樣重要的任務。
 
-**Visual Summary:**
+**視覺摘要（Visual Summary）：**
 
 ![Reasoning Design Pattern](../assets/Reasoning_Design_Pattern.png)
 
-Fig. 7: Reasoning design pattern
+圖7：推理設計範式
 
-## Key Takeaways
+## 重要重點（Key Takeaways）
 
-* By making their reasoning explicit, agents can formulate transparent, multi-step plans, which is the foundational capability for autonomous action and user trust.  
-* The ReAct framework provides agents with their core operational loop, empowering them to move beyond mere reasoning and interact with external tools to dynamically act and adapt within an environment.  
-* The Scaling Inference Law implies an agent's performance is not just about its underlying model size, but its allocated "thinking time," allowing for more deliberate and higher-quality autonomous actions.  
-* Chain-of-Thought (CoT) serves as an agent's internal monologue, providing a structured way to formulate a plan by breaking a complex goal into a sequence of manageable actions.  
-* Tree-of-Thought and Self-Correction give agents the crucial ability to deliberate, allowing them to evaluate multiple strategies, backtrack from errors, and improve their own plans before execution.  
-* Collaborative frameworks like Chain of Debates (CoD) signal the shift from solitary agents to multi-agent systems, where teams of agents can reason together to tackle more complex problems and reduce individual biases.  
-* Applications like Deep Research demonstrate how these techniques culminate in agents that can execute complex, long-running tasks, such as in-depth investigation, completely autonomously on a user's behalf.  
-* To build effective teams of agents, frameworks like MASS automate the optimization of how individual agents are instructed and how they interact, ensuring the entire multi-agent system performs optimally.  
-* By integrating these reasoning techniques, we build agents that are not just automated but truly autonomous, capable of being trusted to plan, act, and solve complex problems without direct supervision.
+* 透過把推理過程公開，代理可以制定透明的多步計劃，這是自主行動與建立使用者信任的基礎能力。
+* ReAct 框架提供代理的核心運作循環，讓它不僅能推理，還能與外部工具互動，在環境中動態行動與調整。
+* 推論擴展定律（Scaling Inference Law）顯示代理的表現不只取決於底層模型規模，還取決於給予的「思考時間」，讓它能更從容地作出高品質的自主行動。
+* 鏈式思考（CoT）是代理的內部獨白，提供結構化方式把複雜目標拆成可管理的行動序列。
+* 思維樹（Tree-of-Thought）與自我修正賦予代理關鍵的審議能力，得以評估多種策略、從錯誤回溯，並在執行前改進自身計劃。
+* 辯論鏈（CoD）等協作框架象徵代理從單兵作戰走向多代理系統，讓團隊協同推理，解決更複雜的問題並減少個體偏差。
+* 深度研究（Deep Research）等應用展示這些技巧如何匯聚成可自主執行複雜、長時間任務（如深入調查）的代理。
+* 要打造高效代理團隊，MASS 等框架會自動化優化個別代理的提示及其互動方式，確保整體多代理系統表現最佳。
+* 整合這些推理技巧，可建立不只是自動化，而是真正自主、可被信任去規劃、行動並在無人監督下解決複雜問題的代理。
 
-## Conclusions
+## 總結（Conclusions）
 
-Modern AI is evolving from passive tools into autonomous agents, capable of tackling complex goals through structured reasoning. This agentic behavior begins with an internal monologue, powered by techniques like Chain-of-Thought (CoT), which allows an agent to formulate a coherent plan before acting. True autonomy requires deliberation, which agents achieve through Self-Correction and Tree-of-Thought (ToT), enabling them to evaluate multiple strategies and independently improve their own work. The pivotal leap to fully agentic systems comes from the ReAct framework, which empowers an agent to move beyond thinking and start acting by using external tools. This establishes the core agentic loop of thought, action, and observation, allowing the agent to dynamically adapt its strategy based on environmental feedback.
+現代人工智能正在從被動工具轉型為自主代理，透過結構化推理完成複雜目標。這種代理行為始於內部獨白，透過鏈式思考（CoT）等技巧，在行動前構思清晰計劃。真正的自主性需要審議能力，代理可藉由自我修正與思維樹（ToT）評估多種策略並自我改進。邁向完全代理化的關鍵，是 ReAct 框架讓代理超越思考，開始行動並使用外部工具，形成思考、行動、觀察的核心循環，使代理能根據環境回饋動態調整策略。
 
-An agent's capacity for deep deliberation is fueled by the Scaling Inference Law, where more computational "thinking time" directly translates into more robust autonomous actions. The next frontier is the multi-agent system, where frameworks like Chain of Debates (CoD) create collaborative agent societies that reason together to achieve a common goal. This is not theoretical; agentic applications like Deep Research already demonstrate how autonomous agents can execute complex, multi-step investigations on a user's behalf. The overarching goal is to engineer reliable and transparent autonomous agents that can be trusted to independently manage and solve intricate problems. Ultimately, by combining explicit reasoning with the power to act, these methodologies are completing the transformation of AI into truly agentic problem-solvers.
+代理深度審議的能力來自推論擴展定律，亦即給予更多運算「思考時間」可直接轉化為更穩健的自主行動。下一個前沿是多代理系統，像辯論鏈（CoD）等框架可建立協作的代理社群，共同推理達成共同目標。這不只是理論，深度研究（Deep Research）等代理應用已證明它們可以替使用者自主執行複雜、多步的調查。總體目標是打造可靠且透明的自主代理，值得信賴地獨立管理並解決繁複問題。當我們把明確推理與行動能力結合，這些方法正完成人工智能向真正代理型解題者的轉變。
 
 ## References
 
 Relevant research includes:
 
-1. "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models" by Wei et al. (2022)  
-2. "Tree of Thoughts: Deliberate Problem Solving with Large Language Models" by Yao et al. (2023)  
-3. "Program-Aided Language Models" by Gao et al. (2023)  
-4. "ReAct: Synergizing Reasoning and Acting in Language Models" by Yao et al. (2023)  
-5. Inference Scaling Laws: An Empirical Analysis of Compute-Optimal Inference for LLM Problem-Solving, 2024  
+1. "Chain-of-Thought Prompting Elicits Reasoning in Large Language Models" by Wei et al. (2022)
+2. "Tree of Thoughts: Deliberate Problem Solving with Large Language Models" by Yao et al. (2023)
+3. "Program-Aided Language Models" by Gao et al. (2023)
+4. "ReAct: Synergizing Reasoning and Acting in Language Models" by Yao et al. (2023)
+5. Inference Scaling Laws: An Empirical Analysis of Compute-Optimal Inference for LLM Problem-Solving, 2024
 6. Multi-Agent Design: Optimizing Agents with Better Prompts and Topologies, [https://arxiv.org/abs/2502.02533](https://arxiv.org/abs/2502.02533)
