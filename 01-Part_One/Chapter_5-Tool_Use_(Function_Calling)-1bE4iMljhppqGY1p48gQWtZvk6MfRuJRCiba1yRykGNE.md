@@ -1,91 +1,91 @@
-# Chapter 5: Tool Use (Function Calling)
+# 第5章：工具使用（Tool Use）與函數調用（Function Calling）
 
-## Tool Use Pattern Overview
+## 工具使用模式（Tool Use Pattern）概覽
 
-So far, we've discussed agentic patterns that primarily involve orchestrating interactions between language models and managing the flow of information within the agent's internal workflow (Chaining, Routing, Parallelization, Reflection). However, for agents to be truly useful and interact with the real world or external systems, they need the ability to use Tools.
+到目前為止，我們已經討論過幾種主要專注於協調大型語言模型（Large Language Models，LLM）互動及管理代理內部工作流程資訊流的代理型設計模式（Agentic patterns），例如鏈結（Chaining）、路由（Routing）、平行化（Parallelization）與反思（Reflection）。然而，若要讓代理真正有用並能與現實世界或外部系統互動，它們必須具備使用工具（Tools）的能力。
 
-The Tool Use pattern, often implemented through a mechanism called Function Calling, enables an agent to interact with external APIs, databases, services, or even execute code. It allows the LLM at the core of the agent to decide when and how to use a specific external function based on the user's request or the current state of the task.
+工具使用模式（Tool Use pattern），通常透過稱為函數調用（Function Calling）的機制來實現，讓代理可以與外部應用程式介面（APIs）、資料庫、服務甚至執行程式碼互動。它讓代理核心的 LLM 能夠根據使用者請求或任務當前狀態，決定何時以及如何使用特定外部函數。
 
-The process typically involves:
+整個流程一般包括：
 
-1. **Tool Definition:** External functions or capabilities are defined and described to the LLM. This description includes the function's purpose, its name, and the parameters it accepts, along with their types and descriptions.  
-2. **LLM Decision:** The LLM receives the user's request and the available tool definitions. Based on its understanding of the request and the tools, the LLM decides if calling one or more tools is necessary to fulfill the request.  
-3. **Function Call Generation:** If the LLM decides to use a tool, it generates a structured output (often a JSON object) that specifies the name of the tool to call and the arguments (parameters) to pass to it, extracted from the user's request.  
-4. **Tool Execution:** The agentic framework or orchestration layer intercepts this structured output. It identifies the requested tool and executes the actual external function with the provided arguments.  
-5. **Observation/Result:** The output or result from the tool execution is returned to the agent.  
-6. **LLM Processing (Optional but common):** The LLM receives the tool's output as context and uses it to formulate a final response to the user or decide on the next step in the workflow (which might involve calling another tool, reflecting, or providing a final answer).
+1. **工具定義：** 向 LLM 定義並描述外部函數或能力。這些描述會包含函數的目的、名稱，以及它所接受的參數與其型別及說明。
+2. **LLM 判斷：** LLM 接收使用者請求以及可用的工具定義。基於對請求與工具的理解，LLM 決定是否需要呼叫一個或多個工具來完成任務。
+3. **函數呼叫產生：** 如果 LLM 決定使用工具，它會產生結構化輸出（通常是 JavaScript 物件標記法（JSON）物件），指出要呼叫的工具名稱以及從使用者請求中擷取的參數。
+4. **工具執行：** 代理框架或協調層攔截這個結構化輸出，辨識指定的工具並以提供的參數執行實際的外部函數。
+5. **觀察／結果：** 工具執行的輸出或結果會回傳給代理。
+6. **LLM 處理（選用但常見）：** LLM 將工具輸出作為上下文，據此擬定最終回應或決定下一步工作流程（可能再次呼叫工具、進行反思，或提供最後答案）。
 
-This pattern is fundamental because it breaks the limitations of the LLM's training data and allows it to access up-to-date information, perform calculations it can't do internally, interact with user-specific data, or trigger real-world actions. Function calling is the technical mechanism that bridges the gap between the LLM's reasoning capabilities and the vast array of external functionalities available.
+這個模式至關重要，因為它打破了 LLM 訓練資料的限制，讓模型能取得最新資訊、執行無法在內部完成的計算、存取使用者專屬資料，或觸發現實世界的動作。函數調用（Function Calling）是連結 LLM 推理能力與龐大外部功能之間差距的技術機制。
 
-While "function calling" aptly describes invoking specific, predefined code functions, it's useful to consider the more expansive concept of "tool calling." This broader term acknowledges that an agent's capabilities can extend far beyond simple function execution. A "tool" can be a traditional function, but it can also be a complex API endpoint, a request to a database, or even an instruction directed at another specialized agent. This perspective allows us to envision more sophisticated systems where, for instance, a primary agent might delegate a complex data analysis task to a dedicated "analyst agent" or query an external knowledge base through its API. Thinking in terms of "tool calling" better captures the full potential of agents to act as orchestrators across a diverse ecosystem of digital resources and other intelligent entities.
+雖然「函數調用（Function Calling）」很貼切地描述了呼叫特定、預先定義程式碼函數的行為，但我們可以進一步從「工具調用（Tool Calling）」的廣義角度來思考。這個更廣的詞彙強調代理能力遠超過單純執行函數；「工具」可以是傳統函數，也可以是複雜的應用程式介面端點（API endpoint）、資料庫查詢，甚至是對另一個專門代理的指令。這種觀點讓我們可以想像更精密的系統，例如主要代理可能會把複雜的資料分析工作交給專屬的「分析代理」，或透過 API 查詢外部知識庫。從「工具調用」角度思考，更能捕捉代理作為多元數位資源及其他智能實體協調者的全部潛力。
 
-Frameworks like LangChain, LangGraph, and Google Agent Developer Kit (ADK) provide robust support for defining tools and integrating them into agent workflows, often leveraging the native function calling capabilities of modern LLMs like those in the Gemini or OpenAI series. On the "canvas" of these frameworks, you define the tools and then configure agents (typically LLM Agents) to be aware of and capable of using these tools.
+LangChain 框架（LangChain）、LangGraph 框架（LangGraph）與 Google 代理開發套件（Google Agent Developer Kit，ADK）等框架為工具定義與整合提供強大支援，經常運用 Gemini 系列模型（Gemini）或 OpenAI 系列模型（OpenAI）等現代 LLM 原生的函數調用能力。在這些框架的「畫布」上，你可以定義工具，然後設定代理（通常是 LLM 代理）認知並使用這些工具。
 
-Tool Use is a cornerstone pattern for building powerful, interactive, and externally aware agents.
+工具使用是打造強大、具互動性且具外部感知能力代理的基石模式。
 
-## Practical Applications & Use Cases
+## 實務應用與使用案例
 
-The Tool Use pattern is applicable in virtually any scenario where an agent needs to go beyond generating text to perform an action or retrieve specific, dynamic information:
+工具使用模式適用於幾乎所有代理需要超越文字生成、執行動作或擷取特定動態資訊的情境：
 
-### 1. Information Retrieval from External Sources
+### 1. 從外部來源擷取資訊
 
-Accessing real-time data or information that is not present in the LLM's training data.
+取得 LLM 訓練資料以外的即時數據或資訊。
 
-* **Use Case:** A weather agent.  
-  * **Tool:** A weather API that takes a location and returns the current weather conditions.  
-  * **Agent Flow:** User asks, "What's the weather in London?", LLM identifies the need for the weather tool, calls the tool with "London", tool returns data, LLM formats the data into a user-friendly response.
+* **使用案例：** 天氣代理。
+  * **工具：** 需要位置並回傳當前天氣狀況的天氣應用程式介面（Weather API）。
+  * **代理流程：** 使用者詢問：「倫敦的天氣如何？」LLM 辨識需要使用天氣工具，使用「London」呼叫工具，工具回傳資料，LLM 將資料整理成易讀回應。
 
-### 2. Interacting with Databases and APIs
+### 2. 與資料庫及應用程式介面互動
 
-Performing queries, updates, or other operations on structured data.
+對結構化資料進行查詢、更新或其他操作。
 
-* **Use Case:** An e-commerce agent.  
-  * **Tools:** API calls to check product inventory, get order status, or process payments.  
-  * **Agent Flow:** User asks "Is product X in stock?", LLM calls the inventory API, tool returns stock count, LLM tells the user the stock status.
+* **使用案例：** 電子商務代理。
+  * **工具：** 用於查詢商品庫存、取得訂單狀態或處理付款的應用程式介面呼叫。
+  * **代理流程：** 使用者詢問「產品 X 有庫存嗎？」LLM 呼叫庫存應用程式介面，工具回傳庫存數量，LLM 告知使用者庫存狀態。
 
-### 3. Performing Calculations and Data Analysis
+### 3. 執行計算與資料分析
 
-Using external calculators, data analysis libraries, or statistical tools.
+使用外部計算器、資料分析函式庫或統計工具。
 
-* **Use Case:** A financial agent.  
-  * **Tools:** A calculator function, a stock market data API, a spreadsheet tool.  
-  * **Agent Flow:** User asks "What's the current price of AAPL and calculate the potential profit if I bought 100 shares at $150?", LLM calls stock API, gets current price, then calls calculator tool, gets result, formats response.
+* **使用案例：** 財務代理。
+  * **工具：** 計算器函數、股市資料應用程式介面、試算表工具。
+  * **代理流程：** 使用者詢問「AAPL 現價是多少？如果我以每股 150 美元買入 100 股，潛在利潤是多少？」LLM 呼叫股票應用程式介面取得現價，再呼叫計算器工具取得結果，整理成回應。
 
-### 4. Sending Communications
+### 4. 發送通訊
 
-Sending emails, messages, or making API calls to external communication services.
+透過外部通訊服務發送電郵、訊息或進行應用程式介面呼叫。
 
-* **Use Case:** A personal assistant agent.  
-  * **Tool:** An email sending API.  
-  * **Agent Flow:** User says, "Send an email to John about the meeting tomorrow.", LLM calls an email tool with the recipient, subject, and body extracted from the request.
+* **使用案例：** 個人助理代理。
+  * **工具：** 發送電郵的應用程式介面。
+  * **代理流程：** 使用者說：「幫我發電郵給 John 提醒明天開會。」LLM 使用從請求中擷取的收件者、主題和內容呼叫電郵工具。
 
-### 5. Executing Code
+### 5. 執行程式碼
 
-Running code snippets in a safe environment to perform specific tasks.
+在安全環境中執行程式碼片段來完成特定任務。
 
-* **Use Case:** A coding assistant agent.  
-  * **Tool:** A code interpreter.  
-  * **Agent Flow:** User provides a Python snippet and asks, "What does this code do?", LLM uses the interpreter tool to run the code and analyze its output.
+* **使用案例：** 程式協助代理。
+  * **工具：** 程式碼解譯器（Code interpreter）。
+  * **代理流程：** 使用者提供一段 Python 程式碼並詢問：「這段程式在做什麼？」LLM 使用解譯器工具執行程式碼並分析輸出。
 
-### 6. Controlling Other Systems or Devices
+### 6. 控制其他系統或裝置
 
-Interacting with smart home devices, IoT platforms, or other connected systems.
+與智能家居裝置、物聯網平台或其他連線系統互動。
 
-* **Use Case:** A smart home agent.  
-  * **Tool:** An API to control smart lights.  
-  * **Agent Flow:** User says, "Turn off the living room lights." LLM calls the smart home tool with the command and target device.
+* **使用案例：** 智能家居代理。
+  * **工具：** 控制智能燈光的應用程式介面。
+  * **代理流程：** 使用者說：「關掉客廳燈。」LLM 將指令與目標裝置交給智能家居工具執行。
 
-Tool Use is what transforms a language model from a text generator into an agent capable of sensing, reasoning, and acting in the digital or physical world (see Fig. 1\)
+工具使用讓語言模型從文字產生器變成能夠在數位或實體世界中感知、推理與行動的代理（見圖 1）。
 
 ![Some Examples of an Agent Using Tool](Some_Examples_of_an_Agent_Using_Tool.png)
 
-Fig.1: Some examples of an Agent using Tools
+圖 1：代理使用工具的部分示例
 
-## Hands-On Code Example (LangChain)
+## 實作範例：LangChain
 
-The implementation of tool use within the LangChain framework is a two-stage process. Initially, one or more tools are defined, typically by encapsulating existing Python functions or other runnable components. Subsequently, these tools are bound to a language model, thereby granting the model the capability to generate a structured tool-use request when it determines that an external function call is required to fulfill a user's query.
+在 LangChain 框架（LangChain）中實現工具使用分成兩個階段。首先定義一個或多個工具，通常是封裝既有的 Python 函數或其他可執行元件。接著將這些工具綁定到語言模型，賦予模型在認為需要外部函數呼叫才能滿足使用者查詢時，生成結構化工具使用請求的能力。
 
-The following implementation will demonstrate this principle by first defining a simple function to simulate an information retrieval tool. Following this, an agent will be constructed and configured to leverage this tool in response to user input. The execution of this example requires the installation of the core LangChain libraries and a model-specific provider package. Furthermore, proper authentication with the selected language model service, typically via an API key configured in the local environment, is a necessary prerequisite.
+下列實作會先定義一個模擬資訊擷取工具的簡單函數，再建立代理並設定其在接收使用者輸入時善用這個工具。執行這個範例需要安裝 LangChain 核心函式庫（LangChain core library）以及特定模型供應商套件（vendor-specific packages）。此外，也必須設定所選語言模型服務的憑證，通常透過在本機環境中設定應用程式介面金鑰（API key）。
 
 ```python
 import os
@@ -181,14 +181,13 @@ async def main():
 
 nest_asyncio.apply()
 asyncio.run(main())
-
 ```
 
-The code sets up a tool-calling agent using the LangChain library and the Google Gemini model. It defines a `search_information` tool that simulates providing factual answers to specific queries. The tool has predefined responses for "weather in london," "capital of france," and "population of earth," and a default response for other queries. A ChatGoogleGenerativeAI model is initialized, ensuring it has tool-calling capabilities. A ChatPromptTemplate is created to guide the agent's interaction. The `create_tool_calling_agent` function is used to combine the language model, tools, and prompt into an agent. An AgentExecutor is then set up to manage the agent's execution and tool invocation. The `run_agent_with_tool` asynchronous function is defined to invoke the agent with a given query and print the result. The main asynchronous function prepares multiple queries to be run concurrently. These queries are designed to test both the specific and default responses of the `search_information` tool. Finally, the asyncio.run(main()) call executes all the agent tasks. The code includes checks for successful LLM initialization before proceeding with agent setup and execution.
+這段程式碼使用 LangChain 函式庫（LangChain library）與 Google Gemini 模型（Google Gemini）建立一個呼叫工具的代理。它定義了一個模擬提供特定查詢事實答案的 `search_information` 工具。該工具對「weather in london」、「capital of france」與「population of earth」等查詢提供預設回應，對其他查詢則提供通用回應。程式碼會初始化具備工具呼叫能力的 ChatGoogleGenerativeAI 模型，並建立 ChatPromptTemplate 來引導代理互動。`create_tool_calling_agent` 函數會把語言模型、工具與提示結合成代理，再透過 AgentExecutor 管理代理的執行與工具呼叫。非同步函數 `run_agent_with_tool` 用來呼叫代理並輸出結果，而主要的非同步函數則同時執行多個查詢，以測試工具的特定及預設回應。程式只在 LLM 成功初始化後才會繼續設定與執行代理。
 
-# Hands-On Code Example (CrewAI)
+## 實作範例：CrewAI
 
-This code provides a practical example of how to implement function calling (Tools) within the CrewAI framework. It sets up a simple scenario where an agent is equipped with a tool to look up information. The example specifically demonstrates fetching a simulated stock price using this agent and tool.
+這段程式碼示範如何在 CrewAI 框架（CrewAI）內實作函數調用（Tools），設定一個配備工具以查詢資訊的簡易情境。範例透過代理與工具模擬擷取股票價格。
 
 ```python
 # pip install crewai langchain-openai
@@ -302,13 +301,13 @@ if __name__ == "__main__":
     main()
 ```
 
-This code demonstrates a simple application using the Crew.ai library to simulate a financial analysis task. It defines a custom tool, `get_stock_price`, that simulates looking up stock prices for predefined tickers. The tool is designed to return a floating-point number for valid tickers or raise a ValueError for invalid ones. A Crew.ai Agent named `financial_analyst_agent` is created with the role of a Senior Financial Analyst. This agent is given the `get_stock_price` tool to interact with. A Task is defined, `analyze_aapl_task`, specifically instructing the agent to find the simulated stock price for AAPL using the tool. The task description includes clear instructions on how to handle both success and failure cases when using the tool. A Crew is assembled, comprising the `financial_analyst_agent` and the `analyze_aapl_task`. The verbose setting is enabled for both the agent and the crew to provide detailed logging during execution. The main part of the script runs the crew's task using the kickoff() method within a standard `if __name__ \== "__main__":` block. Before starting the crew, it checks if the `OPENAI_API_KEY` environment variable is set, which is required for the agent to function. The result of the crew's execution, which is the output of the task, is then printed to the console. The code also includes basic logging configuration for better tracking of the crew's actions and tool calls. It uses environment variables for API key management, though it notes that more secure methods are recommended for production environments. In short, the core logic showcases how to define tools, agents, and tasks to create a collaborative workflow in Crew.ai.
+這段程式碼示範如何使用 CrewAI 函式庫（CrewAI library）模擬財務分析任務。它定義了自訂工具 `get_stock_price`，用以模擬查詢預先定義股票代碼的價格。該工具會對有效代碼回傳浮點數，對無效代碼則拋出 ValueError。接著建立名為 `financial_analyst_agent` 的 CrewAI 代理（CrewAI agent），角色為資深財務分析師，並賦予其 `get_stock_price` 工具。任務 `analyze_aapl_task` 指示代理使用工具查詢 AAPL 的模擬股價，並在成功與失敗情況下各自提供清楚的指引。之後建立 Crew 工作團隊（Crew），包含上述代理與任務，並將詳細紀錄（verbose）啟用以便追蹤執行。主程式區塊於啟動前檢查 `OPENAI_API_KEY` 環境變數，透過 kickoff() 方法執行任務並輸出結果。此外，程式也設定了基本的日誌記錄，以利監控工具呼叫與代理行為。
 
-## Hands-on code (Google ADK)
+## 實作範例：Google ADK
 
-The Google Agent Developer Kit (ADK) includes a library of natively integrated tools that can be directly incorporated into an agent's capabilities.
+Google Agent Developer Kit（ADK）包含一組原生整合的工具，可直接納入代理能力之中。
 
-**Google search:** A primary example of such a component is the Google Search tool. This tool serves as a direct interface to the Google Search engine, equipping the agent with the functionality to perform web searches and retrieve external information.
+**Google 搜尋：** 其中一個代表性元件是 Google 搜尋工具。此工具直接連接 Google 搜尋引擎，讓代理能執行網頁搜尋並擷取外部資訊。
 
 ```python
 from google.adk.agents import Agent as ADKAgent
@@ -372,9 +371,9 @@ nest_asyncio.apply()
 asyncio.run(call_agent("what's the latest ai news?"))
 ```
 
-This code demonstrates how to create and use a basic agent powered by the Google ADK for Python. The agent is designed to answer questions by utilizing Google Search as a tool. First, necessary libraries from IPython, google.adk, and google.genai are imported. Constants for the application name, user ID, and session ID are defined. An Agent instance named `basic_search_agent` is created with a description and instructions indicating its purpose. It's configured to use the Google Search tool, which is a pre-built tool provided by the ADK. An InMemorySessionService (see Chapter 8) is initialized to manage sessions for the agent. A new session is created for the specified application, user, and session IDs. A Runner is instantiated, linking the created agent with the session service. This runner is responsible for executing the agent's interactions within a session. A helper function `call_agent` is defined to simplify the process of sending a query to the agent and processing the response. Inside `call_agent`, the user's query is formatted as a types.Content object with the role 'user'. The runner.run method is called with the user ID, session ID, and the new message content. The runner.run method returns a list of events representing the agent's actions and responses. The code iterates through these events to find the final response. If an event is identified as the final response, the text content of that response is extracted. The extracted agent response is then printed to the console. Finally, the `call_agent` function is called with the query "what's the latest ai news?" to demonstrate the agent in action.
+這段程式碼展示如何在 Python 版 Google ADK 中建立並使用一個基本代理，透過 Google 搜尋工具回答問題。程式先匯入 IPython、google.adk 與 google.genai 等必要模組，定義應用程式名稱、使用者 ID 與工作階段 ID，並建立名為 `basic_search_agent` 的代理，描述與指示皆說明其用途，並配置 Google 搜尋工具。系統使用 InMemorySessionService（詳見第 8 章）管理代理的工作階段，並建立 Runner 來串連代理與工作階段服務。輔助函數 `call_agent` 將使用者查詢格式化為 types.Content 物件並傳遞給 runner.run，該方法回傳一系列事件。程式迭代這些事件以找出最終回應，安全地擷取文字內容並輸出。最後，示範呼叫 `call_agent` 查詢「what's the latest ai news?」，呈現代理的實際運作。
 
-**Code execution:** The Google ADK features integrated components for specialized tasks, including an environment for dynamic code execution. The `built_in_code_execution` tool provides an agent with a sandboxed Python interpreter. This allows the model to write and run code to perform computational tasks, manipulate data structures, and execute procedural scripts. Such functionality is critical for addressing problems that require deterministic logic and precise calculations, which are outside the scope of probabilistic language generation alone.
+**程式碼執行：** Google ADK 亦包含多種專門任務的整合元件，其中的 `built_in_code_execution` 工具為代理提供沙盒化的 Python 直譯器。模型得以撰寫並執行程式碼，以完成計算任務、操作資料結構與執行程序腳本。此能力對需要確定邏輯與精準計算、超出機率型語言生成範疇的問題尤其關鍵。
 
 ```python
 import os
@@ -473,11 +472,12 @@ except RuntimeError as e:
         # await main()
     else:
         raise e  # Re-raise other runtime errors
+
 ```
 
-This script uses Google's Agent Development Kit (ADK) to create an agent that solves mathematical problems by writing and executing Python code. It defines an LlmAgent specifically instructed to act as a calculator, equipping it with the `built_in_code_execution` tool. The primary logic resides in the `call_agent_async` function, which sends a user's query to the agent's runner and processes the resulting events. Inside this function, an asynchronous loop iterates through events, printing the generated Python code and its execution result for debugging. The code carefully distinguishes between these intermediate steps and the final event containing the numerical answer. Finally, a main function runs the agent with two different mathematical expressions to demonstrate its ability to perform calculations.
+這個腳本利用 Google 的代理開發工具包（Agent Development Kit, ADK）建立一個透過撰寫並執行 Python 程式碼解決數學問題的代理。它定義了一個被明確指示扮演計算機角色的 LlmAgent，並替它配置 `built_in_code_execution` 工具。核心邏輯集中在 `call_agent_async` 函式，該函式會把使用者查詢送到代理的執行器（Runner）並處理回傳的事件。在這個函式中，非同步迴圈逐一走訪事件，為除錯用途輸出代理產生的 Python 程式碼以及執行結果。程式特別區分這些中間步驟與包含最終數值答案的事件。最後，`main` 函式以兩個不同的數學運算示範代理的計算能力。
 
-**Enterprise search:** This code defines a Google ADK application using the google.adk library in Python. It specifically uses a VSearchAgent, which is designed to answer questions by searching a specified Vertex AI Search datastore. The code initializes a VSearchAgent named `q2_strategy_vsearch_agent`, providing a description, the model to use ("gemini-2.0-flash-exp"), and the ID of the Vertex AI Search datastore. The `DATASTORE_ID` is expected to be set as an environment variable. It then sets up a Runner for the agent, using an InMemorySessionService to manage conversation history. An asynchronous function `call_vsearch_agent_async` is defined to interact with the agent. This function takes a query, constructs a message content object, and calls the runner's `run_async` method to send the query to the agent. The function then streams the agent's response back to the console as it arrives. It also prints information about the final response, including any source attributions from the datastore. Error handling is included to catch exceptions during the agent's execution, providing informative messages about potential issues like an incorrect datastore ID or missing permissions. Another asynchronous function `run_vsearch_example` is provided to demonstrate how to call the agent with example queries. The main execution block checks if the `DATASTORE_ID` is set and then runs the example using asyncio.run. It includes a check to handle cases where the code is run in an environment that already has a running event loop, like a Jupyter notebook.
+**企業搜尋（Enterprise Search）：** 這段程式碼使用 Python 版 google.adk 函式庫建構 Google ADK 應用，核心是 VSearchAgent。它設計成透過搜尋指定的 Vertex AI Search 資料儲存庫來回答問題。程式會初始化名為 `q2_strategy_vsearch_agent` 的 VSearchAgent，並提供描述、選用的模型（"gemini-2.0-flash-exp"）以及 Vertex AI Search 資料儲存庫的識別碼。`DATASTORE_ID` 預期以環境變數設定。接著建立代理的執行器（Runner），並以 InMemorySessionService 管理對話歷史。非同步函式 `call_vsearch_agent_async` 用於與代理互動：它接收查詢、組成訊息內容物件，並呼叫 runner 的 `run_async` 方法把查詢送給代理。函式會即時串流代理的回應到主控台，同時列出最終回應及任何來自資料儲存庫的來源註記。程式亦加入錯誤處理，以便在代理執行時偵測錯誤，提供例如資料儲存庫識別碼錯誤或權限不足等提示。另一個非同步函式 `run_vsearch_example` 展示如何以範例查詢呼叫代理。主要執行區塊會檢查 `DATASTORE_ID` 是否已設定，並透過 asyncio.run 執行範例，同時處理像 Jupyter Notebook 這類已在執行事件迴圈的環境。
 
 ```python
 import asyncio
@@ -580,37 +580,37 @@ if __name__ == "__main__":
                 raise e
 ```
 
-Overall, this code provides a basic framework for building a conversational AI application that leverages Vertex AI Search to answer questions based on information stored in a datastore. It demonstrates how to define an agent, set up a runner, and interact with the agent asynchronously while streaming the response. The focus is on retrieving and synthesizing information from a specific datastore to answer user queries.
+整體而言，這段程式碼提供建立會話式人工智慧應用的基礎框架，利用 Vertex AI Search 從資料儲存庫擷取資訊來回答問題。它示範如何定義代理、設定執行器（Runner），並在串流回應的同時以非同步方式與代理互動，重點在於整合特定資料儲存庫的資訊來回覆使用者查詢。
 
-**Vertex Extensions:** A Vertex AI extension is a structured API wrapper that enables a model to connect with external APIs for real-time data processing and action execution. Extensions offer enterprise-grade security, data privacy, and performance guarantees. They can be used for tasks like generating and running code, querying websites, and analyzing information from private datastores. Google provides prebuilt extensions for common use cases like Code Interpreter and Vertex AI Search, with the option to create custom ones. The primary benefit of extensions includes strong enterprise controls and seamless integration with other Google products. The key difference between extensions and function calling lies in their execution: Vertex AI automatically executes extensions, whereas function calls require manual execution by the user or client.
+**Vertex 擴充功能（Vertex Extensions）：** Vertex AI 擴充功能是一種結構化的應用程式介面包裝器，讓模型可以連接外部 API 以處理即時資料並執行動作。擴充功能提供企業級的安全性、資料私隱與效能保證，可用於產生與執行程式碼、查詢網站以及分析私有資料儲存庫等任務。Google 提供多個常見使用案例的預建擴充功能，例如程式碼解譯器（Code Interpreter）與 Vertex AI Search，同時允許建立自訂擴充功能。其主要優勢在於強大的企業控管與與其他 Google 產品的無縫整合。擴充功能與函數調用之間的主要差異在於執行方式：Vertex AI 會自動執行擴充功能，而函數呼叫則需要使用者或客戶端手動執行。
 
-## At a Glance
+## 重點速覽
 
-**What:** LLMs are powerful text generators, but they are fundamentally disconnected from the outside world. Their knowledge is static, limited to the data they were trained on, and they lack the ability to perform actions or retrieve real-time information. This inherent limitation prevents them from completing tasks that require interaction with external APIs, databases, or services. Without a bridge to these external systems, their utility for solving real-world problems is severely constrained.
+**重點是什麼：** LLM 雖然是強大的文字生成器，但本質上與外部世界隔離。它們的知識是靜態的，受限於訓練資料，且缺乏執行動作或取得即時資訊的能力。沒有連接外部系統的橋樑，LLM 在解決實際問題時的效用會受到嚴重限制。
 
-**Why:** The Tool Use pattern, often implemented via function calling, provides a standardized solution to this problem. It works by describing available external functions, or "tools," to the LLM in a way it can understand. Based on a user's request, the agentic LLM can then decide if a tool is needed and generate a structured data object (like a JSON) specifying which function to call and with what arguments. An orchestration layer executes this function call, retrieves the result, and feeds it back to the LLM. This allows the LLM to incorporate up-to-date, external information or the result of an action into its final response, effectively giving it the ability to act.
+**為何重要：** 工具使用模式（Tool Use pattern）常透過函數調用（Function Calling）實作，為此問題提供標準化解決方案。系統會以 LLM 能理解的方式描述可用的外部函數或「工具」，代理型 LLM 便可根據使用者請求判斷是否需要工具，並生成結構化資料物件（例如 JSON），指定要呼叫的函數及其參數。協調層會執行該函數、擷取結果並回饋給 LLM，使其能把即時的外部資訊或動作結果納入最終回應，實際賦予其行動能力。
 
-**Rule of thumb:** Use the Tool Use pattern whenever an agent needs to break out of the LLM's internal knowledge and interact with the outside world. This is essential for tasks requiring real-time data (e.g., checking weather, stock prices), accessing private or proprietary information (e.g., querying a company's database), performing precise calculations, executing code, or triggering actions in other systems (e.g., sending an email, controlling smart devices).
+**經驗法則：** 只要代理需要突破 LLM 內部知識、與外界互動，就應採用工具使用模式。這對需要即時資料（例如查詢天氣、股價）、存取私有或專有資訊（例如查詢公司資料庫）、進行精準計算、執行程式碼或觸發其他系統動作（例如寄電郵、控制智能裝置）的任務至關重要。
 
-**Visual summary:**
+**視覺摘要：**
 
 ![Tool Use Design Pattern](../assets/Tool_Use_Design_Pattern.png)
 
-Fig.2: Tool use design pattern
+圖 2：工具使用設計模式
 
-## Key Takeaways
+## 重要啟示
 
-* Tool Use (Function Calling) allows agents to interact with external systems and access dynamic information.  
-* It involves defining tools with clear descriptions and parameters that the LLM can understand.  
-* The LLM decides when to use a tool and generates structured function calls.  
-* Agentic frameworks execute the actual tool calls and return the results to the LLM.  
-* Tool Use is essential for building agents that can perform real-world actions and provide up-to-date information.  
-* LangChain simplifies tool definition using the @tool decorator and provides `create_tool_calling_agent` and AgentExecutor for building tool-using agents.  
-* Google ADK has a number of very useful pre-built tools such as Google Search, Code Execution and Vertex AI Search Tool.
+* 工具使用（Tool Use）／函數調用（Function Calling）讓代理能與外部系統互動並存取動態資訊。
+* 這個模式涉及為 LLM 定義具體描述與參數的工具，以便模型理解。
+* LLM 會決定何時使用工具並生成結構化的函數呼叫。
+* 代理框架負責執行實際的工具呼叫並將結果回傳給 LLM。
+* 工具使用是打造能執行現實世界動作並提供最新資訊代理的必要條件。
+* LangChain 框架（LangChain）透過 @tool 裝飾器簡化工具定義，並提供 `create_tool_calling_agent` 與 AgentExecutor 來建立使用工具的代理。
+* Google 代理開發套件（Google Agent Developer Kit，ADK）擁有多個非常實用的預建工具，例如 Google 搜尋工具（Google Search）、程式碼執行工具（Code Execution）與 Vertex AI 搜尋工具（Vertex AI Search Tool）。
 
-## Conclusion
+## 結論
 
-The Tool Use pattern is a critical architectural principle for extending the functional scope of large language models beyond their intrinsic text generation capabilities. By equipping a model with the ability to interface with external software and data sources, this paradigm allows an agent to perform actions, execute computations, and retrieve information from other systems. This process involves the model generating a structured request to call an external tool when it determines that doing so is necessary to fulfill a user's query. Frameworks such as LangChain, Google ADK, and Crew AI offer structured abstractions and components that facilitate the integration of these external tools. These frameworks manage the process of exposing tool specifications to the model and parsing its subsequent tool-use requests. This simplifies the development of sophisticated agentic systems that can interact with and take action within external digital environments.
+工具使用模式是延伸大型語言模型固有文字生成能力、擴展功能範圍的關鍵架構原則。透過賦予模型與外部軟體與資料來源連接的能力，此範式讓代理得以執行動作、進行計算並從其他系統擷取資訊。這個流程涉及模型在判斷有必要滿足使用者請求時，生成結構化請求來呼叫外部工具。LangChain 框架（LangChain）、Google 代理開發套件（Google Agent Developer Kit，ADK）與 CrewAI 平台（CrewAI）等框架提供結構化抽象與元件，協助整合這些外部工具，並管理向模型曝光工具規格與解析其工具使用請求。如此能簡化開發能在外部數位環境中互動並採取行動的高階代理系統。
 
 ## References
 
