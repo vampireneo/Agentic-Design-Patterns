@@ -1,81 +1,81 @@
-# Chapter 21: Exploration and Discovery
+# 第二十一章：探索與發現（Exploration and Discovery）
 
-This chapter explores patterns that enable intelligent agents to actively seek out novel information, uncover new possibilities, and identify unknown unknowns within their operational environment. Exploration and discovery differ from reactive behaviors or optimization within a predefined solution space. Instead, they focus on agents proactively venturing into unfamiliar territories, experimenting with new approaches, and generating new knowledge or understanding. This pattern is crucial for agents operating in open-ended, complex, or rapidly evolving domains where static knowledge or pre-programmed solutions are insufficient. It emphasizes the agent's capacity to expand its understanding and capabilities.
+本章闡述促使智能代理（intelligent agents）主動搜尋嶄新資訊、發掘未知可能性、識別「未知的未知」的設計樣式。探索與發現（exploration and discovery）不同於在既定解決方案空間內的回應式行為或最佳化，而是著重於代理主動踏入陌生領域、試驗新方法，並生成全新的知識與理解。此類樣式對於運作於開放式、複雜或急速演化領域、且無法依賴靜態知識或預編程方案的代理而言至關重要，強調代理擴展自身認知與能力的潛能。
 
-## Practical Applications & Use Cases
+## 實務應用與使用案例（Practical Applications & Use Cases）
 
-AI agents possess the ability to intelligently prioritize and explore, which leads to applications across various domains. By autonomously evaluating and ordering potential actions, these agents can navigate complex environments, uncover hidden insights, and drive innovation. This capacity for prioritized exploration enables them to optimize processes, discover new knowledge, and generate content.
+AI 代理（AI agents）具備智能排序與探索能力，可在多個領域中創造價值。透過自動評估與排序潛在行動，這些代理得以穿梭複雜環境、挖掘隱藏洞見並推動創新。這種優先化探索能力讓代理能優化流程、發掘新知並生成內容。
 
-Examples:
+範例：
 
-* **Scientific Research Automation:** An agent designs and runs experiments, analyzes results, and formulates new hypotheses to discover novel materials, drug candidates, or scientific principles.  
-* **Game Playing and Strategy Generation:** Agents explore game states, discovering emergent strategies or identifying vulnerabilities in game environments (e.g., AlphaGo).  
-* **Market Research and Trend Spotting:** Agents scan unstructured data (social media, news, reports) to identify trends, consumer behaviors, or market opportunities.  
-* **Security Vulnerability Discovery:** Agents probe systems or codebases to find security flaws or attack vectors.  
-* **Creative Content Generation:** Agents explore combinations of styles, themes, or data to generate artistic pieces, musical compositions, or literary works.  
-* **Personalized Education and Training:** AI tutors prioritize learning paths and content delivery based on a student's progress, learning style, and areas needing improvement.
+* **科學研究自動化（Scientific Research Automation）：** 代理設計與執行實驗、分析結果並提出新假說，以發掘新材料、藥物候選物或科學原理。
+* **遊戲對弈與策略生成（Game Playing and Strategy Generation）：** 代理探索遊戲狀態，發現新興策略或識別遊戲環境中的弱點（例如 AlphaGo）。
+* **市場研究與趨勢洞察（Market Research and Trend Spotting）：** 代理掃描非結構化資料（社交媒體、新聞、報告），以辨識趨勢、消費者行為或市場機會。
+* **安全弱點發掘（Security Vulnerability Discovery）：** 代理檢測系統或程式碼庫，以尋找安全漏洞或攻擊途徑。
+* **創意內容生成（Creative Content Generation）：** 代理探索不同風格、主題或資料的組合，以創作藝術作品、音樂或文學。
+* **個人化教育與訓練（Personalized Education and Training）：** AI 導師（AI tutors）按學生進度、學習風格及待改進範疇來優先安排學習路徑與內容。
 
-Google Co-Scientist
+Google 協同科學家（Google Co-Scientist）
 
-An AI co-scientist is an AI system developed by Google Research designed as a computational scientific collaborator. It assists human scientists in research aspects such as hypothesis generation, proposal refinement, and experimental design. This system operates on the Gemini LLM..
+Google Research 開發的 AI 協同科學家（AI co-scientist）是以 Gemini 大型語言模型（Gemini LLM）為基礎的計算型科研夥伴，協助人類科學家進行假說生成、企劃案修訂與實驗設計等研究工作。
 
-The development of the AI co-scientist addresses challenges in scientific research. These include processing large volumes of information, generating testable hypotheses, and managing experimental planning. The AI co-scientist supports researchers by performing tasks that involve large-scale information processing and synthesis, potentially revealing relationships within data. Its purpose is to augment human cognitive processes by handling computationally demanding aspects of early-stage research.
+此系統旨在回應科研上處理大量資訊、生成可測試假說與管理實驗規劃等難題。AI 協同科學家透過執行大規模資訊處理與綜合任務，協助研究人員在資料中發掘潛在關聯，藉此補強人類的認知流程，處理早期研究階段中高度計算密集的工作。
 
-**System Architecture and Methodology:** The architecture of the AI co-scientist is based on a multi-agent framework, structured to emulate collaborative and iterative processes. This design integrates specialized AI agents, each with a specific role in contributing to a research objective. A supervisor agent manages and coordinates the activities of these individual agents within an asynchronous task execution framework that allows for flexible scaling of computational resources.
+**系統架構與方法論（System Architecture and Methodology）：** AI 協同科學家的架構採用多代理框架（multi-agent framework），模擬協作與迭代流程。此設計整合具專責角色的專門代理，各自為研究目標貢獻力量，並由監督代理（supervisor agent）在非同步任務執行框架（asynchronous task execution framework）內調度與協調，以便彈性擴展計算資源。
 
-The core agents and their functions include (see Fig. 1):
+系統的核心代理與功能如下（見圖一）：
 
-* **Generation agent**: Initiates the process by producing initial hypotheses through literature exploration and simulated scientific debates.  
-* **Reflection agent**: Acts as a peer reviewer, critically assessing the correctness, novelty, and quality of the generated hypotheses.  
-* **Ranking agent**: Employs an Elo-based tournament to compare, rank, and prioritize hypotheses through simulated scientific debates.  
-* **Evolution agent**: Continuously refines top-ranked hypotheses by simplifying concepts, synthesizing ideas, and exploring unconventional reasoning.  
-* **Proximity agent**: Computes a proximity graph to cluster similar ideas and assist in exploring the hypothesis landscape.  
-* **Meta-review agent**: Synthesizes insights from all reviews and debates to identify common patterns and provide feedback, enabling the system to continuously improve.
+* **生成代理（Generation agent）：** 透過文獻探索與模擬科學辯論產出初步假說。
+* **反思代理（Reflection agent）：** 扮演同儕審查者，批判性評估假說的正確性、新穎性與品質。
+* **排序代理（Ranking agent）：** 運用 Elo 式（Elo-based）錦標賽，透過模擬科學辯論比較、排序與優先化假說。
+* **進化代理（Evolution agent）：** 持續精煉排名較高的假說，包含簡化概念、綜合理念與探索非常規推理。
+* **接近度代理（Proximity agent）：** 計算接近圖（proximity graph）以分群相似想法，協助探索假說版圖。
+* **後設審查代理（Meta-review agent）：** 綜整各項審查與辯論洞見，辨識共通模式並提供回饋，使系統持續改進。
 
-The system's operational foundation relies on Gemini, which provides language understanding, reasoning, and generative abilities. The system incorporates "test-time compute scaling," a mechanism that allocates increased computational resources to iteratively reason and enhance outputs. The system processes and synthesizes information from diverse sources, including academic literature, web-based data, and databases.
+系統以 Gemini 提供語言理解、推理與生成能力，並採用「測試時期計算擴展」（test-time compute scaling）機制，按需增加計算資源以迭代推理與強化輸出。系統可處理與綜整來自學術文獻、網路資料與資料庫等多元來源的資訊。
 
 ![AI Co-Scientist: Ideation to Validation](../assets/AI_Co_Scientist_Ideation_to_Validation.png)
 
-Fig. 1: (Courtesy of the Authors) AI Co-Scientist: Ideation to Validation
+圖一：AI 協同科學家（AI Co-Scientist）的從構想到驗證流程（由作者提供）
 
-The system follows an iterative "generate, debate, and evolve" approach mirroring the scientific method. Following the input of a scientific problem from a human scientist, the system engages in a self-improving cycle of hypothesis generation, evaluation, and refinement. Hypotheses undergo systematic assessment, including internal evaluations among agents and a tournament-based ranking mechanism.
+系統遵循模擬科學方法的「生成—辯論—進化」迭代流程。當人類科學家輸入科學問題後，系統即進入自我改進循環，持續生成、評估與精煉假說。假說會接受多代理內部評估與錦標賽式排名機制的系統化審視。
 
-**Validation and Results:** The AI co-scientist's utility has been demonstrated in several validation studies, particularly in biomedicine, assessing its performance through automated benchmarks, expert reviews, and end-to-end wet-lab experiments.
+**驗證與成果（Validation and Results）：** AI 協同科學家在多項驗證研究，特別是生醫領域中展現效用，透過自動化基準測試、專家審查與端到端實驗室實驗進行評估。
 
-**Automated and Expert Evaluation:** On the challenging GPQA benchmark, the system's internal Elo rating was shown to be concordant with the accuracy of its results, achieving a top-1 accuracy of 78.4% on the difficult "diamond set". Analysis across over 200 research goals demonstrated that scaling test-time compute consistently improves the quality of hypotheses, as measured by the Elo rating. On a curated set of 15 challenging problems, the AI co-scientist outperformed other state-of-the-art AI models and the "best guess" solutions provided by human experts. In a small-scale evaluation, biomedical experts rated the co-scientist's outputs as more novel and impactful compared to other baseline models. The system's proposals for drug repurposing, formatted as NIH Specific Aims pages, were also judged to be of high quality by a panel of six expert oncologists.
+**自動化與專家評估（Automated and Expert Evaluation）：** 在具挑戰性的 GPQA 基準測試中，系統內部的 Elo 評分與結果準確度高度一致，於困難的「diamond set」達到 78.4% 的前一名準確率。對逾二百項研究目標的分析顯示，擴展測試時期計算資源能持續提升假說品質（以 Elo 評分衡量）。在十五個精選難題上，AI 協同科學家的表現優於其他最先進 AI 模型與人類專家提供的「最佳猜測」方案。於小規模評估中，生物醫學專家認為該系統的輸出較其他基準模型更具新穎性與影響力。系統以美國國家衛生研究院（NIH）Specific Aims 格式撰寫的藥物再利用提案，亦獲六位腫瘤科專家評為高品質。
 
-**End-to-End Experimental Validation:**
+**端到端實驗驗證（End-to-End Experimental Validation）：**
 
-Drug Repurposing: For acute myeloid leukemia (AML), the system proposed novel drug candidates. Some of these, like KIRA6, were completely novel suggestions with no prior preclinical evidence for use in AML. Subsequent in vitro experiments confirmed that KIRA6 and other suggested drugs inhibited tumor cell viability at clinically relevant concentrations in multiple AML cell lines.
+藥物再利用（Drug Repurposing）：針對急性骨髓性白血病（acute myeloid leukemia, AML），系統提出新穎藥物候選物，其中包括在 AML 上未有任何臨床前證據的 KIRA6。後續體外實驗證實 KIRA6 與其他建議藥物可在多種 AML 細胞系中，以臨床相關濃度抑制腫瘤細胞活性。
 
- Novel Target Discovery: The system identified novel epigenetic targets for liver fibrosis. Laboratory experiments using human hepatic organoids validated these findings, showing that drugs targeting the suggested epigenetic modifiers had significant anti-fibrotic activity. One of the identified drugs is already FDA-approved for another condition, opening an opportunity for repurposing.
+新靶點發現（Novel Target Discovery）：系統辨識出肝纖維化的全新表觀遺傳靶點。利用人類肝臟類器官（hepatic organoids）的實驗顯示，針對所建議表觀遺傳調節因子的藥物具有顯著抗纖維化活性，其中一種藥物已獲美國食品藥物管理局（FDA）批准用於其他適應症，開啟再利用機會。
 
-Antimicrobial Resistance: The AI co-scientist independently recapitulated unpublished experimental findings. It was tasked to explain why certain mobile genetic elements (cf-PICIs) are found across many bacterial species. In two days, the system's top-ranked hypothesis was that cf-PICIs interact with diverse phage tails to expand their host range. This mirrored the novel, experimentally validated discovery that an independent research group had reached after more than a decade of research.
+抗微生物抗藥性（Antimicrobial Resistance）：AI 協同科學家自主重現尚未公開的實驗結果。在任務要求下，系統須解釋為何某些可攜帶性細菌誘導元件（cf-PICIs）廣泛存在於多種細菌中。僅兩日內，系統排名最高的假說即為 cf-PICIs 與多樣噬菌體尾纖（phage tails）互動以擴展宿主範圍，與另一研究團隊歷經十餘年實驗後得到的創新結論相符。
 
-**Augmentation, and Limitations:** The design philosophy behind the AI co-scientist emphasizes augmentation rather than complete automation of human research. Researchers interact with and guide the system through natural language, providing feedback, contributing their own ideas, and directing the AI's exploratory processes in a "scientist-in-the-loop" collaborative paradigm. However, the system has some limitations. Its knowledge is constrained by its reliance on open-access literature, potentially missing critical prior work behind paywalls. It also has limited access to negative experimental results, which are rarely published but crucial for experienced scientists. Furthermore, the system inherits limitations from the underlying LLMs, including the potential for factual inaccuracies or "hallucinations".
+**增強與限制（Augmentation and Limitations）：** AI 協同科學家的設計理念強調輔助而非完全自動化人類研究。研究人員可透過自然語言與系統互動與引導，提供回饋、提出想法並指揮 AI 的探索流程，形成「科學家在迴路內」（scientist-in-the-loop）的協作模式。然而，系統亦存在限制：其知識受限於開放取用文獻，可能錯過付費牆背後的重要既有研究；同時對負面實驗結果的掌握有限，而此類資訊鮮少發表卻對經驗豐富的科學家極為關鍵。此外，系統亦承襲基礎大型語言模型（LLMs）的侷限，包括潛在的事實錯誤或「幻覺」（hallucinations）。
 
-**Safety:** Safety is a critical consideration, and the system incorporates multiple safeguards. All research goals are reviewed for safety upon input, and generated hypotheses are also checked to prevent the system from being used for unsafe or unethical research. A preliminary safety evaluation using 1,200 adversarial research goals found that the system could robustly reject dangerous inputs. To ensure responsible development, the system is being made available to more scientists through a Trusted Tester Program to gather real-world feedback.
+**安全性（Safety）：** 安全考量至關重要，系統內建多層防護。所有研究目標在輸入時都會進行安全審查，生成的假說亦會檢測，以防系統被用於不安全或不道德研究。於 1,200 項對抗性研究目標的初步安全測試中，系統能穩健地拒絕危險輸入。為確保負責任的發展，系統透過受信測試者計劃（Trusted Tester Program）逐步開放給更多科學家，以收集實際使用回饋。
 
-## Hands-On Code Example
+## 實作範例（Hands-On Code Example）
 
-Let's look at a concrete example of agentic AI for Exploration and Discovery in action: Agent Laboratory, a project developed by Samuel Schmidgall under the MIT License.
+以下以由 Samuel Schmidgall 在 MIT 授權條款（MIT License）下開發的 Agent Laboratory 為例，展示探索與發現（Exploration and Discovery）代理的實際運作。
 
-"Agent Laboratory" is an autonomous research workflow framework designed to augment human scientific endeavors rather than replace them. This system leverages specialized LLMs to automate various stages of the scientific research process, thereby enabling human researchers to dedicate more cognitive resources to conceptualization and critical analysis.
+「Agent Laboratory」是一套自治研究工作流程框架，旨在輔助而非取代人類科研。系統運用專門大型語言模型（specialized LLMs）自動化科研流程多個階段，使人類研究者能將更多心力放在概念化與批判分析。
 
-The framework integrates "AgentRxiv," a decentralized repository for autonomous research agents. AgentRxiv facilitates the deposition, retrieval, and development of research outputs
+此框架整合 AgentRxiv——一個為自治研究代理提供成果存放、擷取與發展的平台，協助代理分享與延伸研究成果。
 
-Agent Laboratory guides the research process through distinct phases:
+Agent Laboratory 透過下列階段引導研究流程：
 
-1. **Literature Review:** During this initial phase, specialized LLM-driven agents are tasked with the autonomous collection and critical analysis of pertinent scholarly literature. This involves leveraging external databases such as arXiv to identify, synthesize, and categorize relevant research, effectively establishing a comprehensive knowledge base for the subsequent stages.  
-2. **Experimentation:** This phase encompasses the collaborative formulation of experimental designs, data preparation, execution of experiments, and analysis of results. Agents utilize integrated tools like Python for code generation and execution, and Hugging Face for model access, to conduct automated experimentation. The system is designed for iterative refinement, where agents can adapt and optimize experimental procedures based on real-time outcomes.  
-3. **Report Writing:** In the final phase, the system automates the generation of comprehensive research reports. This involves synthesizing findings from the experimentation phase with insights from the literature review, structuring the document according to academic conventions, and integrating external tools like LaTeX for professional formatting and figure generation.  
-4. **Knowledge Sharing**: AgentRxiv is a platform enabling autonomous research agents to share, access, and collaboratively advance scientific discoveries. It allows agents to build upon previous findings, fostering cumulative research progress.
+1. **文獻回顧（Literature Review）：** 初始階段由專門大型語言模型代理自動收集並批判分析相關學術文獻，包含運用 arXiv 等外部資料庫進行辨識、綜合與分類，以建立後續階段的完整知識基礎。
+2. **實驗（Experimentation）：** 此階段涵蓋協作設計實驗、資料準備、執行實驗與分析結果。代理透過整合 Python 進行程式碼生成與執行，以及使用 Hugging Face 取得模型，以自動化實驗流程。系統支援迭代式優化，代理可依即時結果調整與優化實驗程序。
+3. **報告撰寫（Report Writing）：** 最終階段自動生成完整研究報告，將實驗結果與文獻回顧洞見整合，並依學術慣例結構化文件，同時結合 LaTeX 等外部工具進行專業排版與圖表製作。
+4. **知識分享（Knowledge Sharing）：** AgentRxiv 平台使自治研究代理能分享、存取並共同推進科學發現，讓代理得以在既有成果上持續累積研究進展。
 
-The modular architecture of Agent Laboratory ensures computational flexibility. The aim is to enhance research productivity by automating tasks while maintaining the human researcher.
+Agent Laboratory 的模組化架構確保計算彈性，目標是在維持人類研究者參與下，以自動化任務來提升研究生產力。
 
-**Code analysis:** While a comprehensive code analysis is beyond the scope of this book, I want to provide you with some key insights and encourage you to delve into the code on your own.
+**程式碼分析（Code Analysis）：** 雖然完整程式碼解析超出本書範圍，下文提供重點並鼓勵讀者自行深入研究。
 
-**Judgment:** In order to emulate human evaluative processes, the system employs a tripartite agentic judgment mechanism for assessing outputs. This involves the deployment of three distinct autonomous agents, each configured to evaluate the production from a specific perspective, thereby collectively mimicking the nuanced and multi-faceted nature of human judgment. This approach allows for a more robust and comprehensive appraisal, moving beyond singular metrics to capture a richer qualitative assessment.
+**判準機制（Judgment）：** 為模擬人類評估流程，系統採用三部分代理判準機制（tripartite agentic judgment mechanism）評量輸出。此機制部署三個自治代理，分別從特定視角檢視成果，藉此模擬人類多面向審查。此作法讓評估更周延，不再侷限單一指標，而能呈現更豐富的質性分析。
 
 ```python
 class ReviewersAgent:
@@ -118,14 +118,14 @@ class ReviewersAgent:
         return f"Reviewer #1:\n{review_1}, \nReviewer #2:\n{review_2}, \nReviewer #3:\n{review_3}"
 ```
 
-The judgment agents are designed with a specific prompt that closely emulates the cognitive framework and evaluation criteria typically employed by human reviewers. This prompt guides the agents to analyze outputs through a lens similar to how a human expert would, considering factors like relevance, coherence, factual accuracy, and overall quality. By crafting these prompts to mirror human review protocols, the system aims to achieve a level of evaluative sophistication that approaches human-like discernment.
+評審代理的提示設計貼近人類審查者的認知框架與評量標準，引導代理從關聯性、連貫性、事實正確性與整體品質等面向進行檢視。透過模擬人類審查流程，系統力求達成近似人類判準的評估精細度。
 
 ````python
 def get_score(outlined_plan, latex, reward_model_llm, reviewer_type=None, attempts=3, openai_api_key=None):
    e = str()
    for _attempt in range(attempts):
        try:
-          
+
            template_instructions = """
            Respond in the following format:
 
@@ -137,58 +137,32 @@ def get_score(outlined_plan, latex, reward_model_llm, reviewer_type=None, attemp
            <JSON>
            ```
 
-           In <THOUGHT>, first briefly discuss your intuitions 
+           In <THOUGHT>, first briefly discuss your intuitions
            and reasoning for the evaluation.
-           Detail your high-level arguments, necessary choices 
+           Detail your high-level arguments, necessary choices
            and desired outcomes of the review.
-           Do not make generic comments here, but be specific 
+           Do not make generic comments here, but be specific
            to your current paper.
            Treat this as the note-taking phase of your review.
 
-           In <JSON>, provide the review in JSON format with 
+           In <JSON>, provide the review in JSON format with
            the following fields in the order:
-           - "Summary": A summary of the paper content and 
+           - "Summary": A summary of the paper content and
            its contributions.
            - "Strengths": A list of strengths of the paper.
            - "Weaknesses": A list of weaknesses of the paper.
-           - "Originality": A rating from 1 to 4 
+           - "Originality": A rating from 1 to 4
              (low, medium, high, very high).
-           - "Quality": A rating from 1 to 4 
+           - "Quality": A rating from 1 to 4
              (low, medium, high, very high).
-           - "Clarity": A rating from 1 to 4 
+           - "Clarity": A rating from 1 to 4
              (low, medium, high, very high).
-           - "Significance": A rating from 1 to 4 
-             (low, medium, high, very high).
-           - "Questions": A set of clarifying questions to be
-              answered by the paper authors.
-           - "Limitations": A set of limitations and potential
-              negative societal impacts of the work.
-           - "Ethical Concerns": A boolean value indicating 
-              whether there are ethical concerns.
-           - "Soundness": A rating from 1 to 4 
-              (poor, fair, good, excellent).
-           - "Presentation": A rating from 1 to 4 
-              (poor, fair, good, excellent).
-           - "Contribution": A rating from 1 to 4 
-             (poor, fair, good, excellent).
-           - "Overall": A rating from 1 to 10 
-             (very strong reject to award quality).
-           - "Confidence": A rating from 1 to 5 
-             (low, medium, high, very high, absolute).
-           - "Decision": A decision that has to be one of the
-             following: Accept, Reject.
-
-           For the "Decision" field, don't use Weak Accept,   
-           Borderline Accept, Borderline Reject, or Strong Reject.  
-           Instead, only use Accept or Reject.
-           This JSON will be automatically parsed, so ensure 
-           the format is precise.
-           """
+           - "Significance": A rating from 1 to 4
 ````
 
-In this multi-agent system, the research process is structured around specialized roles, mirroring a typical academic hierarchy to streamline workflow and optimize output.
+在此多代理系統中，研究流程依專業角色組織，仿照學術階層以精簡流程並提升產出。
 
-**Professor Agent:** The Professor Agent functions as the primary research director, responsible for establishing the research agenda, defining research questions, and delegating tasks to other agents. This agent sets the strategic direction and ensures alignment with project objectives.
+**教授代理（Professor Agent）：** 教授代理擔任主要研究主管，負責設定研究議程、界定研究問題並指派任務給其他代理。此代理負責擬定策略方向並確保與專案目標一致。
 
 ````python
 class ProfessorAgent(BaseAgent):
@@ -206,7 +180,7 @@ class ProfessorAgent(BaseAgent):
        return model_resp.replace("```markdown", "")
 ````
 
-**PostDoc Agent:** The PostDoc Agent's role is to execute the research. This includes conducting literature reviews, designing and implementing experiments, and generating research outputs such as papers. Importantly, the PostDoc Agent has the capability to write and execute code, enabling the practical implementation of experimental protocols and data analysis. This agent is the primary producer of research artifacts.
+**博士後代理（PostDoc Agent）：** 博士後代理負責執行研究，包括進行文獻回顧、設計與實施實驗以及生成論文等成果。博士後代理具備撰寫與執行程式碼的能力，可實際操作實驗流程與資料分析，是主要的研究產出者。
 
 ```python
 class PostdocAgent(BaseAgent):
@@ -223,7 +197,7 @@ class PostdocAgent(BaseAgent):
                 f"Previous Results: {self.prev_exp_results}\n"
                 f"Previous Interpretation of results: {self.prev_interpretation}\n"
                 f"Previous Report: {self.prev_report}\n"
-                f"{self.reviewer_response}\n\n\n"
+                f"{self.reviewer_response}\n\n\n",
             )
 
         if phase == "plan formulation":
@@ -244,50 +218,50 @@ class PostdocAgent(BaseAgent):
         return ""
 ```
 
-**Reviewer Agents:** Reviewer agents perform critical evaluations of research outputs from the PostDoc Agent, assessing the quality, validity, and scientific rigor of papers and experimental results. This evaluation phase emulates the peer-review process in academic settings to ensure a high standard of research output before finalization.
+**評審代理（Reviewer Agents）：** 評審代理對博士後代理生成的研究成果進行嚴謹評估，檢視論文與實驗結果的品質、有效性與科學嚴謹度。此評估階段模擬學術界的同儕審查流程，以確保成果在定稿前達到高標準。
 
-**ML Engineering Agents**:The Machine Learning Engineering Agents serve as machine learning engineers, engaging in dialogic collaboration with a PhD student to develop code. Their central function is to generate uncomplicated code for data preprocessing, integrating insights derived from the provided literature review and experimental protocol. This guarantees that the data is appropriately formatted and prepared for the designated experiment.
+**機器學習工程代理（ML Engineering Agents）：** 機器學習工程代理扮演工程師，與博士生透過對話協作撰寫程式碼。其核心任務是生成簡潔的資料前處理程式碼，並整合文獻回顧與實驗方案所提供的洞見，確保資料以適當格式為指定實驗做好準備。
 
 ```markdown
 "You are a machine learning engineer being directed by a PhD student who will help you write the code, and you can interact with them through dialogue.\n"
 "Your goal is to produce code that prepares the data for the provided experiment. You should aim for simple code to prepare the data, not complex code. You should integrate the provided literature review and the plan and come up with code to prepare data for this experiment.\n"
 ```
 
-**SWEngineerAgents:** Software Engineering Agents guide Machine Learning Engineer Agents. Their main purpose is to assist the Machine Learning Engineer Agent in creating straightforward data preparation code for a specific experiment. The Software Engineer Agent integrates the provided literature review and experimental plan, ensuring the generated code is uncomplicated and directly relevant to the research objectives.
+**軟件工程代理（SWEngineerAgents）：** 軟件工程代理指導機器學習工程代理，主要協助其為特定實驗建立簡潔的資料前處理程式碼。軟件工程代理會整合文獻回顧與實驗計畫，確保產出的程式碼既簡單又直接對應研究目標。
 
 ```markdown
 "You are a software engineer directing a machine learning engineer, where the machine learning engineer will be writing the code, and you can interact with them through dialogue.\n"
 "Your goal is to help the ML engineer produce code that prepares the data for the provided experiment. You should aim for very simple code to prepare the data, not complex code. You should integrate the provided literature review and the plan and come up with code to prepare data for this experiment.\n"
 ```
 
-In summary, "Agent Laboratory" represents a sophisticated framework for autonomous scientific research. It is designed to augment human research capabilities by automating key research stages and facilitating collaborative AI-driven knowledge generation. The system aims to increase research efficiency by managing routine tasks while maintaining human oversight.
+總結而言，「Agent Laboratory」是一套精密的自治科研框架，透過自動化文獻回顧、實驗與報告撰寫等關鍵階段，並促進 AI 體系的協作式知識生成，以增強人類的研究能力。系統藉由管理例行工作並維持人類監督，致力提升研究效率。
 
-## At a Glance
+## 一覽重點（At a Glance）
 
-**What:** AI agents often operate within predefined knowledge, limiting their ability to tackle novel situations or open-ended problems. In complex and dynamic environments, this static, pre-programmed information is insufficient for true innovation or discovery. The fundamental challenge is to enable agents to move beyond simple optimization to actively seek out new information and identify "unknown unknowns." This necessitates a paradigm shift from purely reactive behaviors to proactive, Agentic exploration that expands the system's own understanding and capabilities.
+**重點（What）：** AI 代理通常受限於既有知識，難以處理新情境或開放式問題。在複雜與動態環境中，這種靜態、預編程資訊不足以帶來真正的創新或發現。核心挑戰在於讓代理跨越單純最佳化，主動尋求新資訊並識別「未知的未知」，從回應式行為轉向擴展系統理解與能力的主動探索。
 
-**Why:** The standardized solution is to build Agentic AI systems specifically designed for autonomous exploration and discovery. These systems often utilize a multi-agent framework where specialized LLMs collaborate to emulate processes like the scientific method. For instance, distinct agents can be tasked with generating hypotheses, critically reviewing them, and evolving the most promising concepts. This structured, collaborative methodology allows the system to intelligently navigate vast information landscapes, design and execute experiments, and generate genuinely new knowledge. By automating the labor-intensive aspects of exploration, these systems augment human intellect and significantly accelerate the pace of discovery.
+**原因（Why）：** 標準化方案是打造專為自治探索與發現而設計的智能代理系統（Agentic AI systems），常採多代理框架，由專門大型語言模型協作模擬科學方法流程。例如，可由不同代理負責生成假說、批判審查與進化最具潛力的概念。此結構化協作方式有助系統在龐大資訊景觀中智慧導航、設計與執行實驗，並創造真正的新知。透過自動化探索中耗費心力的任務，這些系統強化人類智慧並大幅加速發現步伐。
 
-**Rule of Thumb:** Use the Exploration and Discovery pattern when operating in open-ended, complex, or rapidly evolving domains where the solution space is not fully defined. It is ideal for tasks requiring the generation of novel hypotheses, strategies, or insights, such as in scientific research, market analysis, and creative content generation. This pattern is essential when the objective is to uncover "unknown unknowns" rather than merely optimizing a known process.
+**經驗法則（Rule of Thumb）：** 在解決方案空間尚未完全定義的開放式、複雜或快速變動領域，應採用探索與發現樣式。此樣式適用於需要生成新假說、策略或洞見的任務，例如科學研究、市場分析與創意內容生成。其核心在於發掘「未知的未知」，而非僅僅最佳化既有流程。
 
-**Visual Summary:**
+**視覺摘要（Visual Summary）：**
 
 ![Exploration and Discovery Design Pattern](../assets/Exploration_and_Discovery_Design_Pattern.png)
 
-Fig.2: Exploration and Discovery design pattern
+圖二：探索與發現（Exploration and Discovery）設計樣式
 
-## Key Takeaways
+## 重點摘要（Key Takeaways）
 
-* Exploration and Discovery in AI enable agents to actively pursue new information and possibilities, which is essential for navigating complex and evolving environments.  
-* Systems such as Google Co-Scientist demonstrate how Agents can autonomously generate hypotheses and design experiments, supplementing human scientific research.  
-* The multi-agent framework, exemplified by Agent Laboratory's specialized roles, improves research through the automation of literature review, experimentation, and report writing.  
-* Ultimately, these Agents aim to enhance human creativity and problem-solving by managing computationally intensive tasks, thus accelerating innovation and discovery.
+* 探索與發現能力讓 AI 代理主動追尋新資訊與可能性，對於在複雜且不斷變化的環境中導航至關重要。
+* Google 協同科學家等系統展示代理如何自治生成假說與設計實驗，以補充人類科研。
+* 以 Agent Laboratory 為例的多代理框架，透過自動化文獻回顧、實驗與報告撰寫等專門角色，提升研究效率。
+* 最終，這些代理透過管理高度計算密集的任務來增強人類創造力與問題解決能力，從而加速創新與發現。
 
-## Conclusion
+## 結論（Conclusion）
 
-In conclusion, the Exploration and Discovery pattern is the very essence of a truly agentic system, defining its ability to move beyond passive instruction-following to proactively explore its environment. This innate agentic drive is what empowers an AI to operate autonomously in complex domains, not merely executing tasks but independently setting sub-goals to uncover novel information. This advanced agentic behavior is most powerfully realized through multi-agent frameworks where each agent embodies a specific, proactive role in a larger collaborative process. For instance, the highly agentic system of Google's Co-scientist features agents that autonomously generate, debate, and evolve scientific hypotheses.
+總結而言，探索與發現樣式是建立真正智能代理系統的核心，使其得以超越被動遵循指令，主動探索環境。這種內在的代理驅動力讓 AI 得以在複雜領域自主運作，不僅執行任務，更能獨立設定子目標以發掘新資訊。此高階代理行為最能透過多代理框架具體實現，各代理在大型協作流程中扮演主動角色。例如，Google 協同科學家包含可自治生成、辯論與進化科學假說的代理。
 
-Frameworks like Agent Laboratory further structure this by creating an agentic hierarchy that mimics human research teams, enabling the system to self-manage the entire discovery lifecycle. The core of this pattern lies in orchestrating emergent agentic behaviors, allowing the system to pursue long-term, open-ended goals with minimal human intervention. This elevates the human-AI partnership, positioning the AI as a genuine agentic collaborator that handles the autonomous execution of exploratory tasks. By delegating this proactive discovery work to an agentic system, human intellect is significantly augmented, accelerating innovation. The development of such powerful agentic capabilities also necessitates a strong commitment to safety and ethical oversight. Ultimately, this pattern provides the blueprint for creating truly agentic AI, transforming computational tools into independent, goal-seeking partners in the pursuit of knowledge.
+Agent Laboratory 等框架則進一步構築模仿人類研究團隊的代理階層，使系統得以自我管理整個發現生命週期。此樣式的核心是統籌湧現的代理行為，使系統以最少人類干預追求長期、開放式目標，從而提升人機協作，讓 AI 成為真正的代理夥伴，自主執行探索任務。藉由將主動的發現工作交付給此類代理系統，人類智慧得到大幅增幅，加速創新。同時，如此強大的代理能力亦需堅守安全與倫理監督。最終，此樣式為建構真正智能代理提供藍圖，將計算工具轉化為追求知識的自主夥伴。
 
 ## References
 
