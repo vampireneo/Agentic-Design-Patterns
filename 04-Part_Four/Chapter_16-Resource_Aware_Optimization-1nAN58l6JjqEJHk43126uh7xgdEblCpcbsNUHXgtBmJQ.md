@@ -1,31 +1,31 @@
-# Chapter 16: Resource-Aware Optimization
+# 第16章：資源感知優化（Resource-Aware Optimization）
 
-Resource-Aware Optimization enables intelligent agents to dynamically monitor and manage computational, temporal, and financial resources during operation. This differs from simple planning, which primarily focuses on action sequencing. Resource-Aware Optimization requires agents to make decisions regarding action execution to achieve goals within specified resource budgets or to optimize efficiency. This involves choosing between more accurate but expensive models and faster, lower-cost ones, or deciding whether to allocate additional compute for a more refined response versus returning a quicker, less detailed answer.
+資源感知優化（Resource-Aware Optimization）讓智能代理（intelligent agents）能夠在運作期間動態監察及管理計算（computational）、時間（temporal）與財務資源（financial resources）。這種做法有別於僅著眼於行動排序的簡單規劃（planning），因為資源感知優化（Resource-Aware Optimization）要求代理（agents）在執行動作時作出判斷，既要於既定的資源預算內完成目標，亦要提升效率。代理需在高準確但昂貴的模型與速度更快、成本更低的模型之間作出選擇，或決定是否投入更多運算資源以換取更精緻的回應，抑或返回較快但細節較少的答案。
 
-For example, consider an agent tasked with analyzing a large dataset for a financial analyst. If the analyst needs a preliminary report immediately, the agent might use a faster, more affordable model to quickly summarize key trends. However, if the analyst requires a highly accurate forecast for a critical investment decision and has a larger budget and more time, the agent would allocate more resources to utilize a powerful, slower, but more precise predictive model. A key strategy in this category is the fallback mechanism, which acts as a safeguard when a preferred model is unavailable due to being overloaded or throttled. To ensure graceful degradation, the system automatically switches to a default or more affordable model, maintaining service continuity instead of failing completely.
+舉例而言，一名金融分析師（financial analyst）委派代理分析大型數據集。如果分析師即時需要初步報告，代理可能會運用更快且更實惠的模型，迅速歸納關鍵趨勢。然而，若分析師為重大投資決策而需要高度精準的預測，並擁有較充裕的預算和時間，代理便會投入更多資源，採用效能更強、運算較慢但預測更準確的模型。此類型的核心策略是後備機制（fallback mechanism），當首選模型因超載或被限制而無法使用時，後備機制提供保障。為了實現優雅式退化（graceful degradation），系統會自動切換至預設或較便宜的模型，維持服務連續，而非完全停擺。
 
-## Practical Applications & Use Cases
+## 實務應用與案例（Practical Applications & Use Cases）
 
-Practical use cases include:
+常見的實務場景包括：
 
-* **Cost-Optimized LLM Usage:** An agent deciding whether to use a large, expensive LLM for complex tasks or a smaller, more affordable one for simpler queries, based on a budget constraint.  
-* **Latency-Sensitive Operations:** In real-time systems, an agent chooses a faster but potentially less comprehensive reasoning path to ensure a timely response.  
-* **Energy Efficiency:** For agents deployed on edge devices or with limited power, optimizing their processing to conserve battery life.  
-* **Fallback for service reliability:**  An agent automatically switches to a backup model when the primary choice is unavailable, ensuring service continuity and graceful degradation.  
-* **Data Usage Management:** An agent opting for summarized data retrieval instead of full dataset downloads to save bandwidth or storage.  
-* **Adaptive Task Allocation:** In multi-agent systems, agents self-assign tasks based on their current computational load or available time.
+* **成本優化的大型語言模型使用（Cost-Optimized LLM Usage）：** 代理會按預算限制，決定是以昂貴的大型語言模型（large language model，LLM）處理複雜任務，還是選擇較小且實惠的模型去應付簡單查詢。
+* **延遲敏感操作（Latency-Sensitive Operations）：** 在即時系統中，代理會選擇速度較快但可能較少細節的推理路徑，以確保及時回應。
+* **能源效益（Energy Efficiency）：** 部署於邊緣裝置（edge devices）或電力有限環境的代理，會優化處理流程以節省電池壽命。
+* **服務可靠性的後備（Fallback for service reliability）：** 當主要模型不可用時，代理會自動切換至備用模型，確保服務持續並維持優雅式退化（graceful degradation）。
+* **數據使用管理（Data Usage Management）：** 代理會選擇取得摘要數據，而非下載完整數據集，以節省頻寬或儲存空間。
+* **自適應任務分配（Adaptive Task Allocation）：** 在多代理（multi-agent）系統中，代理會按當前計算負載或可用時間自主分配任務。
 
-## Hands-On Code Example
+## 實作範例（Hands-On Code Example）
 
-An intelligent system for answering user questions can assess the difficulty of each question. For simple queries, it utilizes a cost-effective language model such as Gemini Flash. For complex inquiries, a more powerful, but expensive, language model (like Gemini Pro) is considered. The decision to use the more powerful model also depends on resource availability, specifically budget and time constraints. This system dynamically selects appropriate models.
+用於解答用戶問題的智能系統會評估每個問題的難度。針對簡單查詢，系統會使用具成本效益的語言模型（language model），例如 Gemini Flash。遇上複雜問題，則會考慮較強大但昂貴的語言模型（language model）（如 Gemini Pro）。是否採用高階模型還取決於資源可用性，特別是預算與時間限制。系統會動態選擇合適的模型。
 
-For example, consider a travel planner built with a hierarchical agent. The high-level planning, which involves understanding a user's complex request, breaking it down into a multi-step itinerary, and making logical decisions, would be managed by a sophisticated and more powerful LLM like Gemini Pro. This is the "planner" agent that requires a deep understanding of context and the ability to reason.
+以分層代理（hierarchical agent）打造的旅遊規劃器為例，高層規劃工作需理解用戶的複雜要求、拆解為多步驟行程並作出邏輯決策，適合由像 Gemini Pro 這種精密且強大的大型語言模型（LLM）負責。這個「規劃」代理需要深度理解上下文及推理能力。
 
-However, once the plan is established, the individual tasks within that plan, such as looking up flight prices, checking hotel availability, or finding restaurant reviews, are essentially simple, repetitive web queries. These "tool function calls" can be executed by a faster and more affordable model like Gemini Flash. It is easier to visualize why the affordable model can be used for these straightforward web searches, while the intricate planning phase requires the greater intelligence of the more advanced model to ensure a coherent and logical travel plan.
+然而，一旦行程確立，計劃中的個別任務，例如搜尋機票價格、查詢酒店空房或尋找餐廳評論，基本上屬於簡單而重複的網上查詢。這些「工具函數呼叫」（tool function calls）可由速度更快、成本更低的模型（model）如 Gemini Flash 執行。如此一來，較實惠的模型便可處理這些簡單的網絡搜尋，而複雜的規劃階段則需要更高智能的進階模型，以確保旅遊計劃連貫且合乎邏輯。
 
-Google's ADK supports this approach through its multi-agent architecture, which allows for modular and scalable applications. Different agents can handle specialized tasks. Model flexibility enables the direct use of various Gemini models, including both Gemini Pro and Gemini Flash, or integration of other models through LiteLLM. The ADK's orchestration capabilities support dynamic, LLM-driven routing for adaptive behavior. Built-in evaluation features allow systematic assessment of agent performance, which can be used for system refinement (see the Chapter on Evaluation and Monitoring).
+Google 的 ADK 透過其多代理架構（multi-agent architecture）支援此方法，令應用更模組化與可擴展。不同代理可處理專門任務。模型的靈活性使系統能直接運用不同的 Gemini 模型（model），包括 Gemini Pro 與 Gemini Flash，或透過 LiteLLM 整合其他模型。ADK 的編排能力（orchestration capabilities）支援由大型語言模型（LLM）驅動的動態路由，以實現自適應行為。內建的評估功能可系統化評量代理表現，從而作為優化系統之用（可參閱評估與監察章節）。
 
-Next, two agents with identical setup but utilizing different models and costs will be defined.
+接下來會定義兩個設定相同但採用不同模型與成本的代理。
 
 ```python
 # Conceptual Python-like structure, not runnable code
@@ -49,9 +49,9 @@ gemini_flash_agent = Agent(
 )
 ```
 
-A Router Agent can direct queries based on simple metrics like query length, where shorter queries go to less expensive models and longer queries to more capable models. However, a more sophisticated Router Agent can utilize either  LLM or ML models to analyze query nuances and complexity. This LLM router can determine which downstream language model is most suitable. For example, a query requesting a factual recall is routed to a flash model, while a complex query requiring deep analysis is routed to a pro model.
+路由代理（Router Agent）可以根據簡單指標（metrics），例如查詢長度來分派請求：較短的查詢會使用成本較低的模型，而較長的查詢則交由更強大的模型處理。不過，更進階的路由代理（Router Agent）可以利用大型語言模型（LLM）或機器學習模型（ML models）分析查詢細節與複雜度。這個 LLM 路由器（LLM router）能判斷哪個下游語言模型（language model）最合適。例如，要求回憶事實的查詢會被導向 Flash 模型，而需要深入分析的複雜問題則會導向 Pro 模型。
 
-Optimization techniques can further enhance the LLM router's effectiveness. Prompt tuning involves crafting prompts to guide the router LLM for better routing decisions. Fine-tuning the LLM router on a dataset of queries and their optimal model choices improves its accuracy and efficiency. This dynamic routing capability balances response quality with cost-effectiveness.
+優化技巧可進一步提升 LLM 路由器（LLM router）的效能。提示調整（prompt tuning）是透過精心設計提示，引導路由 LLM 作出更佳的路由決策。於包含查詢與最佳模型選擇的數據集上對 LLM 路由器進行微調（fine-tuning），能提升其準確度與效率。這種動態路由能力在回應品質與成本效益之間取得平衡。
 
 ```python
 # Conceptual Python-like structure, not runnable code
@@ -83,11 +83,11 @@ class QueryRouterAgent(BaseAgent):
             yield Event(author=self.name, content=f"Pro Agent processed: {response}")
 ```
 
-The Critique Agent evaluates responses from language models, providing feedback that serves several functions. For self-correction, it identifies errors or inconsistencies, prompting the answering agent to refine its output for improved quality. It also systematically assesses responses for performance monitoring, tracking metrics like accuracy and relevance, which are used for optimization.
+評鑑代理（Critique Agent）會審視語言模型（language models）的回應並提供意見，具備多項功能。就自我修正而言，它能找出錯誤或不一致之處，促使回答代理（answering agent）修訂輸出以提升質素。它亦會系統化評估回應，作為效能監察（performance monitoring），追蹤如準確度（accuracy）與相關性（relevance）等指標，進而作出優化。
 
-Additionally, its feedback can signal reinforcement learning or fine-tuning; consistent identification of inadequate Flash model responses, for instance, can refine the router agent's logic. While not directly managing the budget, the Critique Agent contributes to indirect budget management by identifying suboptimal routing choices, such as directing simple queries to a Pro model or complex queries to a Flash model, which leads to poor results. This informs adjustments that improve resource allocation and cost savings.
+此外，評鑑代理（Critique Agent）的回饋能觸發強化學習（reinforcement learning）或微調（fine-tuning）；例如若它持續指出 Flash 模型回應不足，便可細化路由代理（router agent）的邏輯。雖然評鑑代理並非直接管理預算，但它能辨識欠佳的路由選擇，例如把簡單查詢交給 Pro 模型或將複雜問題派到 Flash 模型，導致劣質結果。這些洞察有助調整策略，改善資源分配並節省成本。
 
-The Critique Agent can be configured to review either only the generated text from the answering agent or both the original query and the generated text, enabling a comprehensive evaluation of the response's alignment with the initial question.
+評鑑代理（Critique Agent）可設定為僅審視回答代理生成的文本，或同時檢視原始查詢與生成文本，從而全面評估回應是否契合最初問題。
 
 ```python
 CRITIC_SYSTEM_PROMPT = """
@@ -95,17 +95,17 @@ You are the **Critic Agent**, serving as the quality assurance arm of our collab
 """
 ```
 
-The Critic Agent operates based on a predefined system prompt that outlines its role, responsibilities, and feedback approach. A well-designed prompt for this agent must clearly establish its function as an evaluator. It should specify the areas for critical focus and emphasize providing constructive feedback rather than mere dismissal. The prompt should also encourage the identification of both strengths and weaknesses, and it must guide the agent on how to structure and present its feedback.
+評鑑代理（Critique Agent）是依據預先設定的系統提示（system prompt）運作，提示中界定了其角色、職責與回饋方式。一個良好設計的提示必須清楚確立該代理作為評估者的功能，並指明需要重點審視的範疇，強調提供建設性（constructive）的回饋而非單純否定。提示亦應鼓勵代理同時識別優點與不足，並指導其如何組織與呈現意見。
 
-## Hands-On Code with OpenAI
+## 使用 OpenAI 的實作範例（Hands-On Code with OpenAI）
 
-This system uses a resource-aware optimization strategy to handle user queries efficiently. It first classifies each query into one of three categories to determine the most appropriate and cost-effective processing pathway. This approach avoids wasting computational resources on simple requests while ensuring complex queries get the necessary attention. The three categories are:
+這個系統採用資源感知優化（resource-aware optimization）策略，以高效率處理用戶查詢。系統會先將每個查詢分類為三種其中之一，以決定最合適且具成本效益的處理路徑。這樣既能避免在簡單要求上浪費計算資源，又可確保複雜查詢得到足夠關注。三個類別如下：
 
-* simple: For straightforward questions that can be answered directly without complex reasoning or external data.  
-* reasoning: For queries that require logical deduction or multi-step thought processes, which are routed to more powerful models.  
-* `internetsearch`: For questions needing current information, which automatically triggers a Google Search to provide an up-to-date answer.
+* simple：用於可以直接回答、毋須複雜推理或外部資料的簡單問題。
+* reasoning：針對需要邏輯推演或多步思考過程的查詢，會轉交給更強大的模型。
+* `internetsearch`：若問題需要最新資訊，系統會自動啟動 Google 搜尋以提供更新的答案。
 
-The code is under the MIT license and available on Github: ([https://github.com/mahtabsyed/21-Agentic-Patterns/blob/main/16ResourceAwareOptLLMReflectionv2.ipynb](https://github.com/mahtabsyed/21-Agentic-Patterns/blob/main/16_Resource_Aware_Opt_LLM_Reflection_v2.ipynb))
+該程式碼採用 MIT 許可證（MIT license），可於 Github 取得：([https://github.com/mahtabsyed/21-Agentic-Patterns/blob/main/16ResourceAwareOptLLMReflectionv2.ipynb](https://github.com/mahtabsyed/21-Agentic-Patterns/blob/main/16_Resource_Aware_Opt_LLM_Reflection_v2.ipynb))
 
 ```python
 # MIT License
@@ -254,11 +254,11 @@ if __name__ == "__main__":
     print("🧠 Response:\n", result["response"])
 ```
 
-This Python code implements a prompt routing system to answer user questions. It begins by loading necessary API keys from a .env file for OpenAI and Google Custom Search. The core functionality lies in classifying the user's prompt into three categories: simple, reasoning, or internet search. A dedicated function utilizes an OpenAI model for this classification step. If the prompt requires current information, a Google search is performed using the Google Custom Search API. Another function then generates the final response, selecting an appropriate OpenAI model based on the classification. For internet search queries, the search results are provided as context to the model. The main `handleprompt` function orchestrates this workflow, calling the classification and search (if needed) functions before generating the response. It returns the classification, the model used, and the generated answer. This system efficiently directs different types of queries to optimized methods for a better response.
+這段 Python 程式碼實作了一個提示路由（prompt routing）系統，用以回答用戶問題。程式會先從 .env 檔載入 OpenAI 與 Google 自訂搜尋（Google Custom Search）的 API 金鑰。核心功能在於把用戶提示（prompt）分類為 simple、reasoning 或 internet search 三種。專用函式會使用 OpenAI 模型進行分類；若提示需要最新資訊，便透過 Google Custom Search API 進行搜尋。另一個函式則根據分類結果選取合適的 OpenAI 模型產生最終回應。對於 internet search 類別，搜尋結果會作為模型的上下文。主要的 `handleprompt` 函式負責協調整個流程，在生成回應前呼叫分類與搜尋（如有需要）函式，並返回分類結果、使用的模型以及生成的答案。此系統能有效將不同類型查詢導向最佳化的處理方式，以獲得更佳回應。
 
-# Hands-On Code Example (OpenRouter)
+# 實作範例（Hands-On Code Example）（OpenRouter）
 
-OpenRouter offers a unified interface to hundreds of AI models via a single API endpoint. It provides automated failover and cost-optimization, with easy integration through your preferred SDK or framework.
+OpenRouter 透過單一 API 端點提供通往數百個人工智能模型（AI models）的統一介面，並具備自動故障轉移（automated failover）與成本優化（cost-optimization）能力，可輕鬆整合至常用的 SDK 或框架。
 
 ```python
 import json
@@ -283,11 +283,11 @@ response = requests.post(
 )
 ```
 
-This code snippet uses the requests library to interact with the OpenRouter API. It sends a POST request to the chat completion endpoint with a user message. The request includes authorization headers with an API key and optional site information. The goal is to get a response from a specified language model, in this case, "openai/gpt-4o".
+這段程式碼使用 requests 程式庫與 OpenRouter API 互動，向聊天補全（chat completion）端點送出包含用戶訊息的 POST 請求。請求會附上含 API 金鑰的授權標頭，並可選擇加入網站資訊。目的是從指定的語言模型取得回應，本例為「openai/gpt-4o」。
 
-Openrouter offers two distinct methodologies for routing and determining the computational model used to process a given request.
+OpenRouter 提供兩種不同方法來路由並決定處理請求的計算模型（computational model）。
 
-* **Automated Model Selection:** This function routes a request to an optimized model chosen from a curated set of available models. The selection is predicated on the specific content of the user's prompt. The identifier of the model that ultimately processes the request is returned in the response's metadata.
+* **自動化模型選擇（Automated Model Selection）：** 此功能會從精選可用模型中挑選最優模型來處理請求。選擇依據用戶提示的具體內容，最終執行請求的模型識別碼會於回應的後設資料（metadata）中返回。
 
 ```json
 {  
@@ -296,7 +296,7 @@ Openrouter offers two distinct methodologies for routing and determining the com
 }
 ```
 
-* **Sequential Model Fallback:** This mechanism provides operational redundancy by allowing users to specify a hierarchical list of models. The system will first attempt to process the request with the primary model designated in the sequence. Should this primary model fail to respond due to any number of error conditions—such as service unavailability, rate-limiting, or content filtering—the system will automatically re-route the request to the next specified model in the sequence. This process continues until a model in the list successfully executes the request or the list is exhausted. The final cost of the operation and the model identifier returned in the response will correspond to the model that successfully completed the computation.
+* **序列式模型後備（Sequential Model Fallback）：** 此機制提供操作冗餘，容許用戶指定一個具層次的模型清單。系統會先以清單中的主要模型處理請求；若該模型因服務不可用、速率限制或內容篩選等原因無法回應，系統會自動把請求重新路由至下一個指定模型。流程會持續直到清單中的某個模型成功執行請求或所有選項耗盡。最終的運行成本及回應中回傳的模型識別碼，會對應到成功完成運算的模型。
 
 ```json
 {  
@@ -304,60 +304,60 @@ Openrouter offers two distinct methodologies for routing and determining the com
     ... // Other params }
 ```
 
-OpenRouter offers a detailed leaderboard ( [https://openrouter.ai/rankings](https://openrouter.ai/rankings)) which ranks available AI models based on their cumulative token production. It also offers latest models from different providers (ChatGPT, Gemini, Claude) (see Fig. 1)
+OpenRouter 提供詳細排行榜（leaderboard）（[https://openrouter.ai/rankings](https://openrouter.ai/rankings)），按累積 token 產量為可用 AI 模型排序，亦提供不同供應商（如 ChatGPT、Gemini、Claude）的最新模型（見圖1）。
 
 ![OpenRouter Web site](../assets/OpenRouter_Web_Site.png) 
 
-Fig. 1: OpenRouter Web site ([https://openrouter.ai/](https://openrouter.ai/))
+圖1：OpenRouter 網站（OpenRouter Web site）（[https://openrouter.ai/](https://openrouter.ai/))
 
-## Beyond Dynamic Model Switching: A Spectrum of Agent Resource Optimizations
+## 超越動態模型切換：代理資源優化的多元光譜（Beyond Dynamic Model Switching: A Spectrum of Agent Resource Optimizations）
 
-Resource-aware optimization is paramount in developing intelligent agent systems that operate efficiently and effectively within real-world constraints. Let's see a number of additional techniques:
+在真實環境限制下建立高效且表現出色的智能代理系統，資源感知優化（resource-aware optimization）至關重要。以下列出更多技術：
 
-**Dynamic Model Switching** is a critical technique involving the strategic selection of large language models  based on the intricacies of the task at hand and the available computational resources. When faced with simple queries, a lightweight, cost-effective LLM can be deployed, whereas complex, multifaceted problems necessitate the utilization of more sophisticated and resource-intensive models.
+**動態模型切換（Dynamic Model Switching）** 是關鍵技巧，需按任務複雜度與可用計算資源策略性選取大型語言模型。面對簡單查詢時可部署輕量且具成本效益的 LLM，而複雜多面向的問題則需運用更精密、資源密集的模型。
 
-**Adaptive Tool Use & Selection** ensures agents can intelligently choose from a suite of tools, selecting the most appropriate and efficient one for each specific sub-task, with careful consideration given to factors like API usage costs, latency, and execution time. This dynamic tool selection enhances overall system efficiency by optimizing the use of external APIs and services.
+**自適應工具使用與選擇（Adaptive Tool Use & Selection）** 確保代理能從多種工具中智能挑選最合適且最有效率者，並周全考慮 API 使用成本、延遲與執行時間等因素。此動態工具選擇能透過最佳化外部 API 與服務的使用，提升整體系統效率。
 
-**Contextual Pruning & Summarization** plays a vital role in managing the amount of information processed by agents, strategically minimizing the prompt token count and reducing inference costs by intelligently summarizing and selectively retaining only the most relevant information from the interaction history, preventing unnecessary computational overhead.
+**語境式修剪與摘要（Contextual Pruning & Summarization）** 在管理代理需處理的資訊量方面舉足輕重，透過策略性地減少提示 token 數量及推理成本，智能地將互動歷史中最相關資訊摘要與保留，避免不必要的計算負擔。
 
-**Proactive Resource Prediction** involves anticipating resource demands by forecasting future workloads and system requirements, which allows for proactive allocation and management of resources, ensuring system responsiveness and preventing bottlenecks.
+**前瞻式資源預測（Proactive Resource Prediction）** 涉及預測未來工作量與系統需求，讓系統可以主動分配與管理資源，確保回應速度並避免瓶頸。
 
-**Cost-Sensitive Exploration** in multi-agent systems extends optimization considerations to encompass communication costs alongside traditional computational costs, influencing the strategies employed by agents to collaborate and share information, aiming to minimize the overall resource expenditure.
+**成本敏感探索（Cost-Sensitive Exploration）** 於多代理系統中，將優化考量擴展至通信成本與傳統計算成本，影響代理合作及資訊共享策略，目標是降低整體資源支出。
 
-**Energy-Efficient Deployment** is specifically tailored for environments with stringent resource constraints, aiming to minimize the energy footprint of intelligent agent systems, extending operational time and reducing overall running costs.
+**節能部署（Energy-Efficient Deployment）** 專為資源限制嚴苛的環境而設，旨在降低智能代理系統的能源足跡，延長運作時間並減少整體運行成本。
 
-**Parallelization & Distributed Computing Awareness** leverages distributed resources to enhance the processing power and throughput of agents, distributing computational workloads across multiple machines or processors to achieve greater efficiency and faster task completion.
+**並行化與分散式運算感知（Parallelization & Distributed Computing Awareness）** 善用分散式資源提升代理的處理能力與吞吐量，將計算工作負載分散至多部機器或處理器，以達更高效率與更快任務完成。
 
-**Learned Resource Allocation Policies** introduce a learning mechanism, enabling agents to adapt and optimize their resource allocation strategies over time based on feedback and performance metrics, improving efficiency through continuous refinement.
+**學習式資源分配策略（Learned Resource Allocation Policies）** 引入學習機制，讓代理可根據回饋與效能指標隨時間自我調整與優化資源分配策略，透過持續改進提升效率。
 
-**Graceful Degradation and Fallback Mechanisms** ensure that intelligent agent systems can continue to function, albeit perhaps at a reduced capacity, even when resource constraints are severe, gracefully degrading performance and falling back to alternative strategies to maintain operation and provide essential functionality.
+**優雅式退化與後備機制（Graceful Degradation and Fallback Mechanisms）** 確保智能代理系統即使面對嚴峻資源限制仍能持續運作，雖然可能以較低容量提供服務，但可優雅地降低效能並採用替代策略維持運作與提供關鍵功能。
 
-## At a Glance
+## 一覽（At a Glance）
 
-**What:** Resource-Aware Optimization addresses the challenge of managing the consumption of computational, temporal, and financial resources in intelligent systems. LLM-based applications can be expensive and slow, and selecting the best model or tool for every task is often inefficient. This creates a fundamental trade-off between the quality of a system's output and the resources required to produce it. Without a dynamic management strategy, systems cannot adapt to varying task complexities or operate within budgetary and performance constraints.
+**何謂（What）：** 資源感知優化（Resource-Aware Optimization）旨在應對智能系統中計算、時間與財務資源消耗的管理挑戰。基於大型語言模型的應用往往昂貴且緩慢，而為每個任務選擇最強模型或工具亦可能低效，形成輸出品質與所需資源之間的基本權衡。缺乏動態管理策略時，系統無法因應任務複雜度變化，亦難以在預算及效能限制內運行。
 
-**Why:** The standardized solution is to build an agentic system that intelligently monitors and allocates resources based on the task at hand. This pattern typically employs a "Router Agent" to first classify the complexity of an incoming request. The request is then forwarded to the most suitable LLM or tool—a fast, inexpensive model for simple queries, and a more powerful one for complex reasoning. A "Critique Agent" can further refine the process by evaluating the quality of the response, providing feedback to improve the routing logic over time. This dynamic, multi-agent approach ensures the system operates efficiently, balancing response quality with cost-effectiveness.
+**原因（Why）：** 標準化解決方案是構建能按任務智能監控及分配資源的代理系統（agentic system）。此模式通常會先由「路由代理」（Router Agent）分類新請求的複雜程度，再將請求轉交最合適的 LLM 或工具——簡單查詢使用快速且廉價的模型，複雜推理由更強大的模型處理。「評鑑代理」（Critique Agent）則可進一步檢視回應品質，提供回饋以隨時間改進路由邏輯。這種動態、多代理方法確保系統高效運作，在回應品質與成本效益之間取得平衡。
 
-**Rule of Thumb:** Use this pattern when operating under strict financial budgets for API calls or computational power, building latency-sensitive applications where quick response times are critical, deploying agents on resource-constrained hardware such as edge devices with limited battery life, programmatically balancing the trade-off between response quality and operational cost, and managing complex, multi-step workflows where different tasks have varying resource requirements.
+**經驗法則（Rule of Thumb）：** 當你面對 API 呼叫或運算能力的嚴格財務預算，打造延遲敏感（latency-sensitive）且需快速回應的應用，部署於如電池壽命有限的邊緣裝置等資源受限硬件，需程式化地平衡回應品質與營運成本，或管理不同任務需不同資源的複雜多步工作流程時，便應採用此模式。
 
-**Visual Summary:**
+**視覺摘要（Visual Summary）：**
 
 ![Resource-Aware Optimization Design Pattern](../assets/Resource_Aware_Optimization_Design_Pattern.png)
 
-Fig. 2: Resource-Aware Optimization Design Pattern
+圖2：資源感知優化設計模式（Resource-Aware Optimization Design Pattern）
 
-## Key Takeaways
+## 重要重點（Key Takeaways）
 
-* Resource-Aware Optimization is Essential: Intelligent agents can manage computational, temporal, and financial resources dynamically. Decisions regarding model usage and execution paths are made based on real-time constraints and objectives.  
-* Multi-Agent Architecture for Scalability: Google's ADK provides a multi-agent framework, enabling modular design. Different agents (answering, routing, critique) handle specific tasks.  
-* Dynamic, LLM-Driven Routing: A Router Agent directs queries to language models (Gemini Flash for simple, Gemini Pro for complex) based on query complexity and budget. This optimizes cost and performance.  
-* Critique Agent Functionality: A dedicated Critique Agent provides feedback for self-correction, performance monitoring, and refining routing logic, enhancing system effectiveness.  
-* Optimization Through Feedback and Flexibility: Evaluation capabilities for critique and model integration flexibility contribute to adaptive and self-improving system behavior.  
-* Additional Resource-Aware Optimizations: Other methods include Adaptive Tool Use & Selection, Contextual Pruning & Summarization, Proactive Resource Prediction, Cost-Sensitive Exploration in Multi-Agent Systems, Energy-Efficient Deployment, Parallelization & Distributed Computing Awareness, Learned Resource Allocation Policies, Graceful Degradation and Fallback Mechanisms, and Prioritization of Critical Tasks.
+* 資源感知優化不可或缺：智能代理能動態管理計算、時間與財務資源，並根據即時限制與目標決定模型使用及執行路徑。
+* 為擴展性而設的多代理架構：Google 的 ADK 提供多代理框架，支援模組化設計，不同代理（回答、路由、評鑑）負責特定任務。
+* 由大型語言模型驅動的動態路由：路由代理會根據查詢複雜度與預算，將查詢分配予語言模型（Gemini Flash 處理簡單問題、Gemini Pro 應付複雜問題），以優化成本與效能。
+* 評鑑代理的功能：專責的評鑑代理提供自我修正、效能監察及路由邏輯優化的回饋，提升系統效能。
+* 透過回饋與彈性實現最佳化：評鑑能力及模型整合的彈性有助系統自我調適與持續改進。
+* 其他資源感知優化方法：包括自適應工具使用與選擇、語境式修剪與摘要、前瞻式資源預測、多代理系統中的成本敏感探索、節能部署、並行化與分散式運算感知、學習式資源分配策略、優雅式退化與後備機制，以及關鍵任務優先排序。
 
-## Conclusions
+## 結論（Conclusions）
 
-Resource-aware optimization is essential for the development of intelligent agents, enabling efficient operation within real-world constraints. By managing computational, temporal, and financial resources, agents can achieve optimal performance and cost-effectiveness. Techniques such as dynamic model switching, adaptive tool use, and contextual pruning are crucial for attaining these efficiencies. Advanced strategies, including learned resource allocation policies and graceful degradation, enhance an agent's adaptability and resilience under varying conditions. Integrating these optimization principles into agent design is fundamental for building scalable, robust, and sustainable AI systems.
+資源感知優化對智能代理的發展至關重要，可讓代理在真實世界限制下高效運作。透過管理計算、時間與財務資源，代理能兼顧最佳效能與成本效益。動態模型切換、自適應工具使用與語境式修剪等技術，是達致上述效率的關鍵。進階策略如學習式資源分配政策與優雅式退化，則進一步提升代理在不同情況下的適應力與韌性。將這些優化原則融入代理設計，是打造可擴展、堅固且可持續 AI 系統的基礎。
 
 ## References
 
