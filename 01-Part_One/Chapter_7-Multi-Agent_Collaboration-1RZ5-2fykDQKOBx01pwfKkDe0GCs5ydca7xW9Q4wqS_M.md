@@ -65,7 +65,7 @@ Crew AI 與 Google ADK 等框架被設計來促成此範式，提供定義代理
 
 「階層式」模型擴充監督者概念，建立多層組織結構。包括多層監督者：高階監督者監管低階監督者，最底層則由一系列執行代理構成。此結構適用於可拆解為各層負責的次級問題的複雜課題，提供具結構性的擴展性與複雜度管理，允許在既定邊界內的分散決策。
 
-![代理以多種方式溝通與互動（Agents Communicate and Interact in Various Ways）](../assests/Agents_Communicate_and_Interact_in_Various_Ways.png)
+![代理以多種方式溝通與互動（Agents Communicate and Interact in Various Ways）](../assets/Agents_Communicate_and_Interact_in_Various_Ways.png)
 
 圖二：代理透過多種方式溝通與互動。
 
