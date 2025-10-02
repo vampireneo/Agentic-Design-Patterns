@@ -219,7 +219,7 @@ print(final_result)
 
 這種結構化方法是區分初階AI工具與更先進、具脈絡感知(contextually-aware)系統的關鍵。它把脈絡(context)本身視為主要組件，重視代理人(agent)知道甚麼、何時知道以及如何運用該資訊。此實務確保模型對使用者意圖(intent)、歷史(history)與當前環境(current environment)有全面理解。最終，脈絡工程(Context Engineering)是推動無狀態聊天機械人(stateless chatbots)邁向高度能力、情境感知(situationally-aware)系統的關鍵方法論(methodology)。
 
-## 重點速覽
+## 重點一覽(At a Glance)
 
 **內容：** 當複雜任務由單一提示(prompt)處理時，常令大型語言模型(Large Language Models, LLMs)不堪負荷，引致重大效能問題。模型的認知負荷(cognitive load)增加，錯誤機率亦隨之上升，例如忽視指示、失去脈絡以及生成錯誤資訊。單一巨型提示(monolithic prompt)難以有效管理多重約束與連續推理步驟，最終導致不可靠、不精準的輸出，因為大型語言模型(Large Language Model, LLM)無法處理請求的所有面向。
 

@@ -332,7 +332,7 @@ OpenRouter 提供詳細排行榜（leaderboard）（[https://openrouter.ai/ranki
 
 **優雅式退化與後備機制（Graceful Degradation and Fallback Mechanisms）** 確保智能代理系統即使面對嚴峻資源限制仍能持續運作，雖然可能以較低容量提供服務，但可優雅地降低效能並採用替代策略維持運作與提供關鍵功能。
 
-## 一覽（At a Glance）
+## 重點一覽(At a Glance)
 
 **何謂（What）：** 資源感知優化（Resource-Aware Optimization）旨在應對智能系統中計算、時間與財務資源消耗的管理挑戰。基於大型語言模型的應用往往昂貴且緩慢，而為每個任務選擇最強模型或工具亦可能低效，形成輸出品質與所需資源之間的基本權衡。缺乏動態管理策略時，系統無法因應任務複雜度變化，亦難以在預算及效能限制內運行。
 

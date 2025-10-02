@@ -286,7 +286,7 @@ root_agent = LlmAgent(
 
 圖 1：模型上下文協定（Model Context Protocol）
 
-## 重點提示
+## 重點一覽(At a Glance)
 
 以下是重點整理：
 
