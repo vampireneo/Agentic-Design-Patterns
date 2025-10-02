@@ -260,7 +260,7 @@ if __name__ == "__main__":
 
 這段 Python 程式碼展示了使用 LangChain 與 LangGraph 實作的檢索增強生成（RAG）流程。首先，系統從文本文件建立知識庫，將其切割成區塊並轉換為嵌入，再儲存在 Weaviate 向量儲存（vector store）中以利高效檢索。LangGraph 的狀態圖（StateGraph）用來管理兩個核心函式之間的工作流程：`retrieve_documents_node` 與 `generate_response_node`。`retrieve_documents_node` 會依照使用者輸入向向量儲存查詢相關文件區塊，接著 `generate_response_node` 利用取得的資訊與預先定義的提示模板，透過 OpenAI 的 LLM 產生回應。`app.stream` 方法展示如何透過 RAG 流程執行查詢，凸顯系統生成符合情境的輸出能力。
 
-## 一覽重點（At Glance）
+## 重點一覽(At a Glance)
 
 **重點是什麼（What）：** LLM 雖然具備令人讚嘆的文本生成能力，但根本限制在於其訓練資料是靜態的，缺乏即時資訊或私有領域知識。因此，它們的回應可能過時、不精確，或缺乏專業任務所需的特定脈絡，限制了在需要最新且基於事實的回覆時的可靠度。
 

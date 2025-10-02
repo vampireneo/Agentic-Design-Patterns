@@ -293,7 +293,7 @@ if __name__ == "__main__":
 
 命令列介面讓自動化評估更容易，只需提供代理模組路徑與評估集合檔(eval set file)，亦可選擇指定設定檔(configuration file)或輸出詳細結果(detailed results)。若要在大型評估集合中執行特定評估，可在檔名後以逗號分隔列出名稱。
 
-## 快速總覽(At a Glance)
+## 重點一覽(At a Glance)
 
 **重點(What)：** Agentic系統(agentic systems)與LLM在複雜且動態的環境中運作，表現會隨時間衰退。由於其機率性與非決定性(non-deterministic)特質，傳統軟件測試不足以保證可靠性(reliability)。評估動態多代理系統是重大挑戰，因為代理與環境皆在不斷變化，需要開發具適應性的測試方法(adaptive testing methods)與進階指標，以衡量超越個別表現的協作成功(collaborative success)。部署後可能出現資料飄移(data drift)、非預期互動(unexpected interactions)、工具呼叫(tool calling)以及偏離既定目標的情況。因而必須持續評估，以量度代理的效能、效率與對操作與安全要求的遵從度。
 

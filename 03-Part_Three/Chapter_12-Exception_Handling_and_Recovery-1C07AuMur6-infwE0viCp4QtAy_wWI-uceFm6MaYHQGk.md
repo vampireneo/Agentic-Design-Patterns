@@ -89,7 +89,7 @@ robust_location_agent = SequentialAgent(
 
 這段程式碼使用 ADK 的 SequentialAgent 組合三個子代理，定義了一個強健的地點搜尋系統。`primary_handler` 是第一個代理，嘗試使用 `get_precise_location_info` 工具取得精確地理資訊。`fallback_handler` 作為備援，透過檢查狀態變數確認主要查詢是否失敗。若主要查詢失敗，備援代理會從使用者查詢中擷取城市並使用 `get_general_area_info` 工具。`response_agent` 是序列中的最後一個代理，負責檢視狀態中儲存的地點資訊。此代理旨在向使用者呈現最終結果，若找不到任何地點資訊，就會致歉。SequentialAgent 確保三個代理按預定順序執行，提供層疊式的地點資訊擷取流程。
 
-## 重點速覽（At a Glance）
+## 重點一覽(At a Glance)
 
 **內容（What）：** 在真實世界環境運作的人工智能代理不可避免會遭遇突發狀況、錯誤與系統故障。這些干擾可能涵蓋工具失敗、網絡問題或無效資料，威脅代理完成任務的能力。若缺乏有結構的問題處理方式，代理可能變得脆弱、不可靠，並在遭遇意外阻礙時完全失敗，難以部署於要求穩定表現的重要或複雜應用。
 

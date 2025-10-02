@@ -342,7 +342,7 @@ root_agent = sequential_pipeline_agent
 
 最後，建立名為 ResearchAndSynthesisPipeline（ResearchAndSynthesisPipeline）的 SequentialAgent（SequentialAgent）來統籌整個工作流程。此主控代理會先執行 ParallelAgent（ParallelAgent）進行研究，待並行研究完成後，再執行 MergerAgent（MergerAgent）整合資訊。`sequential_pipeline_agent`（sequential_pipeline_agent）被設定為 `root_agent`（root_agent），作為運行這套多代理系統的入口。整體流程旨在有效率地並行蒐集多方資訊，然後整合成單一結構化報告。
 
-## 重點速覽（At a Glance）
+## 重點一覽(At a Glance)
 
 **重點：** 許多代理工作流程包含必須完成多個子任務才能達成最終目標。純粹的順序執行（sequential execution），即每個任務都等待前一個完成，往往效率低且耗時。當任務仰賴外部輸入／輸出作業（例如呼叫不同應用程式介面或查詢多個資料庫）時，這種延遲更成為顯著瓶頸。如果缺乏併發執行機制，總處理時間就是全部個別任務時間的總和，阻礙系統整體效能與回應力。
 
