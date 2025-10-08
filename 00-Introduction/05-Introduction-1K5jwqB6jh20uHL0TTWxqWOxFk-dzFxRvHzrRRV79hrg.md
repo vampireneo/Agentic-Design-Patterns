@@ -1,4 +1,4 @@
-# 序言
+# 導言
 
 歡迎閱讀《Agentic Design Patterns: A Hands-On Guide to Building Intelligent Systems》。縱觀現代人工智能 (Artificial Intelligence, AI) 的版圖，我們清楚看見系統由簡單的反應式程式，進化為能夠理解脈絡、作出決策，並與環境及其他系統動態互動的複雜自主實體。這些，就是智能代理 (intelligent agents) 與它們所構成的智能代理系統 (agentic systems)。
 
