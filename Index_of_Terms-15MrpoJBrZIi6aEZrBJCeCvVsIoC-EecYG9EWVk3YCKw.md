@@ -89,21 +89,21 @@
 - 切分（Chunking）——第 14 章〈知識檢索（RAG）〉
 - 清晰與具體（Clarity and Specificity）——附錄 A
 - 客戶端代理（Client Agent）——第 15 章〈代理間通訊（A2A）〉
-- 程式碼生成（Code Generation）——第 1 章〈提示鏈接〉、第 4 章〈反思〉
+- 程式碼生成（Code Generation）——第 1 章〈提示鏈結〉、第 4 章〈反思〉
 - 程式碼提示（Code Prompting）——附錄 A
 - 辯論鏈（CoD）——第 17 章〈推理技術〉
 - 思維鏈（CoT）——第 17 章〈推理技術〉；附錄 A
 - 協作（Collaboration）——第 7 章〈多代理協作〉
 - 合規（Compliance）——第 19 章〈評估與監控〉
 - 精簡（Conciseness）——附錄 A
-- 內容生成（Content Generation）——第 1 章〈提示鏈接〉、第 4 章〈反思〉
-- 脈絡工程（Context Engineering）——第 1 章〈提示鏈接〉
+- 內容生成（Content Generation）——第 1 章〈提示鏈結〉、第 4 章〈反思〉
+- 脈絡工程（Context Engineering）——第 1 章〈提示鏈結〉
 - 脈絡視窗（Context Window）——〈詞彙表〉
 - 脈絡修剪與摘要（Contextual Pruning & Summarization）——第 16 章〈資源感知優化〉
 - 脈絡提示（Contextual Prompting）——附錄 A
 - 承包模型（Contractor Model）——第 19 章〈評估與監控〉
 - ConversationBufferMemory——第 8 章〈記憶體管理〉
-- 對話代理（Conversational Agents）——第 1 章〈提示鏈接〉、第 4 章〈反思〉
+- 對話代理（Conversational Agents）——第 1 章〈提示鏈結〉、第 4 章〈反思〉
 - 成本敏感探索（Cost-Sensitive Exploration）——第 16 章〈資源感知優化〉
 - CrewAI——第 3、5、6、7、18 章；附錄 C
 - 評論代理（Critique Agent）——第 16 章〈資源感知優化〉
@@ -112,7 +112,7 @@
 
 ### D
 
-- 數據擷取（Data Extraction）——第 1 章〈提示鏈接〉
+- 數據擷取（Data Extraction）——第 1 章〈提示鏈結〉
 - 數據標註（Data Labeling）——第 13 章〈人類在迴圈中〉
 - 資料庫整合（Database Integration）——第 10 章〈模型上下文協議（MCP）〉
 - DatabaseSessionService——第 8 章〈記憶體管理〉
@@ -267,7 +267,7 @@
 - Program-Aided Language Models（PAL）——第 17 章〈推理技術〉
 - Project Astra——附錄 B
 - 提示（Prompt）——〈詞彙表〉
-- 提示鏈接（Prompt Chaining）——第 1 章〈提示鏈接〉
+- 提示鏈結（Prompt Chaining）——第 1 章〈提示鏈結〉
 - 提示工程（Prompt Engineering）——附錄 A
 - 近端策略優化（Proximal Policy Optimization，PPO）——第 9 章〈學習與適應〉
 - 推播通知（Push Notifications）——第 15 章〈代理間通訊（A2A）〉
@@ -323,7 +323,7 @@
 - 回頭提示（Step-Back Prompting）——附錄 A
 - 串流更新（Streaming Updates）——第 15 章〈代理間通訊（A2A）〉
 - 結構化日誌（Structured Logging）——第 18 章〈護欄／安全模式〉
-- 結構化輸出（Structured Output）——第 1 章〈提示鏈接〉、附錄 A
+- 結構化輸出（Structured Output）——第 1 章〈提示鏈結〉、附錄 A
 - SuperAGI——附錄 C
 - 監督式微調（Supervised Fine-Tuning，SFT）——〈詞彙表〉
 - 監督式學習（Supervised Learning）——第 9 章〈學習與適應〉
