@@ -74,18 +74,18 @@
 
 ### B
 
-- 行為限制（Behavioral Constraints）——第 18 章〈護欄／安全模式〉
+- 行為限制（Behavioral Constraints）——第 18 章〈護欄與安全模式〉
 - 瀏覽器使用（Browser Use）——附錄 B
 
 ### C
 
-- 回呼（Callbacks）——第 18 章〈護欄／安全模式〉
+- 回呼（Callbacks）——第 18 章〈護欄與安全模式〉
 - 因果語言建模（Causal Language Modeling，CLM）——〈詞彙表〉
 - 辯論鏈（Chain of Debates，CoD）——第 17 章〈推理技術〉
 - 思維鏈（Chain of Thought，CoT）——第 17 章〈推理技術〉；附錄 A
 - 聊天機械人（Chatbots）——第 8 章〈記憶體管理〉
 - ChatMessageHistory——第 8 章〈記憶體管理〉
-- 檢查點與回滾（Checkpoint and Rollback）——第 18 章〈護欄／安全模式〉
+- 檢查點與回滾（Checkpoint and Rollback）——第 18 章〈護欄與安全模式〉
 - 切分（Chunking）——第 14 章〈知識檢索（RAG）〉
 - 清晰與具體（Clarity and Specificity）——附錄 A
 - 客戶端代理（Client Agent）——第 15 章〈代理間通訊（A2A）〉
@@ -143,13 +143,13 @@
 - 例外處理（Exception Handling）——第 12 章〈例外處理與復原〉
 - 專家團隊（Expert Teams）——第 7 章〈多代理協作〉
 - 探索與發現（Exploration and Discovery）——第 21 章〈探索與發現〉
-- 外部審核 API（External Moderation APIs）——第 18 章〈護欄／安全模式〉
+- 外部審核 API（External Moderation APIs）——第 18 章〈護欄與安全模式〉
 
 ### F
 
 - 分解認知（Factored Cognition）——附錄 A
 - FastMCP——第 10 章〈模型上下文協議（MCP）〉
-- 容錯（Fault Tolerance）——第 18 章〈護欄／安全模式〉
+- 容錯（Fault Tolerance）——第 18 章〈護欄與安全模式〉
 - 少樣本學習（Few-Shot Learning）——第 9 章〈學習與適應〉
 - 少樣本提示（Few-Shot Prompting）——附錄 A
 - 微調（Fine-tuning）——〈詞彙表〉
@@ -170,7 +170,7 @@
 - 優雅退化（Graceful Degradation）——第 12 章〈例外處理與復原〉、第 16 章〈資源感知優化〉
 - 辯論圖（Graph of Debates，GoD）——第 17 章〈推理技術〉
 - 錨定（Grounding）——〈詞彙表〉
-- 護欄（Guardrails）——第 18 章〈護欄／安全模式〉
+- 護欄（Guardrails）——第 18 章〈護欄與安全模式〉
 
 ### H
 
@@ -180,14 +180,14 @@
 - HITL（Human-in-the-Loop）——第 13 章〈人類在迴圈中〉
 - 人類在迴圈中（Human-in-the-Loop，HITL）——第 13 章〈人類在迴圈中〉
 - 人類在迴圈上方（Human-on-the-loop）——第 13 章〈人類在迴圈中〉
-- 人類監督（Human Oversight）——第 13 章〈人類在迴圈中〉、第 18 章〈護欄／安全模式〉
+- 人類監督（Human Oversight）——第 13 章〈人類在迴圈中〉、第 18 章〈護欄與安全模式〉
 
 ### I
 
 - 脈絡內學習（In-Context Learning）——〈詞彙表〉
 - InMemoryMemoryService——第 8 章〈記憶體管理〉
 - InMemorySessionService——第 8 章〈記憶體管理〉
-- 輸入驗證／清理（Input Validation/Sanitization）——第 18 章〈護欄／安全模式〉
+- 輸入驗證／清理（Input Validation/Sanitization）——第 18 章〈護欄與安全模式〉
 - 以指令為先（Instructions Over Constraints）——附錄 A
 - 代理間通訊（Inter-Agent Communication，A2A）——第 15 章〈代理間通訊（A2A）〉
 - 介入與修正（Intervention and Correction）——第 13 章〈人類在迴圈中〉
@@ -196,7 +196,7 @@
 
 ### J
 
-- 監獄破防（Jailbreaking）——第 18 章〈護欄／安全模式〉
+- 監獄破防（Jailbreaking）——第 18 章〈護欄與安全模式〉
 
 ### K
 
@@ -227,7 +227,7 @@
 - Microsoft AutoGen——附錄 C
 - 專家混合（Mixture of Experts，MoE）——〈詞彙表〉
 - 模型上下文協議（Model Context Protocol，MCP）——第 10 章〈模型上下文協議（MCP）〉
-- 模組化（Modularity）——第 18 章〈護欄／安全模式〉
+- 模組化（Modularity）——第 18 章〈護欄與安全模式〉
 - 監控（Monitoring）——第 11 章〈目標設定與監控〉、第 19 章〈評估與監控〉
 - 多代理協作（Multi-Agent Collaboration）——第 7 章〈多代理協作〉
 - 多代理系統搜尋（Multi-Agent System Search，MASS）——第 17 章〈推理技術〉
@@ -241,13 +241,13 @@
 
 ### O
 
-- 可觀測性（Observability）——第 18 章〈護欄／安全模式〉
+- 可觀測性（Observability）——第 18 章〈護欄與安全模式〉
 - 單樣本提示（One-Shot Prompting）——附錄 A
 - 線上學習（Online Learning）——第 9 章〈學習與適應〉
 - OpenAI Deep Research API——第 6 章〈規劃〉
 - OpenEvolve——第 9 章〈學習與適應〉
 - OpenRouter——第 16 章〈資源感知優化〉
-- 輸出過濾／後處理（Output Filtering/Post-processing）——第 18 章〈護欄／安全模式〉
+- 輸出過濾／後處理（Output Filtering/Post-processing）——第 18 章〈護欄與安全模式〉
 
 ### P
 
@@ -261,7 +261,7 @@
 - 個人化（Personalization）——〈甚麼令一個 AI 系統成為代理？〉
 - 規劃（Planning）——第 6 章〈規劃〉；〈詞彙表〉
 - 優先次序（Prioritization）——第 20 章〈優先次序〉
-- 最小特權原則（Principle of Least Privilege）——第 18 章〈護欄／安全模式〉
+- 最小特權原則（Principle of Least Privilege）——第 18 章〈護欄與安全模式〉
 - 主動資源預測（Proactive Resource Prediction）——第 16 章〈資源感知優化〉
 - 程序性記憶（Procedural Memory）——第 8 章〈記憶體管理〉
 - Program-Aided Language Models（PAL）——第 17 章〈推理技術〉
@@ -302,7 +302,7 @@
 
 ### S
 
-- 安全（Safety）——第 18 章〈護欄／安全模式〉
+- 安全（Safety）——第 18 章〈護欄與安全模式〉
 - 推理規模定律（Scaling Inference Law）——第 17 章〈推理技術〉
 - 排程（Scheduling）——第 20 章〈優先次序〉
 - 自我一致性（Self-Consistency）——附錄 A
@@ -312,7 +312,7 @@
 - Semantic Kernel——附錄 C
 - 語意記憶（Semantic Memory）——第 8 章〈記憶體管理〉
 - 語意相似度（Semantic Similarity）——第 14 章〈知識檢索（RAG）〉
-- 職責分離（Separation of Concerns）——第 18 章〈護欄／安全模式〉
+- 職責分離（Separation of Concerns）——第 18 章〈護欄與安全模式〉
 - 連續交接（Sequential Handoffs）——第 7 章〈多代理協作〉
 - 伺服器推送事件（Server-Sent Events，SSE）——第 15 章〈代理間通訊（A2A）〉
 - 工作階段（Session）——第 8 章〈記憶體管理〉
@@ -322,7 +322,7 @@
 - 狀態回滾（State Rollback）——第 12 章〈例外處理與復原〉
 - 回頭提示（Step-Back Prompting）——附錄 A
 - 串流更新（Streaming Updates）——第 15 章〈代理間通訊（A2A）〉
-- 結構化日誌（Structured Logging）——第 18 章〈護欄／安全模式〉
+- 結構化日誌（Structured Logging）——第 18 章〈護欄與安全模式〉
 - 結構化輸出（Structured Output）——第 1 章〈提示鏈接〉、附錄 A
 - SuperAGI——附錄 C
 - 監督式微調（Supervised Fine-Tuning，SFT）——〈詞彙表〉
@@ -335,7 +335,7 @@
 - 文字相似度（Text Similarity）——第 14 章〈知識檢索（RAG）〉
 - 權重使用量（Token Usage）——第 19 章〈評估與監控〉
 - 工具使用（Tool Use）——第 5 章〈工具使用〉、附錄 A
-- 工具使用限制（Tool Use Restrictions）——第 18 章〈護欄／安全模式〉
+- 工具使用限制（Tool Use Restrictions）——第 18 章〈護欄與安全模式〉
 - ToT（Tree of Thoughts）——第 17 章〈推理技術〉、附錄 A、〈詞彙表〉
 - Transformer——〈詞彙表〉
 - 思維樹（Tree of Thoughts，ToT）——第 17 章〈推理技術〉、附錄 A、〈詞彙表〉
